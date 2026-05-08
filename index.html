@@ -156,7 +156,53 @@
             </header>
 
             <main id="main-content">
-                <div id="intro-container"></div>
+                <div id="intro-container">
+                    <script>
+                        try {
+                            const raw = localStorage.getItem("mcu-tracker-v1");
+                            if (raw) {
+                                const data = JSON.parse(raw);
+                                if (data.introDismissed) {
+                                    document.write('<style>#intro-card { display: none; }</style>');
+                                }
+                            }
+                        } catch(e) {}
+                    </script>
+                    <section id="intro-card" class="intro-card" aria-labelledby="intro-title">
+                        <div class="intro-header">
+                            <div class="intro-title-group">
+                                <h2 id="intro-title" class="intro-title">Choose Your Path</h2>
+                                <p class="intro-subtitle">Track your progress and master the multiverse with the ultimate MCU watch order guide.</p>
+                            </div>
+                            <button class="dismiss-btn" data-action="dismiss-intro" aria-label="Dismiss introduction">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                            </button>
+                        </div>
+                        <div class="intro-grid">
+                            <div class="intro-option">
+                                <div class="option-icon release">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+                                </div>
+                                <div class="option-content">
+                                    <h3>Release Order</h3>
+                                    <p>Experience the Marvel Cinematic Universe exactly as it was shown in theaters. <strong>Best for first-time viewers.</strong></p>
+                                </div>
+                            </div>
+                            <div class="intro-option">
+                                <div class="option-icon chrono">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                </div>
+                                <div class="option-content">
+                                    <h3>Chronological Order</h3>
+                                    <p>Follow the events as they happen on the timeline, from 1940s to the future. <strong>Best for re-watches.</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="intro-footer">
+                            <p>Switch between views at any time using the <strong>Release</strong> and <strong>Chrono</strong> buttons in the top right.</p>
+                        </div>
+                    </section>
+                </div>
                 <h2 id="list-heading" class="sr-only">Marvel Cinematic Universe Titles</h2>
                 <div id="results-announcer" class="sr-only" aria-live="polite"></div>
                 <ul id="list-container" aria-labelledby="list-heading"></ul>
@@ -172,6 +218,25 @@
                         <p>© 2026 MCU Watch Order Tracker. All cinematic assets belong to Marvel Studios.</p>
                         <p class="footer-tagline">Built for fans, by fans.</p>
                     </div>
+                    <div class="footer-support" id="kofi-support-container">
+                        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js' defer></script>
+                        <script type='text/javascript'>
+                            // Delay initialization until the widget script is loaded
+                            window.addEventListener('load', function() {
+                                if (typeof kofiwidget2 !== 'undefined') {
+                                    kofiwidget2.init('Support on Ko-fi', '#72a4f2', 'D1D71Z6G2I');
+                                    kofiwidget2.draw('kofi-support-container');
+                                }
+                            });
+                        </script> 
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <div id="theme-dropdown-container"></div>
+    </body>
+</html>
+ </div>
                     <div class="footer-support" id="kofi-support-container">
                         <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
                         <script type='text/javascript'>

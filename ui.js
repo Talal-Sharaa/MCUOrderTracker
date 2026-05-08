@@ -100,7 +100,6 @@ const UI = {
       this.els.introContainer.innerHTML = '';
       return;
     }
-    this.els.introContainer.innerHTML = Templates.intro();
   },
 
   updateTitle() {
