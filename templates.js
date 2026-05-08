@@ -138,7 +138,7 @@ const Templates = {
   emptyState() {
     return `
       <div class="empty-state">
-        <div>No Matches Found</div>
+        <h2 style="font-family: var(--font-display); font-size: 2.5rem; letter-spacing: 0.05em; margin: 0">No Matches Found</h2>
         <div style="font-family: var(--font-main); font-size: 1rem; color: var(--text-muted); margin-top: 1rem; margin-bottom: 2rem; letter-spacing: normal; text-transform: none">
           Try adjusting your search or filters to find what you’re looking for.
         </div>

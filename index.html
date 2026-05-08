@@ -3,23 +3,64 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>MCU Watch Order - Ultimate Marvel Tracker</title>
+        <title>MCU Watch Order – Ultimate Marvel Tracker</title>
         <meta name="description" content="The most complete Marvel Cinematic Universe watch order tracker. Track your progress through movies, series, and specials in release or chronological order with a clean, accessible interface." />
         <meta name="theme-color" content="#05070A" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" />
         <link
             href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap"
             rel="stylesheet"
         />
-        <link rel="stylesheet" href="style.css" />
-        <script src="data.js" defer></script>
-        <script src="store.js" defer></script>
-        <script src="templates.js" defer></script>
-        <script src="ui.js" defer></script>
-        <script src="controller.js" defer></script>
+        <style>
+            :root {
+                --bg-app: #05070a;
+                --bg-surface: #0f1218;
+                --bg-header: rgba(5, 7, 10, 0.85);
+                --accent-red: #e23636;
+                --text-primary: #f8fafc;
+                --text-secondary: #cbd5e1;
+                --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+                --font-display: 'Bebas Neue', sans-serif;
+            }
+            body {
+                background: var(--bg-app);
+                color: var(--text-primary);
+                font-family: var(--font-main);
+                margin: 0;
+            }
+            #header {
+                position: sticky;
+                top: 0;
+                z-index: 100;
+                background: var(--bg-header);
+                backdrop-filter: blur(16px);
+                border-bottom: 1px solid #1e293b;
+                padding: 1.5rem 1rem 1rem;
+                min-height: 140px;
+            }
+            .header-top {
+                max-width: 1200px;
+                margin: 0 auto 1.5rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+            }
+            .main-title {
+                font-family: var(--font-display);
+                font-size: clamp(2.5rem, 8vw, 4rem);
+                margin: 0;
+                line-height: 0.85;
+            }
+        </style>
+        <link rel="stylesheet" href="style.css?v=1.0.1" />
+        <script src="data.js?v=1.0.1" defer></script>
+        <script src="store.js?v=1.0.1" defer></script>
+        <script src="templates.js?v=1.0.1" defer></script>
+        <script src="ui.js?v=1.0.1" defer></script>
+        <script src="controller.js?v=1.0.1" defer></script>
     </head>
+
     <body>
         <a href="#main-content" class="skip-link">Skip to Main Content</a>
         <div id="app">
@@ -33,14 +74,14 @@
                         <button id="header-toggle" class="icon-btn" aria-label="Collapse header options" aria-expanded="true" aria-controls="header-expandable">
                             <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><path d="m18 15-6-6-6 6"/></g></svg>
                         </button>
-                        <div class="view-toggle" role="group" aria-label="Order view">
-                            <button class="toggle-btn active" data-view="release" aria-pressed="true">
+                        <nav class="view-toggle" aria-label="Order view">
+                            <a href="?view=release" class="toggle-btn active" data-view="release" aria-pressed="true">
                                 Release
-                            </button>
-                            <button class="toggle-btn" data-view="chrono" aria-pressed="false">
+                            </a>
+                            <a href="?view=chrono" class="toggle-btn" data-view="chrono" aria-pressed="false">
                                 Chrono
-                            </button>
-                        </div>
+                            </a>
+                        </nav>
                     </div>
                 </div>
 
@@ -60,7 +101,6 @@
                                     id="search-input"
                                     name="search"
                                     placeholder="Search titles (e.g. Iron Man)…"
-                                    autocomplete="off"
                                     spellcheck="true"
                                     inputmode="search"
                                     enterkeyhint="search"

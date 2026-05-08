@@ -45,7 +45,17 @@ const UI = {
   updateControls() {
     // View Toggles
     this.els.viewToggles.forEach(btn => {
-      const isActive = btn.dataset.view === Store.state.view;
+      const view = btn.dataset.view;
+      const isActive = view === Store.state.view;
+      
+      // Update href to preserve current filters/search
+      const params = new URLSearchParams();
+      params.set('view', view);
+      if (Store.state.filter !== 'all') params.set('filter', Store.state.filter);
+      if (Store.state.typeFilter !== 'all') params.set('type', Store.state.typeFilter);
+      if (Store.state.search) params.set('search', Store.state.search);
+      btn.href = '?' + params.toString();
+
       btn.classList.toggle("active", isActive);
       btn.setAttribute("aria-pressed", isActive);
     });
@@ -95,6 +105,11 @@ const UI = {
   renderList() {
     const filtered = Store.getFilteredList();
 
+    // Cancel any pending chunk rendering
+    if (this._renderRaf) {
+      cancelAnimationFrame(this._renderRaf);
+    }
+
     if (filtered.length === 0) {
       this.els.listContainer.innerHTML = Templates.emptyState();
       this.els.resultsAnnouncer.textContent = "No matches found.";
@@ -103,21 +118,38 @@ const UI = {
 
     this.els.resultsAnnouncer.textContent = `Showing ${filtered.length} titles.`;
 
-    // Using DocumentFragment for better performance
-    const fragment = document.createDocumentFragment();
-    const temp = document.createElement('div');
-    
-    temp.innerHTML = filtered
-      .map((entry, idx) => Templates.entryRow(entry, idx))
-      .join("");
-    
-    while (temp.firstChild) {
-      fragment.appendChild(temp.firstChild);
-    }
+    // Chunked rendering to avoid long main-thread tasks
+    const CHUNK_SIZE = 20;
+    let currentIdx = 0;
 
     this.els.listContainer.innerHTML = "";
-    this.els.listContainer.appendChild(fragment);
+    
+    const renderChunk = () => {
+      const fragment = document.createDocumentFragment();
+      const end = Math.min(currentIdx + CHUNK_SIZE, filtered.length);
+      
+      for (let i = currentIdx; i < end; i++) {
+        const temp = document.createElement('div');
+        temp.innerHTML = Templates.entryRow(filtered[i], i);
+        while (temp.firstChild) {
+          fragment.appendChild(temp.firstChild);
+        }
+      }
+
+      this.els.listContainer.appendChild(fragment);
+      currentIdx = end;
+
+      if (currentIdx < filtered.length) {
+        this._renderRaf = requestAnimationFrame(renderChunk);
+      } else {
+        this._renderRaf = null;
+      }
+    };
+
+    renderChunk();
   },
+
+
 
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });

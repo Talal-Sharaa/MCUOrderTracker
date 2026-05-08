@@ -1007,14 +1007,14 @@ const CHRONO_ORDER = [
     parentKey: "aos-s6",
     title: "Agents of S.H.I.E.L.D.",
     sub: "Season 6",
-    note: "During Endgame’s 5-year time jump",
+    note: "During Endgame’s 5–year time jump",
   },
   {
     id: "c075",
     parentKey: "aos-s7",
     title: "Agents of S.H.I.E.L.D.",
     sub: "Season 7",
-    note: "During Endgame’s 5-year time jump",
+    note: "During Endgame’s 5–year time jump",
   },
   {
     id: "c076",

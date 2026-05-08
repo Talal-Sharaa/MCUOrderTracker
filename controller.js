@@ -13,7 +13,8 @@ const Controller = {
   bindEvents() {
     // ... view toggles, header toggle, etc.
     UI.els.viewToggles.forEach(btn => {
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
         Store.state.view = btn.dataset.view;
         Store.state.openId = null;
         UI.render();
