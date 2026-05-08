@@ -6,11 +6,12 @@ const Controller = {
   init() {
     Store.init();
     this.bindEvents();
+    UI.initObservers();
     UI.render();
   },
 
   bindEvents() {
-    // View switching
+    // ... view toggles, header toggle, etc.
     UI.els.viewToggles.forEach(btn => {
       btn.addEventListener("click", () => {
         Store.state.view = btn.dataset.view;
@@ -19,14 +20,12 @@ const Controller = {
       });
     });
 
-    // Header collapse toggle
     UI.els.headerToggle.addEventListener("click", () => {
       Store.state.headerCollapsed = !Store.state.headerCollapsed;
       Store.save();
       UI.render();
     });
 
-    // Status filtering
     UI.els.filterBtns.forEach(btn => {
       btn.addEventListener("click", () => {
         Store.state.filter = btn.dataset.filter;
@@ -36,7 +35,6 @@ const Controller = {
       });
     });
 
-    // Type filtering
     UI.els.typeFilterBtns.forEach(btn => {
       btn.addEventListener("click", () => {
         Store.state.typeFilter = btn.dataset.type;
@@ -46,25 +44,30 @@ const Controller = {
       });
     });
 
-    // Toggle dropdowns
     UI.els.filterGroups.forEach(group => {
         const trigger = group.querySelector('.filter-trigger');
         trigger.addEventListener('click', (e) => {
             e.stopPropagation();
             const isOpen = group.classList.contains('open');
-            // Close all others
             UI.els.filterGroups.forEach(g => g.classList.remove('open'));
-            // Toggle current
-            if (!isOpen) group.classList.add('open');
+            if (!isOpen) {
+                group.classList.add('open');
+                const firstOption = group.querySelector('.filter-btn');
+                if (firstOption) firstOption.focus();
+            }
+            UI.updateControls();
         });
     });
 
-    // Search
+    let searchTimeout;
     UI.els.searchInput.addEventListener("input", (e) => {
-      Store.state.search = e.target.value;
-      Store.state.openId = null;
-      UI.els.filterGroups.forEach(g => g.classList.remove("open"));
-      UI.render();
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        Store.state.search = e.target.value;
+        Store.state.openId = null;
+        UI.els.filterGroups.forEach(g => g.classList.remove("open"));
+        UI.render();
+      }, 150);
     });
 
     UI.els.clearSearch.addEventListener("click", () => {
@@ -75,40 +78,109 @@ const Controller = {
       UI.render();
     });
 
-    // Global click for delegation and closing dropdowns
+    // Global click for delegation
     document.addEventListener("click", (e) => {
-      const toggleBtn = e.target.closest('[data-action="toggle-dropdown"]');
+      const clearAllFilters = e.target.closest('#clear-all-filters');
+      const toggleRow = e.target.closest('[data-action="toggle-dropdown"]');
       const statusBtn = e.target.closest('[data-action="set-status"]');
       const clearBtn = e.target.closest('[data-action="clear-status"]');
-      const row = e.target.closest(".entry-row");
 
       // Close filter dropdowns if clicking outside
       if (!e.target.closest('.filter-group')) {
-        UI.els.filterGroups.forEach(g => g.classList.remove('open'));
+        let closed = false;
+        UI.els.filterGroups.forEach(g => {
+          if (g.classList.contains('open')) {
+            g.classList.remove('open');
+            closed = true;
+          }
+        });
+        if (closed) UI.updateControls();
       }
 
-      if (toggleBtn) {
+      if (clearAllFilters) {
+        Store.resetFilters();
+        UI.els.searchInput.value = "";
+        UI.render();
+      } else if (toggleRow) {
         e.stopPropagation();
-        const id = row.dataset.id;
-        Store.state.openId = Store.state.openId === id ? null : id;
+        const id = toggleRow.dataset.id;
+        const wasOpen = Store.state.openId === id;
+        Store.state.openId = wasOpen ? null : id;
         UI.renderList();
+        
+        if (Store.state.openId) {
+          const dropdown = document.getElementById(`dropdown-${id}`);
+          if (dropdown) {
+            const firstOption = dropdown.querySelector('button');
+            if (firstOption) firstOption.focus();
+          }
+        }
       } else if (statusBtn) {
         e.stopPropagation();
+        const item = statusBtn.closest(".entry-item");
+        const row = item.querySelector(".entry-row");
         Store.setStatus(row.dataset.parent, statusBtn.dataset.status);
         UI.render();
       } else if (clearBtn) {
         e.stopPropagation();
-        Store.setStatus(row.dataset.parent, null);
-        UI.render();
-      } else if (!e.target.closest(".status-wrap") && Store.state.openId) {
+        const item = clearBtn.closest(".entry-item");
+        const row = item.querySelector(".entry-row");
+        const title = row.querySelector(".title").textContent;
+        if (confirm(`Are you sure you want to clear the tracking for “${title}”?`)) {
+          Store.setStatus(row.dataset.parent, null);
+          UI.render();
+        }
+      } else if (Store.state.openId) {
         Store.state.openId = null;
         UI.renderList();
       }
     });
 
-    // Scroll helpers
+    // Keyboard navigation
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            if (Store.state.openId) {
+                const id = Store.state.openId;
+                Store.state.openId = null;
+                UI.renderList();
+                const btn = document.querySelector(`.entry-row[data-id="${id}"]`);
+                if (btn) btn.focus();
+            }
+            UI.els.filterGroups.forEach(g => {
+                if (g.classList.contains('open')) {
+                    g.classList.remove('open');
+                    const trigger = g.querySelector('.filter-trigger');
+                    if (trigger) trigger.focus();
+                }
+            });
+            UI.updateControls();
+            return;
+        }
+
+        const activeDropdown = document.querySelector('.dropdown.open, .filter-group.open .filter-options');
+        if (!activeDropdown) return;
+
+        const options = Array.from(activeDropdown.querySelectorAll('button'));
+        const currentIndex = options.indexOf(document.activeElement);
+
+        if (e.key === "ArrowDown") {
+            e.preventDefault();
+            const nextIndex = (currentIndex + 1) % options.length;
+            options[nextIndex].focus();
+        } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            const prevIndex = (currentIndex - 1 + options.length) % options.length;
+            options[prevIndex].focus();
+        } else if (e.key === "Home") {
+            e.preventDefault();
+            options[0].focus();
+        } else if (e.key === "End") {
+            e.preventDefault();
+            options[options.length - 1].focus();
+        }
+    });
+
     UI.els.topBtn.addEventListener("click", () => UI.scrollToTop());
-    window.addEventListener("scroll", () => UI.toggleTopButton());
   },
 };
 

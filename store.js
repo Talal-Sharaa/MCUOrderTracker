@@ -15,6 +15,7 @@ const Store = {
 
   init() {
     this.load();
+    this.syncFromUrl();
   },
 
   load() {
@@ -30,12 +31,44 @@ const Store = {
     }
   },
 
+  syncFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('view')) this.state.view = params.get('view');
+    if (params.has('filter')) this.state.filter = params.get('filter');
+    if (params.has('type')) this.state.typeFilter = params.get('type');
+    if (params.has('search')) this.state.search = params.get('search');
+  },
+
+  syncToUrl() {
+    const params = new URLSearchParams();
+    if (this.state.view !== 'release') params.set('view', this.state.view);
+    if (this.state.filter !== 'all') params.set('filter', this.state.filter);
+    if (this.state.typeFilter !== 'all') params.set('type', this.state.typeFilter);
+    if (this.state.search) params.set('search', this.state.search);
+    
+    const queryString = params.toString() ? '?' + params.toString() : '';
+    const newUrl = window.location.pathname + queryString;
+    
+    if (window.location.search !== queryString) {
+      window.history.replaceState(null, '', newUrl);
+    }
+  },
+
+  resetFilters() {
+    this.state.filter = "all";
+    this.state.typeFilter = "all";
+    this.state.search = "";
+    this.state.openId = null;
+    this.syncToUrl();
+  },
+
   save() {
     const data = {
       statuses: this.state.statuses,
       headerCollapsed: this.state.headerCollapsed,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    this.syncToUrl();
   },
 
   setStatus(parentKey, status) {
