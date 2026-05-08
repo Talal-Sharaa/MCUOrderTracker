@@ -43,7 +43,7 @@ const Templates = {
                 style="--index: ${idx % 20}">
           <div class="seq-num">${seqFormatter.format(idx + 1)}</div>
           
-          <div class="type-badge" style="color: var(--type-${type}); border-color: var(--type-${type})44; background: var(--type-${type})11">
+          <div class="type-badge" style="color: var(--type-${type}); border-color: color-mix(in srgb, var(--type-${type}), transparent calc(100% - (var(--badge-border-opacity) * 100%))); background: color-mix(in srgb, var(--type-${type}), transparent calc(100% - (var(--badge-bg-opacity) * 100%)))">
             ${typeCfg.label}
           </div>
 
@@ -58,7 +58,7 @@ const Templates = {
 
           <div class="status-wrap">
             <div class="status-btn-proxy" 
-                 style="${status ? `color: var(--status-${status}); border-color: var(--status-${status})44; background: var(--status-${status})11` : ''}">
+                 style="${status ? `color: var(--status-${status}); border-color: color-mix(in srgb, var(--status-${status}), transparent calc(100% - (var(--badge-border-opacity) * 100%))); background: color-mix(in srgb, var(--status-${status}), transparent calc(100% - (var(--badge-bg-opacity) * 100%)))` : ''}">
               <span class="status-indicator" style="${status ? `background: var(--status-${status})` : ''}"></span>
               <span>${statusCfg ? statusCfg.label : "Set Status"}</span>
               <svg class="chevron" width="14" height="14" style="margin-left: 6px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><g><path d="m6 9 6 6 6-6"/></g></svg>
@@ -85,7 +85,7 @@ const Templates = {
         const icon = this.getStatusIcon(key);
         return `
         <button class="dropdown-option ${isActive ? 'active' : ''}" data-action="set-status" data-status="${key}" role="option" aria-selected="${isActive}"
-                style="${isActive ? `color: var(--status-${key}); background: var(--status-${key})11` : ''}">
+                style="${isActive ? `color: var(--status-${key}); background: color-mix(in srgb, var(--status-${key}), transparent calc(100% - (var(--badge-bg-opacity) * 100%)))` : ''}">
           <span style="width:18px; height:18px; display:flex; align-items:center; color: var(--status-${key})" aria-hidden="true">${icon}</span>
           <span style="font-weight: ${isActive ? '700' : '500'}">${cfg.label}</span>
           ${isActive ? `<span class="active-check" aria-hidden="true">${ICONS.check}</span>` : ""}

@@ -13,24 +13,24 @@
     /* Fallback variables if no theme class is applied */
     --bg-app: #05070a;
     --bg-surface: #0f1218;
-    --bg-header: rgba(5, 7, 10, 0.9);
+    --bg-header: color-mix(in srgb, #05070a, transparent 10%);
     --accent-primary: #dc2626;
     --accent-secondary: #d4af37;
     --text-primary: #f8fafc;
     --text-secondary: #cbd5e1;
     --text-muted: #94a3b8;
     --text-dim: #64748b;
-    --border-default: rgba(255, 255, 255, 0.1);
-    --border-bright: rgba(255, 255, 255, 0.2);
+    --border-default: color-mix(in srgb, #ffffff, transparent 90%);
+    --border-bright: color-mix(in srgb, #ffffff, transparent 80%);
 }
 
 /* ── THEME: COSMIC MULTIVERSE (DEFAULT) ── */
 body.theme-cosmic {
     --bg-app: #05070a;
-    --bg-surface: rgba(15, 18, 24, 0.8);
-    --bg-header: rgba(5, 7, 10, 0.9);
-    --border-default: rgba(30, 41, 59, 0.6);
-    --border-bright: rgba(51, 65, 85, 0.9);
+    --bg-surface: color-mix(in srgb, #0f1218, transparent 20%);
+    --bg-header: color-mix(in srgb, #05070a, transparent 10%);
+    --border-default: color-mix(in srgb, #1e293b, transparent 40%);
+    --border-bright: color-mix(in srgb, #334155, transparent 10%);
     --accent-primary: #8b5cf6;
     --accent-secondary: #06b6d4;
     --text-primary: #f8fafc;
@@ -50,10 +50,10 @@ body.theme-cosmic {
 /* ── THEME: CLASSIC MARVEL (AVENGER) ── */
 body.theme-classic {
     --bg-app: #0a0a0a;
-    --bg-surface: rgba(22, 22, 22, 0.85);
-    --bg-header: rgba(10, 10, 10, 0.95);
-    --border-default: rgba(220, 38, 38, 0.2);
-    --border-bright: rgba(220, 38, 38, 0.4);
+    --bg-surface: color-mix(in srgb, #161616, transparent 15%);
+    --bg-header: color-mix(in srgb, #0a0a0a, transparent 5%);
+    --border-default: color-mix(in srgb, #dc2626, transparent 80%);
+    --border-bright: color-mix(in srgb, #dc2626, transparent 60%);
     --accent-primary: #dc2626; /* Crimson Red */
     --accent-secondary: #d4af37; /* Aged Gold */
     --text-primary: #ffffff;
@@ -73,10 +73,10 @@ body.theme-classic {
 /* ── THEME: STARK TECH (HUD) ── */
 body.theme-stark {
     --bg-app: #020617;
-    --bg-surface: rgba(15, 23, 42, 0.7);
-    --bg-header: rgba(2, 6, 23, 0.9);
-    --border-default: rgba(56, 189, 248, 0.2);
-    --border-bright: rgba(56, 189, 248, 0.5);
+    --bg-surface: color-mix(in srgb, #0f172a, transparent 30%);
+    --bg-header: color-mix(in srgb, #020617, transparent 10%);
+    --border-default: color-mix(in srgb, #38bdf8, transparent 80%);
+    --border-bright: color-mix(in srgb, #38bdf8, transparent 50%);
     --accent-primary: #ef4444; /* Iron Man Red */
     --accent-secondary: #0ea5e9; /* Jarvis Blue */
     --text-primary: #f0f9ff;
@@ -91,19 +91,19 @@ body.theme-stark {
     --type-series: #0ea5e9;
 
     background-image: 
-        linear-gradient(rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 0.8)),
-        repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(56, 189, 248, 0.03) 1px, rgba(56, 189, 248, 0.03) 2px),
-        repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(56, 189, 248, 0.03) 1px, rgba(56, 189, 248, 0.03) 2px);
+        linear-gradient(color-mix(in srgb, #020617, transparent 20%), color-mix(in srgb, #020617, transparent 20%)),
+        repeating-linear-gradient(0deg, transparent, transparent 1px, color-mix(in srgb, #38bdf8, transparent 97%) 1px, color-mix(in srgb, #38bdf8, transparent 97%) 2px),
+        repeating-linear-gradient(90deg, transparent, transparent 1px, color-mix(in srgb, #38bdf8, transparent 97%) 1px, color-mix(in srgb, #38bdf8, transparent 97%) 2px);
     background-size: 100% 100%, 40px 40px, 40px 40px;
 }
 
 /* ── THEME: MYSTIC ARTS (SANCTUM) ── */
 body.theme-mystic {
     --bg-app: #050505;
-    --bg-surface: rgba(18, 12, 12, 0.8);
-    --bg-header: rgba(5, 5, 5, 0.95);
-    --border-default: rgba(194, 120, 57, 0.3);
-    --border-bright: rgba(194, 120, 57, 0.6);
+    --bg-surface: color-mix(in srgb, #120c0c, transparent 20%);
+    --bg-header: color-mix(in srgb, #050505, transparent 5%);
+    --border-default: color-mix(in srgb, #c27839, transparent 70%);
+    --border-bright: color-mix(in srgb, #c27839, transparent 40%);
     --accent-primary: #c27839; /* Portal Amber */
     --accent-secondary: #991b1b; /* Cloak Red */
     --text-primary: #fef2f2;
@@ -124,7 +124,7 @@ body.theme-mystic {
 body.light-mode {
     --bg-app: #f8fafc;
     --bg-surface: #ffffff;
-    --bg-header: rgba(248, 250, 252, 0.9);
+    --bg-header: color-mix(in srgb, #f8fafc, transparent 10%);
     --border-default: #e2e8f0;
     --border-bright: #cbd5e1;
     --text-primary: #0f172a;
@@ -142,8 +142,14 @@ body.light-mode.theme-cosmic {
     --status-watched: #16a34a;
     --status-watching: #2563eb;
     --status-will-watch: #9333ea;
+    --status-skip: #64748b;
     --type-movie: #b45309;
     --type-series: #0891b2;
+    --type-oneshot: #7c3aed;
+    --type-special: #db2777;
+    
+    --badge-bg-opacity: 0.08;
+    --badge-border-opacity: 0.15;
 }
 
 body.light-mode.theme-classic {
@@ -152,8 +158,14 @@ body.light-mode.theme-classic {
     --status-watched: #15803d;
     --status-watching: #1d4ed8;
     --status-will-watch: #b45309;
+    --status-skip: #6b7280;
     --type-movie: #b91c1c;
     --type-series: #92400e;
+    --type-oneshot: #7c2d12;
+    --type-special: #991b1b;
+
+    --badge-bg-opacity: 0.08;
+    --badge-border-opacity: 0.15;
 }
 
 body.light-mode.theme-stark {
@@ -162,8 +174,14 @@ body.light-mode.theme-stark {
     --status-watched: #16a34a;
     --status-watching: #0284c7;
     --status-will-watch: #db2777;
+    --status-skip: #64748b;
     --type-movie: #dc2626;
     --type-series: #0284c7;
+    --type-oneshot: #0369a1;
+    --type-special: #be123c;
+
+    --badge-bg-opacity: 0.08;
+    --badge-border-opacity: 0.15;
 }
 
 body.light-mode.theme-mystic {
@@ -174,8 +192,19 @@ body.light-mode.theme-mystic {
     --status-watched: #854d0e;
     --status-watching: #92400e;
     --status-will-watch: #991b1b;
+    --status-skip: #450a0a;
     --type-movie: #92400e;
     --type-series: #7f1d1d;
+    --type-oneshot: #78350f;
+    --type-special: #991b1b;
+
+    --badge-bg-opacity: 0.1;
+    --badge-border-opacity: 0.2;
+}
+
+body {
+    --badge-bg-opacity: 0.12;
+    --badge-border-opacity: 0.25;
 }
 
 body.light-mode .stars-container,
@@ -190,25 +219,25 @@ body.light-mode .stat-value {
 }
 
 body.light-mode .stat-card:hover {
-    background: rgba(0, 0, 0, 0.02);
+    background: color-mix(in srgb, var(--text-primary), transparent 98%);
 }
 
 body.light-mode .icon-btn:hover {
-    background: rgba(0, 0, 0, 0.04);
+    background: color-mix(in srgb, var(--text-primary), transparent 96%);
 }
 
 body.light-mode .icon-btn.active {
-    background: rgba(0, 0, 0, 0.08);
+    background: color-mix(in srgb, var(--text-primary), transparent 92%);
 }
 
 body.light-mode .toggle-btn.active {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--text-primary), transparent 90%);
 }
 
 body.light-mode .dropdown,
 body.light-mode .filter-options {
     background: #ffffff;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 32px color-mix(in srgb, var(--text-primary), transparent 90%);
 }
 
 /* ── BASE & UTILS ── */
@@ -388,13 +417,13 @@ body::before {
 .icon-btn:hover {
     border-color: var(--accent-secondary);
     color: var(--text-primary);
-    background: rgba(6, 182, 212, 0.05);
+    background: color-mix(in srgb, var(--accent-secondary), transparent 95%);
 }
 
 .icon-btn.active {
     border-color: var(--accent-primary);
     color: var(--accent-primary);
-    background: rgba(139, 92, 246, 0.1);
+    background: color-mix(in srgb, var(--accent-primary), transparent 90%);
 }
 
 .icon-btn:active {
@@ -443,7 +472,7 @@ body::before {
     color: var(--accent-primary);
     margin-bottom: 0.25rem;
     text-transform: uppercase;
-    text-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+    text-shadow: 0 0 12px color-mix(in srgb, var(--accent-primary), transparent 70%);
 }
 
 .main-title {
@@ -899,12 +928,11 @@ body:not(.light-mode) .filter-options {
     letter-spacing: 0.1em;
     padding: 0.4rem 0.75rem;
     border-radius: var(--radius-sm);
-    background: rgba(255,255,255,0.03);
-    border: 1px solid currentColor;
+    background: color-mix(in srgb, currentColor, transparent calc(100% - (var(--badge-bg-opacity) * 100%)));
+    border: 1px solid color-mix(in srgb, currentColor, transparent calc(100% - (var(--badge-border-opacity) * 100%)));
     width: 96px;
     text-align: center;
     flex-shrink: 0;
-    opacity: 0.8;
 }
 
 .title {
@@ -921,7 +949,7 @@ body:not(.light-mode) .filter-options {
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    background: rgba(0,0,0,0.2);
+    background: color-mix(in srgb, var(--text-muted), transparent 90%);
     border: 1px solid var(--border-default);
     border-radius: var(--radius-sm);
     padding: 0.6rem 1rem;
@@ -1034,12 +1062,20 @@ body:not(.light-mode) .dropdown {
 }
 
 .dropdown-option:hover {
-    background: var(--border-default);
+    background: color-mix(in srgb, var(--text-primary), transparent 94%);
     color: var(--text-primary);
 }
 
 .dropdown-option.active {
-    background: rgba(255, 255, 255, 0.05);
+    background: color-mix(in srgb, var(--text-primary), transparent 90%);
+}
+
+body.light-mode .dropdown-option:hover {
+    background: color-mix(in srgb, var(--text-primary), transparent 95%);
+}
+
+body.light-mode .dropdown-option.active {
+    background: color-mix(in srgb, var(--text-primary), transparent 92%);
 }
 
 .active-check {
