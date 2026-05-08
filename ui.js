@@ -116,7 +116,7 @@ const UI = {
       return;
     }
 
-    this.els.resultsAnnouncer.textContent = `Showing ${filtered.length} titles.`;
+    this.els.resultsAnnouncer.textContent = `Showing ${filtered.length}\u00A0titles.`;
 
     // Chunked rendering to avoid long main-thread tasks
     const CHUNK_SIZE = 20;

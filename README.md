@@ -17,5 +17,3 @@ This project follows a custom **Marvel-themed Design System** (Red/Gold/Dark) wi
 - **Accessibility:** 44px touch targets, full keyboard navigation, and `prefers-reduced-motion` support.
 - **Performance:** Optimized for large lists using `content-visibility` and efficient DOM manipulation.
 - **Localization:** Uses native `Intl` APIs for all date and number formatting.
-
-For more details, see `design-system/MASTER.md`.
