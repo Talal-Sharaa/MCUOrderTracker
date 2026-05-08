@@ -137,7 +137,45 @@ body.light-mode {
 }
 
 body.light-mode.theme-cosmic {
+    --accent-primary: #7c3aed;
     --accent-secondary: #0891b2;
+    --status-watched: #16a34a;
+    --status-watching: #2563eb;
+    --status-will-watch: #9333ea;
+    --type-movie: #b45309;
+    --type-series: #0891b2;
+}
+
+body.light-mode.theme-classic {
+    --accent-primary: #b91c1c;
+    --accent-secondary: #92400e;
+    --status-watched: #15803d;
+    --status-watching: #1d4ed8;
+    --status-will-watch: #b45309;
+    --type-movie: #b91c1c;
+    --type-series: #92400e;
+}
+
+body.light-mode.theme-stark {
+    --accent-primary: #dc2626;
+    --accent-secondary: #0284c7;
+    --status-watched: #16a34a;
+    --status-watching: #0284c7;
+    --status-will-watch: #db2777;
+    --type-movie: #dc2626;
+    --type-series: #0284c7;
+}
+
+body.light-mode.theme-mystic {
+    --bg-app: #fffaf5;
+    --bg-surface: #ffffff;
+    --accent-primary: #92400e;
+    --accent-secondary: #7f1d1d;
+    --status-watched: #854d0e;
+    --status-watching: #92400e;
+    --status-will-watch: #991b1b;
+    --type-movie: #92400e;
+    --type-series: #7f1d1d;
 }
 
 body.light-mode .stars-container,
