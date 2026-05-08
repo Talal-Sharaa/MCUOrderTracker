@@ -1151,6 +1151,11 @@ body:not(.light-mode) .dropdown {
         overflow: hidden;
     }
 
+    /* Prevent header transform from breaking fixed positioning of the bottom sheet */
+    body.no-scroll #header {
+        transform: none !important;
+    }
+
     .theme-dropdown.open {
         position: fixed;
         bottom: 0;
@@ -1159,13 +1164,19 @@ body:not(.light-mode) .dropdown {
         top: auto;
         width: 100%;
         max-width: none;
+        max-height: 80vh; /* Reduced slightly for better safety */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         border-radius: var(--radius-lg) var(--radius-lg) 0 0;
         padding: 0.5rem 1.25rem calc(2rem + env(safe-area-inset-bottom));
-        z-index: 200;
-        animation: slideUp 300ms var(--transition-curve);
+        z-index: 1000; /* Higher z-index to be sure */
+        animation: slideUp 400ms var(--transition-curve) forwards;
         border: none;
         border-top: 1px solid var(--border-bright);
-        box-shadow: 0 -10px 40px rgba(0,0,0,0.4);
+        box-shadow: 0 -10px 40px rgba(0,0,0,0.6);
+        transform: translateY(100%); 
+        transform-origin: bottom;
+        overscroll-behavior: contain;
     }
 
     .theme-options-grid {
