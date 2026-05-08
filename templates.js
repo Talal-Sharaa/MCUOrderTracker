@@ -3,13 +3,12 @@
  */
 
 const Templates = {
-  entryRow(entry, idx, totalList) {
+  entryRow(entry, idx) {
     const parent = PARENTS[entry.parentKey];
     const status = Store.state.statuses[entry.parentKey] || null;
     const typeCfg = TYPE_CONFIG[parent?.type || "movie"];
     const statusCfg = status ? STATUS_CONFIG[status] : null;
     const isOpen = Store.state.openId === entry.id;
-    const origIdx = totalList.indexOf(entry);
     
     const borderColor = statusCfg ? statusCfg.color : "transparent";
     const rowBg = status ? `${statusCfg.bar}44` : "#111520";
@@ -21,7 +20,7 @@ const Templates = {
     return `
       <div class="entry-row" data-id="${entry.id}" data-parent="${entry.parentKey}"
            style="border-left-color:${borderColor}; background:${rowBg}; --hover-bg:${rowBgHover}; opacity:${status === "skip" ? 0.5 : 1}">
-        <div class="seq-num">${String(origIdx + 1).padStart(3, "0")}</div>
+        <div class="seq-num">${String(idx + 1).padStart(3, "0")}</div>
         <div class="type-badge" style="color:${typeCfg.color}; background:${typeCfg.bg}; border-color:${typeCfg.color}44">
           ${typeCfg.label}
         </div>

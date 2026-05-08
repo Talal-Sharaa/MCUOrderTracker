@@ -86,7 +86,7 @@ const UI = {
     }
 
     this.els.listContainer.innerHTML = filtered
-      .map((entry, idx) => Templates.entryRow(entry, idx, fullList))
+      .map((entry, idx) => Templates.entryRow(entry, idx))
       .join("");
   },
 
