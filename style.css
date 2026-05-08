@@ -133,15 +133,26 @@ body {
 
 .expandable-content {
     max-height: 1000px;
-    overflow: hidden;
+    overflow: visible; /* Changed from hidden to avoid clipping absolute children */
     transition: max-height 300ms cubic-bezier(0.4, 0, 0.2, 1), opacity 200ms ease;
     opacity: 1;
 }
 
 #header.collapsed .expandable-content {
     max-height: 0;
+    overflow: hidden; /* Hidden only when collapsed or collapsing */
     opacity: 0;
     pointer-events: none;
+}
+
+/* Ensure overflow: hidden is only applied during the collapse animation */
+#header:not(.collapsed) .expandable-content {
+    max-height: 1000px;
+    opacity: 1;
+    /* We use a transition-delay on visibility/overflow to prevent immediate clipping when expanding */
+    transition: max-height 300ms cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 200ms ease,
+                overflow 0s 300ms; 
 }
 
 .eyebrow {
