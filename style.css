@@ -561,13 +561,63 @@ body {
 /* ── LIST ── */
 #list-container {
     max-width: 1200px;
-    margin: 2rem auto 8rem;
+    margin: 2rem auto 4rem; /* Reduced bottom margin to accommodate footer */
     padding: 0 1rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
     scroll-margin-top: 200px;
     list-style: none;
+}
+
+/* ── FOOTER ── */
+.app-footer {
+    border-top: 1px solid var(--border-default);
+    background: var(--bg-surface);
+    padding: 4rem 1rem 6rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.footer-info {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.footer-info p {
+    margin-bottom: 0.25rem;
+}
+
+.footer-tagline {
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+.footer-support {
+    display: flex;
+    align-items: center;
+}
+
+/* Ensure Ko-fi floating button doesn't cover UI elements on small screens */
+@media (max-width: 768px) {
+    .app-footer {
+        padding: 3rem 1rem 8rem;
+        text-align: center;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 2rem;
+    }
 }
 
 .entry-item {
