@@ -218,18 +218,17 @@
                         <p>© 2026 MCU Watch Order Tracker. All cinematic assets belong to Marvel Studios.</p>
                         <p class="footer-tagline">Built for fans, by fans.</p>
                     </div>
-                    <div class="footer-support" id="kofi-support-container">
-                        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js' defer></script>
-                        <script type='text/javascript'>
-                            // Delay initialization until the widget script is loaded
-                            window.addEventListener('load', function() {
-                                if (typeof kofiwidget2 !== 'undefined') {
-                                    kofiwidget2.init('Support on Ko-fi', '#72a4f2', 'D1D71Z6G2I');
-                                    kofiwidget2.draw('kofi-support-container');
-                                }
-                            });
-                        </script> 
-                    </div>
+                    <div class="footer-support" id="kofi-support-container"></div>
+                    <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js' defer></script>
+                    <script type='text/javascript'>
+                        // Delay initialization until the widget script is loaded
+                        window.addEventListener('load', function() {
+                            if (typeof kofiwidget2 !== 'undefined') {
+                                kofiwidget2.init('Support on Ko-fi', '#72a4f2', 'D1D71Z6G2I');
+                                document.getElementById('kofi-support-container').innerHTML = kofiwidget2.getHTML();
+                            }
+                        });
+                    </script>
                 </div>
             </footer>
         </div>
