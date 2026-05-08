@@ -70,6 +70,15 @@
                         <h1 class="main-title">Watch Order</h1>
                     </div>
                     <div class="header-actions">
+                        <div class="theme-selector-wrap" style="position: relative">
+                            <button id="theme-toggle" class="icon-btn" aria-label="Open theme selector" aria-haspopup="listbox" aria-expanded="false" aria-controls="theme-dropdown">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="M20 12h2"/><path d="m19.07 19.07-1.41-1.41"/><path d="M12 22v2"/><path d="m6.34 17.66-1.41 1.41"/><path d="M2 12h2"/><path d="m7.76 7.76-1.41-1.41"/><circle cx="12" cy="12" r="4"/></svg>
+                            </button>
+                            <div id="theme-dropdown-container"></div>
+                        </div>
+                        <button id="mode-toggle" class="icon-btn" aria-label="Toggle light/dark mode">
+                            <!-- Icon injected by UI.js -->
+                        </button>
                         <button id="header-toggle" class="icon-btn" aria-label="Collapse header options" aria-expanded="true" aria-controls="header-expandable">
                             <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><path d="m18 15-6-6-6 6"/></g></svg>
                         </button>
@@ -148,6 +157,7 @@
             </header>
 
             <main id="main-content">
+                <div id="intro-container"></div>
                 <h2 id="list-heading" class="sr-only">Marvel Cinematic Universe Titles</h2>
                 <div id="results-announcer" class="sr-only" aria-live="polite"></div>
                 <ul id="list-container" aria-labelledby="list-heading"></ul>

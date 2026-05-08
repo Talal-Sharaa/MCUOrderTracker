@@ -65,16 +65,22 @@ const UI = {
 
     // Render theme dropdown if open
     const isThemeOpen = Store.state.openId === 'theme-selector';
-    this.els.themeToggle.setAttribute('aria-expanded', isThemeOpen);
-    this.els.themeToggle.classList.toggle('active', isThemeOpen);
-    if (isThemeOpen) {
-      this.els.themeDropdownContainer.innerHTML = Templates.themeDropdown();
-    } else {
-      this.els.themeDropdownContainer.innerHTML = '';
+    if (this.els.themeToggle) {
+      this.els.themeToggle.setAttribute('aria-expanded', isThemeOpen);
+      this.els.themeToggle.classList.toggle('active', isThemeOpen);
+    }
+    
+    if (this.els.themeDropdownContainer) {
+      if (isThemeOpen) {
+        this.els.themeDropdownContainer.innerHTML = Templates.themeDropdown();
+      } else {
+        this.els.themeDropdownContainer.innerHTML = '';
+      }
     }
   },
 
   renderIntro() {
+    if (!this.els.introContainer) return;
     if (Store.state.introDismissed) {
       this.els.introContainer.innerHTML = '';
       return;

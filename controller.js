@@ -27,22 +27,26 @@ const Controller = {
       UI.render();
     });
 
-    UI.els.modeToggle.addEventListener("click", () => {
-        Store.toggleMode();
-        UI.render();
-    });
+    if (UI.els.modeToggle) {
+        UI.els.modeToggle.addEventListener("click", () => {
+            Store.toggleMode();
+            UI.render();
+        });
+    }
 
-    UI.els.themeToggle.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const wasOpen = Store.state.openId === 'theme-selector';
-      Store.state.openId = wasOpen ? null : 'theme-selector';
-      UI.render();
+    if (UI.els.themeToggle) {
+        UI.els.themeToggle.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const wasOpen = Store.state.openId === 'theme-selector';
+          Store.state.openId = wasOpen ? null : 'theme-selector';
+          UI.render();
 
-      if (Store.state.openId === 'theme-selector') {
-        const dropdown = document.getElementById('theme-dropdown');
-        if (dropdown) dropdown.querySelector('button').focus();
-      }
-    });
+          if (Store.state.openId === 'theme-selector') {
+            const dropdown = document.getElementById('theme-dropdown');
+            if (dropdown) dropdown.querySelector('button').focus();
+          }
+        });
+    }
 
     UI.els.filterBtns.forEach(btn => {
       btn.addEventListener("click", () => {

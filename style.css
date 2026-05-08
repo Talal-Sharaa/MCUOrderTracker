@@ -9,6 +9,19 @@
     
     --font-main: 'Inter', system-ui, -apple-system, sans-serif;
     --font-display: 'Bebas Neue', sans-serif;
+
+    /* Fallback variables if no theme class is applied */
+    --bg-app: #05070a;
+    --bg-surface: #0f1218;
+    --bg-header: rgba(5, 7, 10, 0.9);
+    --accent-primary: #dc2626;
+    --accent-secondary: #d4af37;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+    --border-default: rgba(255, 255, 255, 0.1);
+    --border-bright: rgba(255, 255, 255, 0.2);
 }
 
 /* ── THEME: COSMIC MULTIVERSE (DEFAULT) ── */
