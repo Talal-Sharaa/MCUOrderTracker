@@ -111,7 +111,8 @@ const Controller = {
       const dismissIntroBtn = e.target.closest('[data-action="dismiss-intro"]');
 
       // Close filter dropdowns if clicking outside
-      if (!e.target.closest('.filter-group') && !e.target.closest('.theme-selector-wrap') || closeThemeBtn) {
+      const isThemeSelectorClick = e.target.closest('.theme-selector-wrap') || e.target.closest('.theme-dropdown');
+      if (!e.target.closest('.filter-group') && !isThemeSelectorClick || closeThemeBtn) {
         let closed = false;
         UI.els.filterGroups.forEach(g => {
           if (g.classList.contains('open')) {

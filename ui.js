@@ -75,6 +75,19 @@ const UI = {
     if (this.els.themeDropdownContainer) {
       if (isThemeOpen) {
         this.els.themeDropdownContainer.innerHTML = Templates.themeDropdown();
+        
+        // Dynamic positioning for desktop dropdown mode
+        if (window.innerWidth > 768 && this.els.themeToggle) {
+            const dropdown = document.getElementById('theme-dropdown');
+            if (dropdown) {
+                const rect = this.els.themeToggle.getBoundingClientRect();
+                dropdown.style.position = 'fixed';
+                dropdown.style.top = `${rect.bottom + 12}px`;
+                dropdown.style.right = `${window.innerWidth - rect.right}px`;
+                dropdown.style.left = 'auto';
+                dropdown.style.bottom = 'auto';
+            }
+        }
       } else {
         this.els.themeDropdownContainer.innerHTML = '';
       }
