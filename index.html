@@ -54,37 +54,35 @@
                             ×
                         </button>
                     </div>
-                    <div class="filter-row" id="filter-row">
-                        <button class="filter-btn active" data-filter="all">
-                            All
-                        </button>
-                        <button class="filter-btn" data-filter="none">
-                            Untracked
-                        </button>
-                        <button class="filter-btn" data-filter="watched">
-                            Watched
-                        </button>
-                        <button class="filter-btn" data-filter="watching">
-                            Watching
-                        </button>
-                        <button class="filter-btn" data-filter="will-watch">
-                            Will Watch
-                        </button>
-                        <button class="filter-btn" data-filter="skip">
-                            Skip
-                        </button>
-                    </div>
+                    <div class="filter-controls">
+                        <div class="filter-group" id="status-filter-group">
+                            <button class="filter-trigger" id="status-trigger">
+                                <span class="trigger-label">Status:</span>
+                                <span class="trigger-value">All</span>
+                                <span class="chevron">▼</span>
+                            </button>
+                            <div class="filter-options">
+                                <button class="filter-btn active" data-filter="all">All</button>
+                                <button class="filter-btn" data-filter="none">Untracked</button>
+                                <button class="filter-btn" data-filter="watched">Watched</button>
+                                <button class="filter-btn" data-filter="watching">Watching</button>
+                                <button class="filter-btn" data-filter="will-watch">Will Watch</button>
+                                <button class="filter-btn" data-filter="skip">Skip</button>
+                            </div>
+                        </div>
 
-                    <div class="filter-row" id="type-filter-row">
-                        <button class="filter-btn active" data-type="all">
-                            All Types
-                        </button>
-                        <button class="filter-btn" data-type="movie">
-                            Movies
-                        </button>
-                        <button class="filter-btn" data-type="series">
-                            Series
-                        </button>
+                        <div class="filter-group" id="type-filter-group">
+                            <button class="filter-trigger" id="type-trigger">
+                                <span class="trigger-label">Type:</span>
+                                <span class="trigger-value">All</span>
+                                <span class="chevron">▼</span>
+                            </button>
+                            <div class="filter-options">
+                                <button class="filter-btn active" data-type="all">All Types</button>
+                                <button class="filter-btn" data-type="movie">Movies</button>
+                                <button class="filter-btn" data-type="series">Series</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </header>

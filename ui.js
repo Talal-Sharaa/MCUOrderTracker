@@ -11,8 +11,11 @@ const UI = {
     listContainer: document.getElementById("list-container"),
     topBtn: document.getElementById("top-btn"),
     viewToggles: document.querySelectorAll(".toggle-btn"),
-    filterBtns: document.querySelectorAll("#filter-row .filter-btn"),
-    typeFilterBtns: document.querySelectorAll("#type-filter-row .filter-btn"),
+    filterBtns: document.querySelectorAll("#status-filter-group .filter-btn"),
+    typeFilterBtns: document.querySelectorAll("#type-filter-group .filter-btn"),
+    statusValue: document.querySelector("#status-trigger .trigger-value"),
+    typeValue: document.querySelector("#type-trigger .trigger-value"),
+    filterGroups: document.querySelectorAll(".filter-group"),
   },
 
   render() {
@@ -33,6 +36,7 @@ const UI = {
       const isActive = f === Store.state.filter;
       btn.classList.toggle("active", isActive);
       if (isActive) {
+        this.els.statusValue.textContent = btn.textContent;
         if (f === "all") btn.style.background = "#d4af37";
         else if (f === "none") btn.style.background = "#374151";
         else btn.style.background = STATUS_CONFIG[f]?.color;
@@ -51,6 +55,7 @@ const UI = {
       const isActive = t === Store.state.typeFilter;
       btn.classList.toggle("active", isActive);
       if (isActive) {
+        this.els.typeValue.textContent = btn.textContent;
         btn.style.background = "#d4af37";
         btn.style.color = "#000";
         btn.style.borderColor = "transparent";

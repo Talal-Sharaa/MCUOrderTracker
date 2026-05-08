@@ -24,6 +24,7 @@ const Controller = {
       btn.addEventListener("click", () => {
         Store.state.filter = btn.dataset.filter;
         Store.state.openId = null;
+        UI.els.filterGroups.forEach(g => g.classList.remove("open"));
         UI.render();
       });
     });
@@ -33,14 +34,29 @@ const Controller = {
       btn.addEventListener("click", () => {
         Store.state.typeFilter = btn.dataset.type;
         Store.state.openId = null;
+        UI.els.filterGroups.forEach(g => g.classList.remove("open"));
         UI.render();
       });
+    });
+
+    // Toggle dropdowns
+    UI.els.filterGroups.forEach(group => {
+        const trigger = group.querySelector('.filter-trigger');
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = group.classList.contains('open');
+            // Close all others
+            UI.els.filterGroups.forEach(g => g.classList.remove('open'));
+            // Toggle current
+            if (!isOpen) group.classList.add('open');
+        });
     });
 
     // Search
     UI.els.searchInput.addEventListener("input", (e) => {
       Store.state.search = e.target.value;
       Store.state.openId = null;
+      UI.els.filterGroups.forEach(g => g.classList.remove("open"));
       UI.render();
     });
 
@@ -48,6 +64,7 @@ const Controller = {
       Store.state.search = "";
       UI.els.searchInput.value = "";
       Store.state.openId = null;
+      UI.els.filterGroups.forEach(g => g.classList.remove("open"));
       UI.render();
     });
 
@@ -57,6 +74,11 @@ const Controller = {
       const statusBtn = e.target.closest('[data-action="set-status"]');
       const clearBtn = e.target.closest('[data-action="clear-status"]');
       const row = e.target.closest(".entry-row");
+
+      // Close filter dropdowns if clicking outside
+      if (!e.target.closest('.filter-group')) {
+        UI.els.filterGroups.forEach(g => g.classList.remove('open'));
+      }
 
       if (toggleBtn) {
         e.stopPropagation();
