@@ -1,0 +1,1464 @@
+// ─── DATA ────────────────────────────────────────────────────────────────────
+const PARENTS = {
+  "iron-man": { title: "Iron Man", type: "movie" },
+  "incredible-hulk": { title: "The Incredible Hulk", type: "movie" },
+  "iron-man-2": { title: "Iron Man 2", type: "movie" },
+  thor: { title: "Thor", type: "movie" },
+  "cap-1": { title: "Captain America: The First Avenger", type: "movie" },
+  avengers: { title: "The Avengers", type: "movie" },
+  "iron-man-3": { title: "Iron Man 3", type: "movie" },
+  "thor-dark-world": { title: "Thor: The Dark World", type: "movie" },
+  "cap-winter-soldier": {
+    title: "Captain America: The Winter Soldier",
+    type: "movie",
+  },
+  "guardians-1": { title: "Guardians of the Galaxy", type: "movie" },
+  "age-of-ultron": { title: "Avengers: Age of Ultron", type: "movie" },
+  "ant-man": { title: "Ant-Man", type: "movie" },
+  "cap-civil-war": { title: "Captain America: Civil War", type: "movie" },
+  "doctor-strange": { title: "Doctor Strange", type: "movie" },
+  "guardians-2": { title: "Guardians of the Galaxy Vol. 2", type: "movie" },
+  "spider-man-homecoming": { title: "Spider-Man: Homecoming", type: "movie" },
+  "thor-ragnarok": { title: "Thor: Ragnarok", type: "movie" },
+  "black-panther": { title: "Black Panther", type: "movie" },
+  "infinity-war": { title: "Avengers: Infinity War", type: "movie" },
+  "ant-man-wasp": { title: "Ant-Man and the Wasp", type: "movie" },
+  "captain-marvel": { title: "Captain Marvel", type: "movie" },
+  endgame: { title: "Avengers: Endgame", type: "movie" },
+  "spider-man-ffh": { title: "Spider-Man: Far From Home", type: "movie" },
+  "black-widow": { title: "Black Widow", type: "movie" },
+  "shang-chi": {
+    title: "Shang-Chi and the Legend of the Ten Rings",
+    type: "movie",
+  },
+  eternals: { title: "Eternals", type: "movie" },
+  "spider-man-nwh": { title: "Spider-Man: No Way Home", type: "movie" },
+  "doctor-strange-2": {
+    title: "Doctor Strange in the Multiverse of Madness",
+    type: "movie",
+  },
+  "thor-love-thunder": { title: "Thor: Love and Thunder", type: "movie" },
+  "bp-wakanda-forever": {
+    title: "Black Panther: Wakanda Forever",
+    type: "movie",
+  },
+  "ant-man-quantumania": {
+    title: "Ant-Man and The Wasp: Quantumania",
+    type: "movie",
+  },
+  "guardians-3": { title: "Guardians of the Galaxy Vol. 3", type: "movie" },
+  marvels: { title: "The Marvels", type: "movie" },
+  "deadpool-wolverine": { title: "Deadpool & Wolverine", type: "movie" },
+  "cap-brave-new-world": {
+    title: "Captain America: Brave New World",
+    type: "movie",
+  },
+  thunderbolts: { title: "Thunderbolts*", type: "movie" },
+  "fantastic-four": { title: "The Fantastic Four: First Steps", type: "movie" },
+  "the-consultant": { title: "The Consultant", type: "oneshot" },
+  "thor-hammer-oneshot": {
+    title: "A Funny Thing Happened on the Way to Thor's Hammer",
+    type: "oneshot",
+  },
+  "item-47": { title: "Item 47", type: "oneshot" },
+  "agent-carter-oneshot": { title: "Agent Carter", type: "oneshot" },
+  "all-hail-king": { title: "All Hail the King", type: "oneshot" },
+  "team-thor-1": { title: "Team Thor", type: "oneshot" },
+  "team-thor-2": { title: "Team Thor: Part 2", type: "oneshot" },
+  "team-darryl": { title: "Team Darryl", type: "oneshot" },
+  "werewolf-night": { title: "Werewolf By Night", type: "special" },
+  "gg-holiday-special": {
+    title: "The Guardians of the Galaxy Holiday Special",
+    type: "special",
+  },
+  "agent-carter-s1": { title: "Agent Carter — Season 1", type: "series" },
+  "agent-carter-s2": { title: "Agent Carter — Season 2", type: "series" },
+  "aos-s1": { title: "Agents of S.H.I.E.L.D. — Season 1", type: "series" },
+  "aos-s2": { title: "Agents of S.H.I.E.L.D. — Season 2", type: "series" },
+  "aos-s3": { title: "Agents of S.H.I.E.L.D. — Season 3", type: "series" },
+  "aos-s4": { title: "Agents of S.H.I.E.L.D. — Season 4", type: "series" },
+  "aos-slingshot": {
+    title: "Agents of S.H.I.E.L.D.: Slingshot",
+    type: "series",
+  },
+  "aos-s5": { title: "Agents of S.H.I.E.L.D. — Season 5", type: "series" },
+  "aos-s6": { title: "Agents of S.H.I.E.L.D. — Season 6", type: "series" },
+  "aos-s7": { title: "Agents of S.H.I.E.L.D. — Season 7", type: "series" },
+  "daredevil-s1": { title: "Daredevil — Season 1", type: "series" },
+  "daredevil-s2": { title: "Daredevil — Season 2", type: "series" },
+  "daredevil-s3": { title: "Daredevil — Season 3", type: "series" },
+  "jessica-jones-s1": { title: "Jessica Jones — Season 1", type: "series" },
+  "jessica-jones-s2": { title: "Jessica Jones — Season 2", type: "series" },
+  "jessica-jones-s3": { title: "Jessica Jones — Season 3", type: "series" },
+  "luke-cage-s1": { title: "Luke Cage — Season 1", type: "series" },
+  "luke-cage-s2": { title: "Luke Cage — Season 2", type: "series" },
+  "iron-fist-s1": { title: "Iron Fist — Season 1", type: "series" },
+  "iron-fist-s2": { title: "Iron Fist — Season 2", type: "series" },
+  "the-defenders": { title: "The Defenders — Season 1", type: "series" },
+  "inhumans-s1": { title: "Inhumans — Season 1", type: "series" },
+  "punisher-s1": { title: "The Punisher — Season 1", type: "series" },
+  "punisher-s2": { title: "The Punisher — Season 2", type: "series" },
+  "runaways-s1": { title: "Runaways — Season 1", type: "series" },
+  "runaways-s2": { title: "Runaways — Season 2", type: "series" },
+  "runaways-s3": { title: "Runaways — Season 3", type: "series" },
+  "cloak-dagger-s1": { title: "Cloak & Dagger — Season 1", type: "series" },
+  "cloak-dagger-s2": { title: "Cloak & Dagger — Season 2", type: "series" },
+  wandavision: { title: "WandaVision", type: "series" },
+  "falcon-ws": { title: "The Falcon and the Winter Soldier", type: "series" },
+  "loki-s1": { title: "Loki — Season 1", type: "series" },
+  "loki-s2": { title: "Loki — Season 2", type: "series" },
+  "what-if-s1": { title: "What If...? — Season 1", type: "series" },
+  "what-if-s2": { title: "What If...? — Season 2", type: "series" },
+  "what-if-s3": { title: "What If...? — Season 3", type: "series" },
+  "marvel-zombies": { title: "Marvel Zombies", type: "series" },
+  hawkeye: { title: "Hawkeye", type: "series" },
+  "moon-knight": { title: "Moon Knight", type: "series" },
+  "ms-marvel": { title: "Ms. Marvel", type: "series" },
+  "she-hulk": { title: "She-Hulk: Attorney at Law", type: "series" },
+  "secret-invasion": { title: "Secret Invasion", type: "series" },
+  "i-am-groot-s1": { title: "I Am Groot — Season 1", type: "series" },
+  "i-am-groot-s2": { title: "I Am Groot — Season 2", type: "series" },
+  echo: { title: "Echo", type: "series" },
+  "agatha-all-along": { title: "Agatha All Along", type: "series" },
+  "daredevil-ba-s1": {
+    title: "Daredevil: Born Again — Season 1",
+    type: "series",
+  },
+  "daredevil-ba-s2": {
+    title: "Daredevil: Born Again — Season 2",
+    type: "series",
+  },
+  "ironheart-s1": { title: "Ironheart — Season 1", type: "series" },
+  "eyes-of-wakanda": { title: "Eyes of Wakanda", type: "series" },
+  "wonder-man-s1": { title: "Wonder Man — Season 1", type: "series" },
+};
+
+const RELEASE_ORDER = [
+  { id: "r01", parentKey: "iron-man", title: "Iron Man", meta: "May 2008" },
+  {
+    id: "r02",
+    parentKey: "incredible-hulk",
+    title: "The Incredible Hulk",
+    meta: "Jun 2008",
+  },
+  { id: "r03", parentKey: "iron-man-2", title: "Iron Man 2", meta: "Apr 2010" },
+  { id: "r04", parentKey: "thor", title: "Thor", meta: "Apr 2011" },
+  {
+    id: "r05",
+    parentKey: "cap-1",
+    title: "Captain America: The First Avenger",
+    meta: "Jul 2011",
+  },
+  {
+    id: "r06",
+    parentKey: "the-consultant",
+    title: "The Consultant",
+    meta: "Sep 2011 · One-Shot",
+  },
+  {
+    id: "r07",
+    parentKey: "thor-hammer-oneshot",
+    title: "A Funny Thing Happened on the Way to Thor's Hammer",
+    meta: "Oct 2011 · One-Shot",
+  },
+  { id: "r08", parentKey: "avengers", title: "The Avengers", meta: "Apr 2012" },
+  {
+    id: "r09",
+    parentKey: "item-47",
+    title: "Item 47",
+    meta: "Sep 2012 · One-Shot",
+  },
+  { id: "r10", parentKey: "iron-man-3", title: "Iron Man 3", meta: "Apr 2013" },
+  {
+    id: "r11",
+    parentKey: "agent-carter-oneshot",
+    title: "Agent Carter",
+    meta: "Sep 2013 · One-Shot",
+  },
+  {
+    id: "r12",
+    parentKey: "aos-s1",
+    title: "Agents of S.H.I.E.L.D.",
+    meta: "Sep 2013 · Season 1",
+  },
+  {
+    id: "r13",
+    parentKey: "thor-dark-world",
+    title: "Thor: The Dark World",
+    meta: "Nov 2013",
+  },
+  {
+    id: "r14",
+    parentKey: "all-hail-king",
+    title: "All Hail the King",
+    meta: "Feb 2014 · One-Shot",
+  },
+  {
+    id: "r15",
+    parentKey: "cap-winter-soldier",
+    title: "Captain America: The Winter Soldier",
+    meta: "Mar 2014",
+  },
+  {
+    id: "r16",
+    parentKey: "guardians-1",
+    title: "Guardians of the Galaxy",
+    meta: "Jul 2014",
+  },
+  {
+    id: "r17",
+    parentKey: "aos-s2",
+    title: "Agents of S.H.I.E.L.D.",
+    meta: "Sep 2014 · Season 2",
+  },
+  {
+    id: "r18",
+    parentKey: "agent-carter-s1",
+    title: "Agent Carter",
+    meta: "Jan 2015 · Season 1",
+  },
+  {
+    id: "r19",
+    parentKey: "daredevil-s1",
+    title: "Daredevil",
+    meta: "Apr 2015 · Season 1",
+  },
+  {
+    id: "r20",
+    parentKey: "age-of-ultron",
+    title: "Avengers: Age of Ultron",
+    meta: "Apr 2015",
+  },
+  { id: "r21", parentKey: "ant-man", title: "Ant-Man", meta: "Jul 2015" },
+  {
+    id: "r22",
+    parentKey: "aos-s3",
+    title: "Agents of S.H.I.E.L.D.",
+    meta: "Sep 2015 · Season 3",
+  },
+  {
+    id: "r23",
+    parentKey: "jessica-jones-s1",
+    title: "Jessica Jones",
+    meta: "Nov 2015 · Season 1",
+  },
+  {
+    id: "r24",
+    parentKey: "agent-carter-s2",
+    title: "Agent Carter",
+    meta: "Jan 2016 · Season 2",
+  },
+  {
+    id: "r25",
+    parentKey: "daredevil-s2",
+    title: "Daredevil",
+    meta: "Mar 2016 · Season 2",
+  },
+  {
+    id: "r26",
+    parentKey: "cap-civil-war",
+    title: "Captain America: Civil War",
+    meta: "Apr 2016",
+  },
+  {
+    id: "r27",
+    parentKey: "team-thor-1",
+    title: "Team Thor",
+    meta: "Aug 2016 · One-Shot",
+  },
+  {
+    id: "r28",
+    parentKey: "aos-s4",
+    title: "Agents of S.H.I.E.L.D.",
+    meta: "Sep 2016 · Season 4",
+  },
+  {
+    id: "r29",
+    parentKey: "luke-cage-s1",
+    title: "Luke Cage",
+    meta: "Sep 2016 · Season 1",
+  },
+  {
+    id: "r30",
+    parentKey: "doctor-strange",
+    title: "Doctor Strange",
+    meta: "Oct 2016",
+  },
+  {
+    id: "r31",
+    parentKey: "team-thor-2",
+    title: "Team Thor: Part 2",
+    meta: "Feb 2017 · One-Shot",
+  },
+  {
+    id: "r32",
+    parentKey: "iron-fist-s1",
+    title: "Iron Fist",
+    meta: "Mar 2017 · Season 1",
+  },
+  {
+    id: "r33",
+    parentKey: "guardians-2",
+    title: "Guardians of the Galaxy Vol. 2",
+    meta: "Apr 2017",
+  },
+  {
+    id: "r34",
+    parentKey: "spider-man-homecoming",
+    title: "Spider-Man: Homecoming",
+    meta: "Jul 2017",
+  },
+  {
+    id: "r35",
+    parentKey: "the-defenders",
+    title: "The Defenders",
+    meta: "Aug 2017 · Season 1",
+  },
+  {
+    id: "r36",
+    parentKey: "inhumans-s1",
+    title: "Inhumans",
+    meta: "Sep 2017 · Season 1",
+  },
+  {
+    id: "r37",
+    parentKey: "thor-ragnarok",
+    title: "Thor: Ragnarok",
+    meta: "Oct 2017",
+  },
+  {
+    id: "r38",
+    parentKey: "punisher-s1",
+    title: "The Punisher",
+    meta: "Nov 2017 · Season 1",
+  },
+  {
+    id: "r39",
+    parentKey: "runaways-s1",
+    title: "Runaways",
+    meta: "Nov 2017 · Season 1",
+  },
+  {
+    id: "r40",
+    parentKey: "aos-s5",
+    title: "Agents of S.H.I.E.L.D.",
+    meta: "Dec 2017 · Season 5",
+  },
+  {
+    id: "r41",
+    parentKey: "black-panther",
+    title: "Black Panther",
+    meta: "Feb 2018",
+  },
+  {
+    id: "r42",
+    parentKey: "team-darryl",
+    title: "Team Darryl",
+    meta: "Feb 2018 · One-Shot",
+  },
+  {
+    id: "r43",
+    parentKey: "jessica-jones-s2",
+    title: "Jessica Jones",
+    meta: "Mar 2018 · Season 2",
+  },
+  {
+    id: "r44",
+    parentKey: "infinity-war",
+    title: "Avengers: Infinity War",
+    meta: "Apr 2018",
+  },
+  {
+    id: "r45",
+    parentKey: "cloak-dagger-s1",
+    title: "Cloak & Dagger",
+    meta: "Jun 2018 · Season 1",
+  },
+  {
+    id: "r46",
+    parentKey: "luke-cage-s2",
+    title: "Luke Cage",
+    meta: "Jun 2018 · Season 2",
+  },
+  {
+    id: "r47",
+    parentKey: "ant-man-wasp",
+    title: "Ant-Man and the Wasp",
+    meta: "Jul 2018",
+  },
+  {
+    id: "r48",
+    parentKey: "iron-fist-s2",
+    title: "Iron Fist",
+    meta: "Sep 2018 · Season 2",
+  },
+  {
+    id: "r49",
+    parentKey: "daredevil-s3",
+    title: "Daredevil",
+    meta: "Oct 2018 · Season 3",
+  },
+  {
+    id: "r50",
+    parentKey: "runaways-s2",
+    title: "Runaways",
+    meta: "Dec 2018 · Season 2",
+  },
+  {
+    id: "r51",
+    parentKey: "punisher-s2",
+    title: "The Punisher",
+    meta: "Jan 2019 · Season 2",
+  },
+  {
+    id: "r52",
+    parentKey: "captain-marvel",
+    title: "Captain Marvel",
+    meta: "Mar 2019",
+  },
+  {
+    id: "r53",
+    parentKey: "cloak-dagger-s2",
+    title: "Cloak & Dagger",
+    meta: "Apr 2019 · Season 2",
+  },
+  {
+    id: "r54",
+    parentKey: "endgame",
+    title: "Avengers: Endgame",
+    meta: "Apr 2019",
+  },
+  {
+    id: "r55",
+    parentKey: "aos-s6",
+    title: "Agents of S.H.I.E.L.D.",
+    meta: "May 2019 · Season 6",
+  },
+  {
+    id: "r56",
+    parentKey: "jessica-jones-s3",
+    title: "Jessica Jones",
+    meta: "Jun 2019 · Season 3",
+  },
+  {
+    id: "r57",
+    parentKey: "spider-man-ffh",
+    title: "Spider-Man: Far From Home",
+    meta: "Jul 2019",
+  },
+  {
+    id: "r58",
+    parentKey: "runaways-s3",
+    title: "Runaways",
+    meta: "Dec 2019 · Season 3",
+  },
+  {
+    id: "r59",
+    parentKey: "aos-s7",
+    title: "Agents of S.H.I.E.L.D.",
+    meta: "May 2020 · Season 7",
+  },
+  {
+    id: "r60",
+    parentKey: "wandavision",
+    title: "WandaVision",
+    meta: "Jan 2021",
+  },
+  {
+    id: "r61",
+    parentKey: "falcon-ws",
+    title: "The Falcon and the Winter Soldier",
+    meta: "Mar 2021",
+  },
+  {
+    id: "r62",
+    parentKey: "loki-s1",
+    title: "Loki",
+    meta: "Jun 2021 · Season 1",
+  },
+  {
+    id: "r63",
+    parentKey: "black-widow",
+    title: "Black Widow",
+    meta: "Jul 2021",
+  },
+  {
+    id: "r64",
+    parentKey: "what-if-s1",
+    title: "What If...?",
+    meta: "Aug 2021 · Season 1",
+  },
+  {
+    id: "r65",
+    parentKey: "shang-chi",
+    title: "Shang-Chi and the Legend of the Ten Rings",
+    meta: "Sep 2021",
+  },
+  { id: "r66", parentKey: "eternals", title: "Eternals", meta: "Nov 2021" },
+  { id: "r67", parentKey: "hawkeye", title: "Hawkeye", meta: "Nov 2021" },
+  {
+    id: "r68",
+    parentKey: "spider-man-nwh",
+    title: "Spider-Man: No Way Home",
+    meta: "Dec 2021",
+  },
+  {
+    id: "r69",
+    parentKey: "moon-knight",
+    title: "Moon Knight",
+    meta: "Mar 2022",
+  },
+  {
+    id: "r70",
+    parentKey: "doctor-strange-2",
+    title: "Doctor Strange in the Multiverse of Madness",
+    meta: "May 2022",
+  },
+  { id: "r71", parentKey: "ms-marvel", title: "Ms. Marvel", meta: "Jun 2022" },
+  {
+    id: "r72",
+    parentKey: "thor-love-thunder",
+    title: "Thor: Love and Thunder",
+    meta: "Jul 2022",
+  },
+  {
+    id: "r73",
+    parentKey: "i-am-groot-s1",
+    title: "I Am Groot",
+    meta: "Aug 2022 · Season 1",
+  },
+  {
+    id: "r74",
+    parentKey: "she-hulk",
+    title: "She-Hulk: Attorney at Law",
+    meta: "Aug 2022",
+  },
+  {
+    id: "r75",
+    parentKey: "werewolf-night",
+    title: "Werewolf By Night",
+    meta: "Oct 2022 · Special",
+  },
+  {
+    id: "r76",
+    parentKey: "bp-wakanda-forever",
+    title: "Black Panther: Wakanda Forever",
+    meta: "Nov 2022",
+  },
+  {
+    id: "r77",
+    parentKey: "gg-holiday-special",
+    title: "The Guardians of the Galaxy Holiday Special",
+    meta: "Nov 2022 · Special",
+  },
+  {
+    id: "r78",
+    parentKey: "ant-man-quantumania",
+    title: "Ant-Man and The Wasp: Quantumania",
+    meta: "Feb 2023",
+  },
+  {
+    id: "r79",
+    parentKey: "guardians-3",
+    title: "Guardians of the Galaxy Vol. 3",
+    meta: "May 2023",
+  },
+  {
+    id: "r80",
+    parentKey: "secret-invasion",
+    title: "Secret Invasion",
+    meta: "Jun 2023",
+  },
+  {
+    id: "r81",
+    parentKey: "i-am-groot-s2",
+    title: "I Am Groot",
+    meta: "Sep 2023 · Season 2",
+  },
+  {
+    id: "r82",
+    parentKey: "loki-s2",
+    title: "Loki",
+    meta: "Oct 2023 · Season 2",
+  },
+  { id: "r83", parentKey: "marvels", title: "The Marvels", meta: "Nov 2023" },
+  {
+    id: "r84",
+    parentKey: "what-if-s2",
+    title: "What If...?",
+    meta: "Dec 2023 · Season 2",
+  },
+  { id: "r85", parentKey: "echo", title: "Echo", meta: "Jan 2024" },
+  {
+    id: "r86",
+    parentKey: "deadpool-wolverine",
+    title: "Deadpool & Wolverine",
+    meta: "Jul 2024",
+  },
+  {
+    id: "r87",
+    parentKey: "agatha-all-along",
+    title: "Agatha All Along",
+    meta: "Sep 2024",
+  },
+  {
+    id: "r88",
+    parentKey: "what-if-s3",
+    title: "What If...?",
+    meta: "Dec 2024 · Season 3",
+  },
+  {
+    id: "r89",
+    parentKey: "cap-brave-new-world",
+    title: "Captain America: Brave New World",
+    meta: "Feb 2025",
+  },
+  {
+    id: "r90",
+    parentKey: "daredevil-ba-s1",
+    title: "Daredevil: Born Again",
+    meta: "Mar 2025 · Season 1",
+  },
+  {
+    id: "r91",
+    parentKey: "thunderbolts",
+    title: "Thunderbolts*",
+    meta: "May 2025",
+  },
+  {
+    id: "r92",
+    parentKey: "ironheart-s1",
+    title: "Ironheart",
+    meta: "Jun 2025 · Season 1",
+  },
+  {
+    id: "r93",
+    parentKey: "fantastic-four",
+    title: "The Fantastic Four: First Steps",
+    meta: "Jul 2025",
+  },
+  {
+    id: "r94",
+    parentKey: "eyes-of-wakanda",
+    title: "Eyes of Wakanda",
+    meta: "Aug 2025",
+  },
+  {
+    id: "r95",
+    parentKey: "marvel-zombies",
+    title: "Marvel Zombies",
+    meta: "Sep 2025",
+  },
+  {
+    id: "r96",
+    parentKey: "wonder-man-s1",
+    title: "Wonder Man",
+    meta: "Jan 2026 · Season 1",
+  },
+  {
+    id: "r97",
+    parentKey: "daredevil-ba-s2",
+    title: "Daredevil: Born Again",
+    meta: "Mar 2026 · Season 2",
+  },
+];
+
+const CHRONO_ORDER = [
+  { id: "c001", parentKey: "eyes-of-wakanda", title: "Eyes of Wakanda" },
+  {
+    id: "c002",
+    parentKey: "cap-1",
+    title: "Captain America: The First Avenger",
+  },
+  {
+    id: "c003",
+    parentKey: "agent-carter-oneshot",
+    title: "Agent Carter",
+    sub: "One-Shot",
+  },
+  {
+    id: "c004",
+    parentKey: "agent-carter-s1",
+    title: "Agent Carter",
+    sub: "Season 1",
+  },
+  {
+    id: "c005",
+    parentKey: "agent-carter-s2",
+    title: "Agent Carter",
+    sub: "Season 2",
+  },
+  {
+    id: "c006",
+    parentKey: "captain-marvel",
+    title: "Captain Marvel",
+    note: "Mid-credits scene set after Infinity War",
+  },
+  { id: "c007", parentKey: "iron-man", title: "Iron Man" },
+  { id: "c008", parentKey: "iron-man-2", title: "Iron Man 2" },
+  { id: "c009", parentKey: "incredible-hulk", title: "The Incredible Hulk" },
+  {
+    id: "c010",
+    parentKey: "the-consultant",
+    title: "The Consultant",
+    sub: "One-Shot",
+  },
+  {
+    id: "c011",
+    parentKey: "thor-hammer-oneshot",
+    title: "A Funny Thing Happened on the Way to Thor's Hammer",
+    sub: "One-Shot",
+  },
+  { id: "c012", parentKey: "thor", title: "Thor" },
+  { id: "c013", parentKey: "avengers", title: "The Avengers" },
+  { id: "c014", parentKey: "item-47", title: "Item 47", sub: "One-Shot" },
+  {
+    id: "c015",
+    parentKey: "aos-s1",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 1 · Eps 1–7",
+  },
+  { id: "c016", parentKey: "thor-dark-world", title: "Thor: The Dark World" },
+  {
+    id: "c017",
+    parentKey: "aos-s1",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 1 · Eps 8–16",
+  },
+  { id: "c018", parentKey: "iron-man-3", title: "Iron Man 3" },
+  {
+    id: "c019",
+    parentKey: "all-hail-king",
+    title: "All Hail the King",
+    sub: "One-Shot",
+  },
+  {
+    id: "c020",
+    parentKey: "cap-winter-soldier",
+    title: "Captain America: The Winter Soldier",
+  },
+  {
+    id: "c021",
+    parentKey: "aos-s1",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 1 · Eps 17–22",
+  },
+  { id: "c022", parentKey: "guardians-1", title: "Guardians of the Galaxy" },
+  {
+    id: "c023",
+    parentKey: "guardians-2",
+    title: "Guardians of the Galaxy Vol. 2",
+  },
+  {
+    id: "c024",
+    parentKey: "i-am-groot-s1",
+    title: "I Am Groot",
+    sub: "Season 1",
+  },
+  {
+    id: "c025",
+    parentKey: "i-am-groot-s2",
+    title: "I Am Groot",
+    sub: "Season 2",
+  },
+  {
+    id: "c026",
+    parentKey: "daredevil-s1",
+    title: "Daredevil",
+    sub: "Season 1",
+  },
+  {
+    id: "c027",
+    parentKey: "aos-s2",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 2 · Eps 1–10",
+  },
+  {
+    id: "c028",
+    parentKey: "jessica-jones-s1",
+    title: "Jessica Jones",
+    sub: "Season 1",
+  },
+  {
+    id: "c029",
+    parentKey: "aos-s2",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 2 · Eps 11–19",
+  },
+  { id: "c030", parentKey: "age-of-ultron", title: "Avengers: Age of Ultron" },
+  {
+    id: "c031",
+    parentKey: "aos-s2",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 2 · Eps 20–22",
+  },
+  {
+    id: "c032",
+    parentKey: "daredevil-s2",
+    title: "Daredevil",
+    sub: "Season 2 · Eps 1–4",
+  },
+  {
+    id: "c033",
+    parentKey: "luke-cage-s1",
+    title: "Luke Cage",
+    sub: "Season 1 · Eps 1–4",
+  },
+  {
+    id: "c034",
+    parentKey: "daredevil-s2",
+    title: "Daredevil",
+    sub: "Season 2 · Eps 5–11",
+  },
+  {
+    id: "c035",
+    parentKey: "luke-cage-s1",
+    title: "Luke Cage",
+    sub: "Season 1 · Eps 5–8",
+  },
+  {
+    id: "c036",
+    parentKey: "daredevil-s2",
+    title: "Daredevil",
+    sub: "Season 2 · Eps 12–13",
+  },
+  {
+    id: "c037",
+    parentKey: "luke-cage-s1",
+    title: "Luke Cage",
+    sub: "Season 1 · Eps 9–13",
+  },
+  { id: "c038", parentKey: "ant-man", title: "Ant-Man" },
+  {
+    id: "c039",
+    parentKey: "aos-s3",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 3 · Eps 1–10",
+  },
+  {
+    id: "c040",
+    parentKey: "aos-s3",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 3 · Eps 11–19",
+  },
+  {
+    id: "c041",
+    parentKey: "iron-fist-s1",
+    title: "Iron Fist",
+    sub: "Season 1",
+  },
+  {
+    id: "c042",
+    parentKey: "cap-civil-war",
+    title: "Captain America: Civil War",
+  },
+  { id: "c043", parentKey: "team-thor-1", title: "Team Thor", sub: "One-Shot" },
+  {
+    id: "c044",
+    parentKey: "team-thor-2",
+    title: "Team Thor: Part 2",
+    sub: "One-Shot",
+  },
+  {
+    id: "c045",
+    parentKey: "black-widow",
+    title: "Black Widow",
+    note: "Watch credits scene after Avengers: Endgame",
+  },
+  {
+    id: "c046",
+    parentKey: "aos-s3",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 3 · Eps 20–22",
+  },
+  {
+    id: "c047",
+    parentKey: "the-defenders",
+    title: "The Defenders",
+    sub: "Season 1",
+  },
+  {
+    id: "c048",
+    parentKey: "aos-s4",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 4 · Eps 1–6",
+  },
+  { id: "c049", parentKey: "doctor-strange", title: "Doctor Strange" },
+  { id: "c050", parentKey: "black-panther", title: "Black Panther" },
+  {
+    id: "c051",
+    parentKey: "aos-s4",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 4 · Eps 7–8",
+  },
+  {
+    id: "c052",
+    parentKey: "aos-slingshot",
+    title: "Agents of S.H.I.E.L.D.: Slingshot",
+    sub: "Season 1 · Eps 1–6",
+  },
+  {
+    id: "c053",
+    parentKey: "aos-s4",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 4 · Eps 9–22",
+  },
+  {
+    id: "c054",
+    parentKey: "spider-man-homecoming",
+    title: "Spider-Man: Homecoming",
+  },
+  { id: "c055", parentKey: "thor-ragnarok", title: "Thor: Ragnarok" },
+  {
+    id: "c056",
+    parentKey: "team-darryl",
+    title: "Team Darryl",
+    sub: "One-Shot",
+  },
+  { id: "c057", parentKey: "inhumans-s1", title: "Inhumans", sub: "Season 1" },
+  {
+    id: "c058",
+    parentKey: "punisher-s1",
+    title: "The Punisher",
+    sub: "Season 1",
+  },
+  { id: "c059", parentKey: "runaways-s1", title: "Runaways", sub: "Season 1" },
+  {
+    id: "c060",
+    parentKey: "aos-s5",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 5 · Eps 1–10",
+  },
+  {
+    id: "c061",
+    parentKey: "jessica-jones-s2",
+    title: "Jessica Jones",
+    sub: "Season 2",
+  },
+  {
+    id: "c062",
+    parentKey: "aos-s5",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 5 · Eps 11–18",
+  },
+  {
+    id: "c063",
+    parentKey: "cloak-dagger-s1",
+    title: "Cloak & Dagger",
+    sub: "Season 1",
+  },
+  {
+    id: "c064",
+    parentKey: "cloak-dagger-s2",
+    title: "Cloak & Dagger",
+    sub: "Season 2",
+  },
+  {
+    id: "c065",
+    parentKey: "luke-cage-s2",
+    title: "Luke Cage",
+    sub: "Season 2",
+  },
+  {
+    id: "c066",
+    parentKey: "iron-fist-s2",
+    title: "Iron Fist",
+    sub: "Season 2",
+  },
+  {
+    id: "c067",
+    parentKey: "daredevil-s3",
+    title: "Daredevil",
+    sub: "Season 3",
+  },
+  { id: "c068", parentKey: "runaways-s2", title: "Runaways", sub: "Season 2" },
+  {
+    id: "c069",
+    parentKey: "punisher-s2",
+    title: "The Punisher",
+    sub: "Season 2",
+  },
+  {
+    id: "c070",
+    parentKey: "jessica-jones-s3",
+    title: "Jessica Jones",
+    sub: "Season 3",
+  },
+  {
+    id: "c071",
+    parentKey: "ant-man-wasp",
+    title: "Ant-Man and the Wasp",
+    note: "Watch credits scene after Infinity War",
+  },
+  { id: "c072", parentKey: "infinity-war", title: "Avengers: Infinity War" },
+  {
+    id: "c073",
+    parentKey: "aos-s5",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 5 · Eps 19–22",
+    note: "Concurrent with Infinity War",
+  },
+  {
+    id: "c074",
+    parentKey: "aos-s6",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 6",
+    note: "During Endgame's 5-year time jump",
+  },
+  {
+    id: "c075",
+    parentKey: "aos-s7",
+    title: "Agents of S.H.I.E.L.D.",
+    sub: "Season 7",
+    note: "During Endgame's 5-year time jump",
+  },
+  {
+    id: "c076",
+    parentKey: "runaways-s3",
+    title: "Runaways",
+    sub: "Season 3",
+    note: "Mostly post-Snap",
+  },
+  { id: "c077", parentKey: "endgame", title: "Avengers: Endgame" },
+  { id: "c078", parentKey: "loki-s1", title: "Loki", sub: "Season 1" },
+  { id: "c079", parentKey: "loki-s2", title: "Loki", sub: "Season 2" },
+  {
+    id: "c080",
+    parentKey: "what-if-s1",
+    title: "What If...?",
+    sub: "Season 1",
+  },
+  {
+    id: "c081",
+    parentKey: "what-if-s2",
+    title: "What If...?",
+    sub: "Season 2",
+  },
+  {
+    id: "c082",
+    parentKey: "what-if-s3",
+    title: "What If...?",
+    sub: "Season 3",
+  },
+  { id: "c083", parentKey: "marvel-zombies", title: "Marvel Zombies" },
+  { id: "c084", parentKey: "wandavision", title: "WandaVision" },
+  {
+    id: "c085",
+    parentKey: "deadpool-wolverine",
+    title: "Deadpool & Wolverine",
+  },
+  {
+    id: "c086",
+    parentKey: "shang-chi",
+    title: "Shang-Chi and the Legend of the Ten Rings",
+  },
+  {
+    id: "c087",
+    parentKey: "falcon-ws",
+    title: "The Falcon and the Winter Soldier",
+  },
+  { id: "c088", parentKey: "eternals", title: "Eternals" },
+  {
+    id: "c089",
+    parentKey: "spider-man-ffh",
+    title: "Spider-Man: Far From Home",
+  },
+  { id: "c090", parentKey: "spider-man-nwh", title: "Spider-Man: No Way Home" },
+  {
+    id: "c091",
+    parentKey: "doctor-strange-2",
+    title: "Doctor Strange in the Multiverse of Madness",
+  },
+  { id: "c092", parentKey: "hawkeye", title: "Hawkeye" },
+  { id: "c093", parentKey: "moon-knight", title: "Moon Knight" },
+  {
+    id: "c094",
+    parentKey: "bp-wakanda-forever",
+    title: "Black Panther: Wakanda Forever",
+  },
+  { id: "c095", parentKey: "echo", title: "Echo" },
+  { id: "c096", parentKey: "she-hulk", title: "She-Hulk: Attorney at Law" },
+  { id: "c097", parentKey: "ms-marvel", title: "Ms. Marvel" },
+  {
+    id: "c098",
+    parentKey: "thor-love-thunder",
+    title: "Thor: Love and Thunder",
+  },
+  {
+    id: "c099",
+    parentKey: "ironheart-s1",
+    title: "Ironheart",
+    sub: "Season 1",
+  },
+  { id: "c100", parentKey: "werewolf-night", title: "Werewolf By Night" },
+  {
+    id: "c101",
+    parentKey: "gg-holiday-special",
+    title: "The Guardians of the Galaxy Holiday Special",
+  },
+  {
+    id: "c102",
+    parentKey: "ant-man-quantumania",
+    title: "Ant-Man and The Wasp: Quantumania",
+  },
+  {
+    id: "c103",
+    parentKey: "guardians-3",
+    title: "Guardians of the Galaxy Vol. 3",
+  },
+  { id: "c104", parentKey: "secret-invasion", title: "Secret Invasion" },
+  { id: "c105", parentKey: "marvels", title: "The Marvels" },
+  { id: "c106", parentKey: "agatha-all-along", title: "Agatha All Along" },
+  {
+    id: "c107",
+    parentKey: "daredevil-ba-s1",
+    title: "Daredevil: Born Again",
+    sub: "Season 1",
+  },
+  {
+    id: "c108",
+    parentKey: "cap-brave-new-world",
+    title: "Captain America: Brave New World",
+  },
+  { id: "c109", parentKey: "thunderbolts", title: "Thunderbolts*" },
+  {
+    id: "c110",
+    parentKey: "fantastic-four",
+    title: "The Fantastic Four: First Steps",
+  },
+  {
+    id: "c111",
+    parentKey: "wonder-man-s1",
+    title: "Wonder Man",
+    sub: "Season 1",
+  },
+  {
+    id: "c112",
+    parentKey: "daredevil-ba-s2",
+    title: "Daredevil: Born Again",
+    sub: "Season 2",
+  },
+];
+
+const TYPE_CONFIG = {
+  movie: { label: "FILM", color: "#d4af37", bg: "rgba(212,175,55,0.12)" },
+  series: { label: "SERIES", color: "#60a5fa", bg: "rgba(96,165,250,0.12)" },
+  oneshot: {
+    label: "ONE-SHOT",
+    color: "#c084fc",
+    bg: "rgba(192,132,252,0.12)",
+  },
+  special: { label: "SPECIAL", color: "#f472b6", bg: "rgba(244,114,182,0.12)" },
+};
+
+const STATUS_CONFIG = {
+  watched: { label: "Watched", icon: "✓", color: "#4ade80", bar: "#166534" },
+  watching: { label: "Watching", icon: "▶", color: "#60a5fa", bar: "#1e3a5f" },
+  "will-watch": {
+    label: "Will Watch",
+    icon: "◎",
+    color: "#c084fc",
+    bar: "#3b0764",
+  },
+  skip: { label: "Skip", icon: "✕", color: "#6b7280", bar: "#1c1c1c" },
+};
+
+const STORAGE_KEY = "mcu-tracker-v1";
+
+// ─── STATE & DOM ─────────────────────────────────────────────────────────────
+const state = {
+  view: "release",
+  statuses: {},
+  openId: null,
+  filter: "all",
+  search: "",
+};
+
+const els = {
+  app: document.getElementById("app"),
+  header: document.getElementById("header"),
+  progressFill: document.getElementById("progress-fill"),
+  stats: document.getElementById("stats"),
+  searchInput: document.getElementById("search-input"),
+  clearSearch: document.getElementById("clear-search"),
+  filterRow: document.getElementById("filter-row"),
+  listContainer: document.getElementById("list-container"),
+  topBtn: document.getElementById("top-btn"),
+  viewToggles: document.querySelectorAll(".toggle-btn"),
+  filterBtns: document.querySelectorAll(".filter-btn"),
+};
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+function init() {
+  loadState();
+  bindEvents();
+  render();
+  setupScroll();
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) state.statuses = JSON.parse(raw);
+  } catch {}
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.statuses));
+}
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+function render() {
+  updateControlsUI();
+  renderList();
+  updateStats();
+}
+
+function updateControlsUI() {
+  // View toggle active state
+  els.viewToggles.forEach((btn) => {
+    btn.classList.toggle("active", btn.dataset.view === state.view);
+  });
+
+  // Filter active state & colors
+  els.filterBtns.forEach((btn) => {
+    const f = btn.dataset.filter;
+    const isActive = f === state.filter;
+    btn.classList.toggle("active", isActive);
+    if (isActive) {
+      if (f === "all") btn.style.background = "#d4af37";
+      else if (f === "none") btn.style.background = "#374151";
+      else btn.style.background = STATUS_CONFIG[f]?.color;
+      btn.style.color = "#000";
+      btn.style.borderColor = "transparent";
+    } else {
+      btn.style.background = "";
+      btn.style.color = "";
+      btn.style.borderColor = "";
+    }
+  });
+
+  // Search clear button
+  els.clearSearch.style.display = state.search ? "block" : "none";
+}
+
+function updateStats() {
+  const total = Object.keys(PARENTS).length;
+  const watchedCount = Object.values(state.statuses).filter(
+    (s) => s === "watched",
+  ).length;
+  const watchingCount = Object.values(state.statuses).filter(
+    (s) => s === "watching",
+  ).length;
+  const pct = Math.round((watchedCount / total) * 100);
+
+  els.progressFill.style.width = `${pct}%`;
+  els.stats.innerHTML = `
+    <span><span style="color:#4ade80">✓</span> ${watchedCount} watched</span>
+    <span><span style="color:#60a5fa">▶</span> ${watchingCount} watching</span>
+    <span style="color:#6b7280">${total - watchedCount - watchingCount} remaining · ${pct}% complete</span>
+  `;
+}
+
+function renderList() {
+  const list = state.view === "release" ? RELEASE_ORDER : CHRONO_ORDER;
+  const filtered = list.filter((e) => {
+    const status = state.statuses[e.parentKey] || null;
+    const matchSearch =
+      !state.search ||
+      e.title.toLowerCase().includes(state.search.toLowerCase()) ||
+      (e.sub && e.sub.toLowerCase().includes(state.search.toLowerCase())) ||
+      PARENTS[e.parentKey]?.title
+        .toLowerCase()
+        .includes(state.search.toLowerCase());
+    const matchFilter =
+      state.filter === "all" ||
+      status === state.filter ||
+      (state.filter === "none" && !status);
+    return matchSearch && matchFilter;
+  });
+
+  if (filtered.length === 0) {
+    els.listContainer.innerHTML =
+      '<div class="empty-state">No entries match your filters.</div>';
+    return;
+  }
+
+  els.listContainer.innerHTML = filtered
+    .map((entry, idx) => {
+      const parent = PARENTS[entry.parentKey];
+      const status = state.statuses[entry.parentKey] || null;
+      const typeCfg = TYPE_CONFIG[parent?.type || "movie"];
+      const statusCfg = status ? STATUS_CONFIG[status] : null;
+      const isOpen = state.openId === entry.id;
+      const origIdx = list.indexOf(entry);
+      const borderColor = statusCfg ? statusCfg.color : "transparent";
+      const rowBg = status ? `${statusCfg.bar}44` : "#111520";
+      const rowBgHover = status ? `${statusCfg.bar}88` : "#1a1f2e";
+      const titleStyle =
+        status === "skip"
+          ? "text-decoration:line-through;color:#6b7280;"
+          : "color:#e8edf5;";
+
+      return `
+      <div class="entry-row" data-id="${entry.id}" data-parent="${entry.parentKey}"
+           style="border-left-color:${borderColor}; background:${rowBg}; --hover-bg:${rowBgHover}; opacity:${status === "skip" ? 0.5 : 1}">
+        <div class="seq-num">${String(origIdx + 1).padStart(3, "0")}</div>
+        <div class="type-badge" style="color:${typeCfg.color}; background:${typeCfg.bg}; border-color:${typeCfg.color}44">
+          ${typeCfg.label}
+        </div>
+        <div class="content">
+          <div class="title" style="${titleStyle}">${entry.title}</div>
+          ${entry.sub ? `<div class="sub">${entry.sub}</div>` : ""}
+          ${entry.meta ? `<div class="meta">${entry.meta}</div>` : ""}
+          ${entry.note ? `<div class="note-txt">⚠ ${entry.note}</div>` : ""}
+        </div>
+        <div class="status-wrap">
+          <button class="status-btn" data-action="toggle-dropdown"
+                  style="background:${statusCfg ? statusCfg.color + "22" : "#1c2030"};
+                         border-color:${statusCfg ? statusCfg.color + "66" : "#2a3148"};
+                         color:${statusCfg ? statusCfg.color : "#4a5278"}">
+            <span>${statusCfg ? statusCfg.icon : "+"}</span>
+            <span class="status-label">${statusCfg ? statusCfg.label : "Track"}</span>
+            <span style="font-size:10px; opacity:0.6">▾</span>
+          </button>
+          ${isOpen ? renderDropdown(parent, status) : ""}
+        </div>
+      </div>
+    `;
+    })
+    .join("");
+}
+
+function renderDropdown(parent, current) {
+  const options = Object.entries(STATUS_CONFIG)
+    .map(([key, cfg]) => {
+      const isActive = current === key;
+      return `
+      <button class="dropdown-option" data-action="set-status" data-status="${key}"
+              style="background:${isActive ? cfg.color + "22" : "transparent"};
+                     border-color:${isActive ? cfg.color + "88" : "transparent"};
+                     color:${isActive ? cfg.color : "#94a3b8"}">
+        <span style="color:${cfg.color}; width:16px">${cfg.icon}</span>
+        <span>${cfg.label}</span>
+        ${isActive ? '<span style="margin-left:auto; font-size:11px; opacity:0.7">✓ active</span>' : ""}
+      </button>
+    `;
+    })
+    .join("");
+
+  const clearBtn = current
+    ? `
+    <button class="dropdown-option" data-action="clear-status" style="color:#ef4444; border-color:transparent;">
+      <span style="width:16px">✕</span>
+      <span>Clear status</span>
+    </button>
+  `
+    : "";
+
+  return `
+    <div class="dropdown open">
+      <div class="dropdown-header">
+        <div class="dropdown-title">${parent?.title}</div>
+        <div class="dropdown-sub">Set status for all episodes</div>
+      </div>
+      ${options}
+      ${clearBtn}
+    </div>
+  `;
+}
+
+// ─── EVENTS ──────────────────────────────────────────────────────────────────
+function bindEvents() {
+  // View toggle
+  els.viewToggles.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      state.view = btn.dataset.view;
+      state.openId = null;
+      render();
+    });
+  });
+
+  // Filters
+  els.filterBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      state.filter = btn.dataset.filter;
+      state.openId = null;
+      render();
+    });
+  });
+
+  // Search
+  els.searchInput.addEventListener("input", (e) => {
+    state.search = e.target.value;
+    state.openId = null;
+    render();
+  });
+
+  els.clearSearch.addEventListener("click", (e) => {
+    e.stopPropagation();
+    state.search = "";
+    els.searchInput.value = "";
+    state.openId = null;
+    render();
+  });
+
+  // List delegation
+  els.listContainer.addEventListener("click", (e) => {
+    const toggleBtn = e.target.closest('[data-action="toggle-dropdown"]');
+    const statusBtn = e.target.closest('[data-action="set-status"]');
+    const clearBtn = e.target.closest('[data-action="clear-status"]');
+    const row = e.target.closest(".entry-row");
+
+    if (toggleBtn) {
+      e.stopPropagation();
+      const id = row.dataset.id;
+      state.openId = state.openId === id ? null : id;
+      renderList();
+    } else if (statusBtn) {
+      e.stopPropagation();
+      const parentKey = row.dataset.parent;
+      const newStatus = statusBtn.dataset.status;
+      setStatus(parentKey, newStatus);
+    } else if (clearBtn) {
+      e.stopPropagation();
+      const parentKey = row.dataset.parent;
+      setStatus(parentKey, null);
+    }
+  });
+
+  // Close dropdown on outside click
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".status-wrap") && state.openId) {
+      state.openId = null;
+      renderList();
+    }
+  });
+
+  // Back to top
+  els.topBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+function setStatus(parentKey, status) {
+  if (!status) {
+    delete state.statuses[parentKey];
+  } else {
+    state.statuses[parentKey] = status;
+  }
+  state.openId = null;
+  saveState();
+  render();
+}
+
+function setupScroll() {
+  window.addEventListener("scroll", () => {
+    els.topBtn.style.display = window.scrollY > 400 ? "flex" : "none";
+  });
+}
+
+// ─── START ───────────────────────────────────────────────────────────────────
+init();

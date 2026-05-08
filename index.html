@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MCU Watch Order</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&family=Barlow+Condensed:wght@300;400;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div id="app">
+            <header id="header">
+                <div class="header-content">
+                    <div>
+                        <div class="eyebrow">MARVEL CINEMATIC UNIVERSE</div>
+                        <h1 class="main-title">WATCH ORDER</h1>
+                    </div>
+                    <div class="view-toggle">
+                        <button class="toggle-btn active" data-view="release">
+                            Release Date
+                        </button>
+                        <button class="toggle-btn" data-view="chrono">
+                            Chronological
+                        </button>
+                    </div>
+                </div>
+
+                <div class="progress-section">
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="stats" id="stats"></div>
+                </div>
+
+                <div class="controls">
+                    <div class="search-wrap">
+                        <span class="search-icon">⌕</span>
+                        <input
+                            type="text"
+                            class="search-input"
+                            id="search-input"
+                            placeholder="Search titles…"
+                        />
+                        <button
+                            class="clear-btn"
+                            id="clear-search"
+                            style="display: none"
+                        >
+                            ×
+                        </button>
+                    </div>
+                    <div class="filter-row" id="filter-row">
+                        <button class="filter-btn active" data-filter="all">
+                            All
+                        </button>
+                        <button class="filter-btn" data-filter="none">
+                            Untracked
+                        </button>
+                        <button class="filter-btn" data-filter="watched">
+                            Watched
+                        </button>
+                        <button class="filter-btn" data-filter="watching">
+                            Watching
+                        </button>
+                        <button class="filter-btn" data-filter="will-watch">
+                            Will Watch
+                        </button>
+                        <button class="filter-btn" data-filter="skip">
+                            Skip
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <main id="list-container"></main>
+
+            <button id="top-btn" class="top-btn" style="display: none">
+                ↑
+            </button>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
