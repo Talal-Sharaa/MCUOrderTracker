@@ -138,10 +138,10 @@ const PARENTS = {
 };
 
 const THEMES = {
-  cosmic: { label: "Cosmic Multiverse", color: "#8b5cf6" },
-  classic: { label: "Classic Marvel", color: "#dc2626" },
-  stark: { label: "Stark Tech", color: "#0ea5e9" },
-  mystic: { label: "Mystic Arts", color: "#c27839" },
+  cosmic: { label: "Cosmic Multiverse", color: "#8b5cf6", secondary: "#06b6d4", desc: "Nebula purple & neon cyan" },
+  classic: { label: "Classic Marvel", color: "#dc2626", secondary: "#d4af37", desc: "Avenger red & aged gold" },
+  stark: { label: "Stark Tech", color: "#0ea5e9", secondary: "#ef4444", desc: "HUD blue & arc reactor red" },
+  mystic: { label: "Mystic Arts", color: "#c27839", secondary: "#991b1b", desc: "Portal amber & cloak red" },
 };
 
 const RELEASE_ORDER = [

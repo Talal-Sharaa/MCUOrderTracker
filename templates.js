@@ -157,10 +157,15 @@ const Templates = {
       .map(([key, cfg]) => {
         const isActive = current === key;
         return `
-        <button class="dropdown-option ${isActive ? 'active' : ''}" data-action="set-theme" data-theme="${key}" role="option" aria-selected="${isActive}">
-          <span style="width:12px; height:12px; border-radius:50%; background: ${cfg.color}; display:inline-block; margin-right: 8px" aria-hidden="true"></span>
-          <span style="font-weight: ${isActive ? '700' : '500'}">${cfg.label}</span>
-          ${isActive ? `<span class="active-check" aria-hidden="true">${ICONS.check}</span>` : ""}
+        <button class="theme-option ${isActive ? 'active' : ''}" data-action="set-theme" data-theme="${key}" role="option" aria-selected="${isActive}">
+          <div class="theme-swatch" style="--swatch-primary: ${cfg.color}; --swatch-secondary: ${cfg.secondary}">
+             <div class="swatch-inner"></div>
+          </div>
+          <div class="theme-meta">
+            <span class="theme-label">${cfg.label}</span>
+            <span class="theme-desc">${cfg.desc}</span>
+          </div>
+          ${isActive ? `<span class="active-check">${ICONS.check}</span>` : ""}
         </button>
       `;
       })
@@ -169,8 +174,10 @@ const Templates = {
     return `
       <div class="dropdown theme-dropdown open" id="theme-dropdown" role="listbox">
         <div class="mobile-handle" aria-hidden="true"></div>
-        <div style="padding: 0.75rem 1rem; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px solid var(--border-default); margin-bottom: 0.5rem">Select Interface Theme</div>
-        ${options}
+        <div class="dropdown-header">Select Interface Theme</div>
+        <div class="theme-options-grid">
+          ${options}
+        </div>
       </div>
       <div class="dropdown-backdrop" data-action="close-theme"></div>
     `;
