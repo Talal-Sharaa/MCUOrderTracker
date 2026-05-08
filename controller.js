@@ -107,10 +107,11 @@ const Controller = {
       const statusBtn = e.target.closest('[data-action="set-status"]');
       const clearBtn = e.target.closest('[data-action="clear-status"]');
       const themeBtn = e.target.closest('[data-action="set-theme"]');
+      const closeThemeBtn = e.target.closest('[data-action="close-theme"]');
       const dismissIntroBtn = e.target.closest('[data-action="dismiss-intro"]');
 
       // Close filter dropdowns if clicking outside
-      if (!e.target.closest('.filter-group') && !e.target.closest('.theme-selector-wrap')) {
+      if (!e.target.closest('.filter-group') && !e.target.closest('.theme-selector-wrap') || closeThemeBtn) {
         let closed = false;
         UI.els.filterGroups.forEach(g => {
           if (g.classList.contains('open')) {

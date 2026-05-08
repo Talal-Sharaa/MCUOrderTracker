@@ -65,6 +65,8 @@ const UI = {
 
     // Render theme dropdown if open
     const isThemeOpen = Store.state.openId === 'theme-selector';
+    document.body.classList.toggle('no-scroll', isThemeOpen);
+
     if (this.els.themeToggle) {
       this.els.themeToggle.setAttribute('aria-expanded', isThemeOpen);
       this.els.themeToggle.classList.toggle('active', isThemeOpen);

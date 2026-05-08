@@ -168,9 +168,11 @@ const Templates = {
 
     return `
       <div class="dropdown theme-dropdown open" id="theme-dropdown" role="listbox">
+        <div class="mobile-handle" aria-hidden="true"></div>
         <div style="padding: 0.75rem 1rem; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px solid var(--border-default); margin-bottom: 0.5rem">Select Interface Theme</div>
         ${options}
       </div>
+      <div class="dropdown-backdrop" data-action="close-theme"></div>
     `;
   },
 
