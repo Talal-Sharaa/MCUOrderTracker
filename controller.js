@@ -19,6 +19,13 @@ const Controller = {
       });
     });
 
+    // Header collapse toggle
+    UI.els.headerToggle.addEventListener("click", () => {
+      Store.state.headerCollapsed = !Store.state.headerCollapsed;
+      Store.save();
+      UI.render();
+    });
+
     // Status filtering
     UI.els.filterBtns.forEach(btn => {
       btn.addEventListener("click", () => {

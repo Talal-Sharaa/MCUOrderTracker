@@ -10,6 +10,7 @@ const Store = {
     filter: "all", // status filter
     typeFilter: "all", // 'all' | 'movie' | 'series'
     search: "",
+    headerCollapsed: false,
   },
 
   init() {
@@ -19,14 +20,22 @@ const Store = {
   load() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) this.state.statuses = JSON.parse(raw);
+      if (raw) {
+        const data = JSON.parse(raw);
+        this.state.statuses = data.statuses || {};
+        this.state.headerCollapsed = !!data.headerCollapsed;
+      }
     } catch (e) {
       console.error("Failed to load state", e);
     }
   },
 
   save() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state.statuses));
+    const data = {
+      statuses: this.state.statuses,
+      headerCollapsed: this.state.headerCollapsed,
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   },
 
   setStatus(parentKey, status) {

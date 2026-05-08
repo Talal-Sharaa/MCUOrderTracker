@@ -4,7 +4,8 @@
 
 const UI = {
   els: {
-    progressFill: document.getElementById("progress-fill"),
+    header: document.getElementById("header"),
+    headerToggle: document.getElementById("header-toggle"),
     stats: document.getElementById("stats"),
     searchInput: document.getElementById("search-input"),
     clearSearch: document.getElementById("clear-search"),
@@ -19,9 +20,16 @@ const UI = {
   },
 
   render() {
+    this.updateHeaderState();
     this.updateControls();
     this.updateStats();
     this.renderList();
+  },
+
+  updateHeaderState() {
+    const isCollapsed = Store.state.headerCollapsed;
+    this.els.header.classList.toggle("collapsed", isCollapsed);
+    this.els.headerToggle.setAttribute("aria-expanded", !isCollapsed);
   },
 
   updateControls() {
@@ -37,15 +45,6 @@ const UI = {
       btn.classList.toggle("active", isActive);
       if (isActive) {
         this.els.statusValue.textContent = btn.textContent;
-        if (f === "all") btn.style.background = "#d4af37";
-        else if (f === "none") btn.style.background = "#374151";
-        else btn.style.background = STATUS_CONFIG[f]?.color;
-        btn.style.color = "#000";
-        btn.style.borderColor = "transparent";
-      } else {
-        btn.style.background = "";
-        btn.style.color = "";
-        btn.style.borderColor = "";
       }
     });
 
@@ -56,38 +55,40 @@ const UI = {
       btn.classList.toggle("active", isActive);
       if (isActive) {
         this.els.typeValue.textContent = btn.textContent;
-        btn.style.background = "#d4af37";
-        btn.style.color = "#000";
-        btn.style.borderColor = "transparent";
-      } else {
-        btn.style.background = "";
-        btn.style.color = "";
-        btn.style.borderColor = "";
       }
     });
 
     // Search Input
-    this.els.clearSearch.style.display = Store.state.search ? "block" : "none";
+    this.els.clearSearch.style.display = Store.state.search ? "flex" : "none";
   },
 
   updateStats() {
     const stats = Store.getStats();
-    this.els.progressFill.style.width = `${stats.pct}%`;
     this.els.stats.innerHTML = Templates.stats(stats);
   },
 
   renderList() {
     const filtered = Store.getFilteredList();
-    const fullList = Store.state.view === "release" ? RELEASE_ORDER : CHRONO_ORDER;
 
     if (filtered.length === 0) {
       this.els.listContainer.innerHTML = Templates.emptyState();
       return;
     }
 
-    this.els.listContainer.innerHTML = filtered
+    // Using DocumentFragment for better performance
+    const fragment = document.createDocumentFragment();
+    const temp = document.createElement('div');
+    
+    temp.innerHTML = filtered
       .map((entry, idx) => Templates.entryRow(entry, idx))
       .join("");
+    
+    while (temp.firstChild) {
+      fragment.appendChild(temp.firstChild);
+    }
+
+    this.els.listContainer.innerHTML = "";
+    this.els.listContainer.appendChild(fragment);
   },
 
   scrollToTop() {
@@ -95,6 +96,11 @@ const UI = {
   },
 
   toggleTopButton() {
-    this.els.topBtn.style.display = window.scrollY > 400 ? "flex" : "none";
+    if (window.scrollY > 400) {
+      this.els.topBtn.style.display = "flex";
+      // Adding a small delay for the entrance animation if we had one
+    } else {
+      this.els.topBtn.style.display = "none";
+    }
   }
 };

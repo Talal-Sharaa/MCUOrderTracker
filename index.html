@@ -3,11 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>MCU Watch Order</title>
+        <title>MCU Watch Order - Ultimate Marvel Tracker</title>
+        <meta name="description" content="The most complete Marvel Cinematic Universe watch order tracker. Track your progress through movies, series, and specials in release or chronological order." />
+        <meta name="theme-color" content="#05070A" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&family=Barlow+Condensed:wght@300;400;600;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap"
             rel="stylesheet"
         />
         <link rel="stylesheet" href="style.css" />
@@ -15,72 +17,78 @@
     <body>
         <div id="app">
             <header id="header">
-                <div class="header-content">
-                    <div>
+                <div class="header-top">
+                    <div class="brand">
                         <div class="eyebrow">MARVEL CINEMATIC UNIVERSE</div>
                         <h1 class="main-title">WATCH ORDER</h1>
                     </div>
-                    <div class="view-toggle">
-                        <button class="toggle-btn active" data-view="release">
-                            Release Date
+                    <div class="header-actions">
+                        <button id="header-toggle" class="icon-btn" aria-label="Toggle options" aria-expanded="true">
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
                         </button>
-                        <button class="toggle-btn" data-view="chrono">
-                            Chronological
-                        </button>
-                    </div>
-                </div>
-
-                <div class="progress-section">
-                    <div class="progress-track">
-                        <div class="progress-fill" id="progress-fill"></div>
-                    </div>
-                    <div class="stats" id="stats"></div>
-                </div>
-
-                <div class="controls">
-                    <div class="search-wrap">
-                        <span class="search-icon">⌕</span>
-                        <input
-                            type="text"
-                            class="search-input"
-                            id="search-input"
-                            placeholder="Search titles…"
-                        />
-                        <button
-                            class="clear-btn"
-                            id="clear-search"
-                            style="display: none"
-                        >
-                            ×
-                        </button>
-                    </div>
-                    <div class="filter-controls">
-                        <div class="filter-group" id="status-filter-group">
-                            <button class="filter-trigger" id="status-trigger">
-                                <span class="trigger-label">Status:</span>
-                                <span class="trigger-value">All</span>
-                                <span class="chevron">▼</span>
+                        <div class="view-toggle">
+                            <button class="toggle-btn active" data-view="release">
+                                Release
                             </button>
-                            <div class="filter-options">
-                                <button class="filter-btn active" data-filter="all">All</button>
-                                <button class="filter-btn" data-filter="none">Untracked</button>
-                                <button class="filter-btn" data-filter="watched">Watched</button>
-                                <button class="filter-btn" data-filter="watching">Watching</button>
-                                <button class="filter-btn" data-filter="will-watch">Will Watch</button>
-                                <button class="filter-btn" data-filter="skip">Skip</button>
-                            </div>
+                            <button class="toggle-btn" data-view="chrono">
+                                Chrono
+                            </button>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="filter-group" id="type-filter-group">
-                            <button class="filter-trigger" id="type-trigger">
-                                <span class="trigger-label">Type:</span>
-                                <span class="trigger-value">All</span>
-                                <span class="chevron">▼</span>
+                <div id="header-expandable" class="expandable-content">
+                    <div class="stats-grid" id="stats">
+                        <!-- Stats injected here -->
+                    </div>
+
+                    <div class="controls-bar">
+                        <div class="search-container">
+                            <svg class="icon search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                            <input
+                                type="text"
+                                class="search-input"
+                                id="search-input"
+                                placeholder="Search titles..."
+                                aria-label="Search titles"
+                            />
+                            <button
+                                class="clear-btn"
+                                id="clear-search"
+                                aria-label="Clear search"
+                                style="display: none"
+                            >
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
                             </button>
-                            <div class="filter-options">
-                                <button class="filter-btn active" data-type="all">All Types</button>
-                                <button class="filter-btn" data-type="movie">Movies</button>
-                                <button class="filter-btn" data-type="series">Series</button>
+                        </div>
+                        <div class="filters-container">
+                            <div class="filter-group" id="status-filter-group">
+                                <button class="filter-trigger" id="status-trigger" aria-haspopup="listbox">
+                                    <span class="trigger-label">Status</span>
+                                    <span class="trigger-value">All</span>
+                                    <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                                </button>
+                                <div class="filter-options" role="listbox">
+                                    <button class="filter-btn active" data-filter="all" role="option">All</button>
+                                    <button class="filter-btn" data-filter="none" role="option">Untracked</button>
+                                    <button class="filter-btn" data-filter="watched" role="option">Watched</button>
+                                    <button class="filter-btn" data-filter="watching" role="option">Watching</button>
+                                    <button class="filter-btn" data-filter="will-watch" role="option">Will Watch</button>
+                                    <button class="filter-btn" data-filter="skip" role="option">Skip</button>
+                                </div>
+                            </div>
+
+                            <div class="filter-group" id="type-filter-group">
+                                <button class="filter-trigger" id="type-trigger" aria-haspopup="listbox">
+                                    <span class="trigger-label">Type</span>
+                                    <span class="trigger-value">All</span>
+                                    <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                                </button>
+                                <div class="filter-options" role="listbox">
+                                    <button class="filter-btn active" data-type="all" role="option">All Types</button>
+                                    <button class="filter-btn" data-type="movie" role="option">Movies</button>
+                                    <button class="filter-btn" data-type="series" role="option">Series</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -89,8 +97,8 @@
 
             <main id="list-container"></main>
 
-            <button id="top-btn" class="top-btn" style="display: none">
-                ↑
+            <button id="top-btn" class="top-btn" aria-label="Back to top" style="display: none">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
             </button>
         </div>
 
@@ -101,3 +109,4 @@
         <script src="controller.js"></script>
     </body>
 </html>
+
