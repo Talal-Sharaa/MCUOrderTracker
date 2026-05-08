@@ -39,10 +39,11 @@ const Templates = {
                 aria-label="${entry.title}. Current status: ${statusLabel}. Click to change status."
                 aria-haspopup="listbox" 
                 aria-expanded="${isOpen}" 
-                aria-controls="dropdown-${entry.id}">
+                aria-controls="dropdown-${entry.id}"
+                style="--index: ${idx % 20}">
           <div class="seq-num">${seqFormatter.format(idx + 1)}</div>
           
-          <div class="type-badge" style="color: var(--type-${type}); border-color: var(--type-${type})44">
+          <div class="type-badge" style="color: var(--type-${type}); border-color: var(--type-${type})44; background: var(--type-${type})11">
             ${typeCfg.label}
           </div>
 
@@ -111,22 +112,22 @@ const Templates = {
 
   stats(stats) {
     return `
-      <div class="stat-card">
+      <div class="stat-card" style="--index: 1">
         <span class="stat-label">Watched</span>
         <span class="stat-value" style="color: var(--status-watched)">${valFormatter.format(stats.watched)}</span>
       </div>
-      <div class="stat-card">
+      <div class="stat-card" style="--index: 2">
         <span class="stat-label">Watching</span>
         <span class="stat-value" style="color: var(--status-watching)">${valFormatter.format(stats.watching)}</span>
       </div>
-      <div class="stat-card">
+      <div class="stat-card" style="--index: 3">
         <span class="stat-label">Remaining</span>
         <span class="stat-value" style="color: var(--text-muted)">${valFormatter.format(stats.total - stats.watched)}</span>
       </div>
-      <div class="progress-container" aria-live="polite">
+      <div class="progress-container" aria-live="polite" style="--index: 4; animation: slide-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards; animation-delay: 0.2s">
         <div style="display: flex; justify-content: space-between; align-items: flex-end">
           <span class="stat-label">Overall Progress</span>
-          <span class="stat-value" style="font-size: 1.5rem">${pctFormatter.format(stats.pct / 100)}</span>
+          <span class="stat-value" style="font-size: 1.5rem; color: var(--accent-secondary)">${pctFormatter.format(stats.pct / 100)}</span>
         </div>
         <div class="progress-bar-bg">
           <div class="progress-bar-fill" style="transform: scaleX(${stats.pct / 100})"></div>
@@ -138,14 +139,77 @@ const Templates = {
   emptyState() {
     return `
       <div class="empty-state">
-        <h2 style="font-family: var(--font-display); font-size: 2.5rem; letter-spacing: 0.05em; margin: 0">No Matches Found</h2>
-        <div style="font-family: var(--font-main); font-size: 1rem; color: var(--text-muted); margin-top: 1rem; margin-bottom: 2rem; letter-spacing: normal; text-transform: none">
-          Try adjusting your search or filters to find what you’re looking for.
+        <div style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.5">🔭</div>
+        <h2 style="font-family: var(--font-display); font-size: 3rem; letter-spacing: 0.05em; margin: 0; background: linear-gradient(to bottom, #fff, var(--text-dim)); -webkit-background-clip: text; color: transparent;">Lost in the Multiverse</h2>
+        <div style="font-family: var(--font-main); font-size: 1.1rem; color: var(--text-muted); margin-top: 1rem; margin-bottom: 2rem; max-width: 400px; margin-left: auto; margin-right: auto">
+          We couldn’t find any titles matching your search. Try adjusting your coordinates.
         </div>
-        <button id="clear-all-filters" class="toggle-btn active" style="font-family: var(--font-main); font-size: 0.9rem; padding: 0 1.5rem; height: 40px">
-          Clear All Filters
+        <button id="clear-all-filters" class="toggle-btn active" style="font-family: var(--font-main); font-size: 0.95rem; padding: 0 2rem; height: 48px; border-radius: var(--radius-md)">
+          Reset Multiverse Filters
         </button>
       </div>
+    `;
+  },
+
+  themeDropdown() {
+    const current = Store.state.theme;
+    const options = Object.entries(THEMES)
+      .map(([key, cfg]) => {
+        const isActive = current === key;
+        return `
+        <button class="dropdown-option ${isActive ? 'active' : ''}" data-action="set-theme" data-theme="${key}" role="option" aria-selected="${isActive}">
+          <span style="width:12px; height:12px; border-radius:50%; background: ${cfg.color}; display:inline-block; margin-right: 8px" aria-hidden="true"></span>
+          <span style="font-weight: ${isActive ? '700' : '500'}">${cfg.label}</span>
+          ${isActive ? `<span class="active-check" aria-hidden="true">${ICONS.check}</span>` : ""}
+        </button>
+      `;
+      })
+      .join("");
+
+    return `
+      <div class="dropdown theme-dropdown open" id="theme-dropdown" role="listbox">
+        <div style="padding: 0.75rem 1rem; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px solid var(--border-default); margin-bottom: 0.5rem">Select Interface Theme</div>
+        ${options}
+      </div>
+    `;
+  },
+
+  intro() {
+    return `
+      <section class="intro-card" aria-labelledby="intro-title">
+        <div class="intro-header">
+          <div class="intro-title-group">
+            <h2 id="intro-title" class="intro-title">Choose Your Path</h2>
+            <p class="intro-subtitle">Track your progress and master the multiverse with the ultimate MCU watch order guide.</p>
+          </div>
+          <button class="dismiss-btn" data-action="dismiss-intro" aria-label="Dismiss introduction">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="intro-grid">
+          <div class="intro-option">
+            <div class="option-icon release">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+            </div>
+            <div class="option-content">
+              <h3>Release Order</h3>
+              <p>Experience the Marvel Cinematic Universe exactly as it was shown in theaters. <strong>Best for first-time viewers.</strong></p>
+            </div>
+          </div>
+          <div class="intro-option">
+            <div class="option-icon chrono">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="option-content">
+              <h3>Chronological Order</h3>
+              <p>Follow the events as they happen on the timeline, from 1940s to the future. <strong>Best for re-watches.</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="intro-footer">
+          <p>Switch between views at any time using the <strong>Release</strong> and <strong>Chrono</strong> buttons in the top right.</p>
+        </div>
+      </section>
     `;
   }
 };

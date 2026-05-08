@@ -137,6 +137,13 @@ const PARENTS = {
   "wonder-man-s1": { title: "Wonder Man — Season 1", type: "series" },
 };
 
+const THEMES = {
+  cosmic: { label: "Cosmic Multiverse", color: "#8b5cf6" },
+  classic: { label: "Classic Marvel", color: "#dc2626" },
+  stark: { label: "Stark Tech", color: "#0ea5e9" },
+  mystic: { label: "Mystic Arts", color: "#c27839" },
+};
+
 const RELEASE_ORDER = [
   { id: "r01", parentKey: "iron-man", title: "Iron Man", releaseDate: "2008-05-01" },
   {

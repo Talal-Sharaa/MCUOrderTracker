@@ -27,6 +27,23 @@ const Controller = {
       UI.render();
     });
 
+    UI.els.modeToggle.addEventListener("click", () => {
+        Store.toggleMode();
+        UI.render();
+    });
+
+    UI.els.themeToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const wasOpen = Store.state.openId === 'theme-selector';
+      Store.state.openId = wasOpen ? null : 'theme-selector';
+      UI.render();
+
+      if (Store.state.openId === 'theme-selector') {
+        const dropdown = document.getElementById('theme-dropdown');
+        if (dropdown) dropdown.querySelector('button').focus();
+      }
+    });
+
     UI.els.filterBtns.forEach(btn => {
       btn.addEventListener("click", () => {
         Store.state.filter = btn.dataset.filter;
@@ -85,9 +102,11 @@ const Controller = {
       const toggleRow = e.target.closest('[data-action="toggle-dropdown"]');
       const statusBtn = e.target.closest('[data-action="set-status"]');
       const clearBtn = e.target.closest('[data-action="clear-status"]');
+      const themeBtn = e.target.closest('[data-action="set-theme"]');
+      const dismissIntroBtn = e.target.closest('[data-action="dismiss-intro"]');
 
       // Close filter dropdowns if clicking outside
-      if (!e.target.closest('.filter-group')) {
+      if (!e.target.closest('.filter-group') && !e.target.closest('.theme-selector-wrap')) {
         let closed = false;
         UI.els.filterGroups.forEach(g => {
           if (g.classList.contains('open')) {
@@ -95,12 +114,23 @@ const Controller = {
             closed = true;
           }
         });
-        if (closed) UI.updateControls();
+        if (Store.state.openId === 'theme-selector') {
+          Store.state.openId = null;
+          closed = true;
+        }
+        if (closed) UI.render();
       }
 
       if (clearAllFilters) {
         Store.resetFilters();
         UI.els.searchInput.value = "";
+        UI.render();
+      } else if (dismissIntroBtn) {
+        Store.dismissIntro();
+        UI.render();
+      } else if (themeBtn) {
+        e.stopPropagation();
+        Store.setTheme(themeBtn.dataset.theme);
         UI.render();
       } else if (toggleRow) {
         e.stopPropagation();

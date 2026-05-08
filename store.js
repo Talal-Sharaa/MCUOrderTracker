@@ -5,12 +5,15 @@
 const Store = {
   state: {
     view: "release", // 'release' | 'chrono'
+    theme: "cosmic", // 'cosmic' | 'classic' | 'stark' | 'mystic'
+    mode: "dark", // 'dark' | 'light'
     statuses: {}, // { parentKey: status }
     openId: null, // ID of entry with open dropdown
     filter: "all", // status filter
     typeFilter: "all", // 'all' | 'movie' | 'series'
     search: "",
-    headerCollapsed: false,
+    headerCollapsed: true,
+    introDismissed: false,
   },
 
   init() {
@@ -25,6 +28,9 @@ const Store = {
         const data = JSON.parse(raw);
         this.state.statuses = data.statuses || {};
         this.state.headerCollapsed = !!data.headerCollapsed;
+        this.state.theme = data.theme || "cosmic";
+        this.state.mode = data.mode || "dark";
+        this.state.introDismissed = !!data.introDismissed;
       }
     } catch (e) {
       console.error("Failed to load state", e);
@@ -66,9 +72,28 @@ const Store = {
     const data = {
       statuses: this.state.statuses,
       headerCollapsed: this.state.headerCollapsed,
+      theme: this.state.theme,
+      mode: this.state.mode,
+      introDismissed: this.state.introDismissed,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     this.syncToUrl();
+  },
+
+  dismissIntro() {
+    this.state.introDismissed = true;
+    this.save();
+  },
+
+  setTheme(theme) {
+    this.state.theme = theme;
+    this.state.openId = null;
+    this.save();
+  },
+
+  toggleMode() {
+    this.state.mode = this.state.mode === "dark" ? "light" : "dark";
+    this.save();
   },
 
   setStatus(parentKey, status) {
