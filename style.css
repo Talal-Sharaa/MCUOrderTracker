@@ -1595,3 +1595,8 @@ body.light-mode .dropdown-option.active {
     }
 }
 
+/* Fix Ko-fi image aspect ratio */
+img.kofiimg {
+    width: auto !important;
+}
+
