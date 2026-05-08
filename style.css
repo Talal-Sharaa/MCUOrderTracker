@@ -216,17 +216,19 @@ body {
     grid-template-rows: 1fr;
     transition: grid-template-rows 300ms ease, opacity 300ms ease;
     opacity: 1;
+    overflow: visible;
 }
 
 #header.collapsed .expandable-wrapper {
     grid-template-rows: 0fr;
     opacity: 0;
     pointer-events: none;
+    overflow: hidden;
 }
 
 .expandable-content {
-    overflow: hidden;
     min-height: 0;
+    overflow: visible;
 }
 
 .eyebrow {
