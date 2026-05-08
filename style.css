@@ -6,15 +6,14 @@
     --border-default: #1e293b;
     --border-bright: #334155;
     
-    --accent-red: #e23636;
+    --accent-red: #dc2626; /* Darkened to pass WCAG AA contrast with white text */
     --accent-gold: #fbbf24; /* Darkened gold for better contrast (approx 4.8:1) */
     --accent-blue: #60a5fa; 
     
     --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1; 
+    --text-secondary: #cbd5e1;
     --text-muted: #94a3b8;
-    --text-dim: #64748b; /* Slightly brighter for better visibility */
-    
+    --text-dim: #8293a8; /* Increased brightness for WCAG AA contrast (>= 4.5:1) */    
     /* Status Colors - Adjusted for contrast */
     --status-watched: #4ade80;
     --status-watching: #60a5fa;
@@ -755,7 +754,7 @@ body {
 
 .entry-row.is-skipped .seq-num,
 .entry-row.is-skipped .type-badge {
-    opacity: 0.6;
+    color: var(--text-dim);
 }
 
 .dropdown-option {
