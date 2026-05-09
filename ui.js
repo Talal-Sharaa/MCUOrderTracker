@@ -65,9 +65,6 @@ const UI = {
     // Handle light/dark mode
     document.body.classList.toggle('light-mode', mode === 'light');
     
-    // Toggle no-scroll on body for mobile drawer
-    document.body.classList.toggle('no-scroll', isThemeOpen);
-    
     // Update mode toggle icon
     if (this.els.modeToggle) {
         if (mode === 'light') {
@@ -93,7 +90,7 @@ const UI = {
 
     if (this.els.themeDropdownContainer) {
         this.els.themeDropdownContainer.innerHTML = isThemeOpen ? Templates.themeDropdown() : '';
-        if (isThemeOpen && window.innerWidth > 768 && this.els.themeToggle) {
+        if (isThemeOpen && window.matchMedia("(min-width: 769px)").matches && this.els.themeToggle) {
             const dropdown = document.getElementById('theme-dropdown');
             if (dropdown) {
                 const btnRect = this.els.themeToggle.getBoundingClientRect();

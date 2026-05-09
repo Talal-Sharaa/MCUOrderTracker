@@ -46,13 +46,21 @@ const Controller = {
           e.stopPropagation();
           const wasOpen = Store.state.openId === 'theme-selector';
           Store.state.openId = wasOpen ? null : 'theme-selector';
-          UI.render();
+          UI.updateTheme(); // Surgically update theme instead of full render
 
           if (Store.state.openId === 'theme-selector') {
+            // Close other dropdowns
+            document.querySelectorAll('.dropdown.open').forEach(el => {
+               if (el.id !== 'theme-dropdown') {
+                  el.remove();
+                  const row = document.querySelector(`.entry-row[aria-controls="${el.id}"]`);
+                  if (row) row.setAttribute('aria-expanded', 'false');
+               }
+            });
             const dropdown = document.getElementById('theme-dropdown');
             if (dropdown) {
               const btn = dropdown.querySelector('button');
-              if (btn && window.innerWidth > 768) {
+              if (btn && window.matchMedia('(min-width: 769px)').matches) {
                 btn.focus({ preventScroll: true });
               }
             }
@@ -160,9 +168,25 @@ const Controller = {
         });
         if (Store.state.openId === 'theme-selector') {
           Store.state.openId = null;
+          UI.updateTheme(); // Surgically update theme instead of full render
           closed = true;
         }
-        if (closed) UI.render();
+        if (closed && Store.state.openId !== 'theme-selector') {
+           // We might still need to update other UI if needed, but for filters UI.render() is fine
+           // Wait, if we click outside, we also need to close movie dropdowns!
+           if (Store.state.openId) {
+             const openRow = document.querySelector(`.entry-row[data-id="${Store.state.openId}"]`);
+             Store.state.openId = null;
+             if (openRow) {
+               openRow.setAttribute('aria-expanded', 'false');
+               const dropdown = document.getElementById(`dropdown-${openRow.dataset.id}`);
+               if (dropdown) dropdown.remove();
+             } else {
+               UI.renderList(); // fallback
+             }
+           }
+           UI.updateControls();
+        }
       }
 
       if (clearAllFilters) {
@@ -184,27 +208,67 @@ const Controller = {
       } else if (themeBtn) {
         e.stopPropagation();
         Store.setTheme(themeBtn.dataset.theme);
-        UI.render();
+        UI.updateTheme();
       } else if (toggleRow) {
         e.stopPropagation();
         const id = toggleRow.dataset.id;
         const wasOpen = Store.state.openId === id;
+        
+        // Close previously open dropdown surgically
+        if (Store.state.openId && Store.state.openId !== 'theme-selector') {
+            const prevRow = document.querySelector(`.entry-row[data-id="${Store.state.openId}"]`);
+            if (prevRow) {
+                prevRow.setAttribute('aria-expanded', 'false');
+                const prevDrop = document.getElementById(`dropdown-${Store.state.openId}`);
+                if (prevDrop) prevDrop.remove();
+            }
+        } else if (Store.state.openId === 'theme-selector') {
+            Store.state.openId = null;
+            UI.updateTheme();
+        }
+
         Store.state.openId = wasOpen ? null : id;
-        UI.renderList();
         
         if (Store.state.openId) {
+          toggleRow.setAttribute('aria-expanded', 'true');
+          const entry = Store.getFilteredList().find(e => e.id === id);
+          const parent = PARENTS[entry.parentKey];
+          const status = Store.state.statuses[entry.parentKey] || null;
+          
+          const dropdownHtml = Templates.dropdown(id, parent, status);
+          toggleRow.insertAdjacentHTML('afterend', dropdownHtml);
+          
           const dropdown = document.getElementById(`dropdown-${id}`);
           if (dropdown) {
             const firstOption = dropdown.querySelector('button');
-            if (firstOption) firstOption.focus({ preventScroll: true });
+            if (firstOption && window.matchMedia('(min-width: 769px)').matches) {
+              firstOption.focus({ preventScroll: true });
+            }
           }
+        } else {
+          toggleRow.setAttribute('aria-expanded', 'false');
+          const dropdown = document.getElementById(`dropdown-${id}`);
+          if (dropdown) dropdown.remove();
         }
       } else if (statusBtn) {
         e.stopPropagation();
         const item = statusBtn.closest(".entry-item");
         const row = item.querySelector(".entry-row");
         Store.setStatus(row.dataset.parent, statusBtn.dataset.status);
-        UI.render();
+        
+        // Re-render the row and dropdown surgically
+        const entry = Store.getFilteredList().find(e => e.id === row.dataset.id);
+        const newHtml = Templates.entryRow(entry, parseInt(row.style.getPropertyValue('--index')) || 0);
+        item.outerHTML = newHtml;
+        
+        // Restore focus if needed
+        const newDropdown = document.getElementById(`dropdown-${row.dataset.id}`);
+        if (newDropdown && window.matchMedia('(min-width: 769px)').matches) {
+           const firstOption = newDropdown.querySelector('button');
+           if (firstOption) firstOption.focus({ preventScroll: true });
+        }
+        UI.updateStats();
+        UI.renderNextUp();
       } else if (clearBtn) {
         e.stopPropagation();
         const item = clearBtn.closest(".entry-item");
@@ -212,23 +276,50 @@ const Controller = {
         const title = row.querySelector(".title").textContent;
         if (confirm(`Are you sure you want to clear the tracking for “${title}”?`)) {
           Store.setStatus(row.dataset.parent, null);
-          UI.render();
+          const entry = Store.getFilteredList().find(e => e.id === row.dataset.id);
+          const newHtml = Templates.entryRow(entry, parseInt(row.style.getPropertyValue('--index')) || 0);
+          item.outerHTML = newHtml;
+          UI.updateStats();
+          UI.renderNextUp();
         }
       } else if (Store.state.openId) {
-        Store.state.openId = null;
-        UI.renderList();
+        if (Store.state.openId === 'theme-selector') {
+            Store.state.openId = null;
+            UI.updateTheme();
+        } else {
+            const id = Store.state.openId;
+            Store.state.openId = null;
+            const row = document.querySelector(`.entry-row[data-id="${id}"]`);
+            if (row) {
+               row.setAttribute('aria-expanded', 'false');
+               const dropdown = document.getElementById(`dropdown-${id}`);
+               if (dropdown) dropdown.remove();
+            } else {
+               UI.renderList();
+            }
+        }
       }
     });
 
     // Keyboard navigation
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
-            if (Store.state.openId) {
+            if (Store.state.openId === 'theme-selector') {
+                Store.state.openId = null;
+                UI.updateTheme();
+                if (UI.els.themeToggle) UI.els.themeToggle.focus({ preventScroll: true });
+            } else if (Store.state.openId) {
                 const id = Store.state.openId;
                 Store.state.openId = null;
-                UI.renderList();
-                const btn = document.querySelector(`.entry-row[data-id="${id}"]`);
-                if (btn) btn.focus({ preventScroll: true });
+                const row = document.querySelector(`.entry-row[data-id="${id}"]`);
+                if (row) {
+                    row.setAttribute('aria-expanded', 'false');
+                    const dropdown = document.getElementById(`dropdown-${id}`);
+                    if (dropdown) dropdown.remove();
+                    row.focus({ preventScroll: true });
+                } else {
+                    UI.renderList();
+                }
             }
             UI.els.filterGroups.forEach(g => {
                 if (g.classList.contains('open')) {
