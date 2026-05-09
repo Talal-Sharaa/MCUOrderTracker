@@ -65,6 +65,9 @@ const UI = {
     // Handle light/dark mode
     document.body.classList.toggle('light-mode', mode === 'light');
     
+    // Toggle no-scroll on body for mobile drawer
+    document.body.classList.toggle('no-scroll', isThemeOpen);
+    
     // Update mode toggle icon
     if (this.els.modeToggle) {
         if (mode === 'light') {
