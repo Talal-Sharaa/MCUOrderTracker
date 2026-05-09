@@ -1,0 +1,16 @@
+{
+  "name": "MCU Watch Order Tracker",
+  "short_name": "MCU Tracker",
+  "description": "The ultimate Marvel Cinematic Universe watch order guide.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#05070a",
+  "theme_color": "#dc2626",
+  "icons": [
+    {
+      "src": "assets/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

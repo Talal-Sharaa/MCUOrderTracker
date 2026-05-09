@@ -8,6 +8,13 @@ const Controller = {
     this.bindEvents();
     UI.initObservers();
     UI.render();
+
+    // Register Service Worker for PWA (only on http/https)
+    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(console.error);
+      });
+    }
   },
 
   bindEvents() {
@@ -100,6 +107,31 @@ const Controller = {
       UI.render();
     });
 
+    if (UI.els.exportBtn) {
+        UI.els.exportBtn.addEventListener("click", () => Store.exportData());
+    }
+
+    if (UI.els.importBtn) {
+        UI.els.importBtn.addEventListener("click", () => UI.els.importInput.click());
+    }
+
+    if (UI.els.importInput) {
+        UI.els.importInput.addEventListener("change", async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            if (confirm("Importing data will overwrite your current progress. Continue?")) {
+                try {
+                    await Store.importData(file);
+                    UI.render();
+                    alert("Progress imported successfully!");
+                } catch (err) {
+                    alert("Failed to import data: " + err.message);
+                }
+            }
+            e.target.value = ""; // Reset input
+        });
+    }
+
     // Global click for delegation
     document.addEventListener("click", (e) => {
       const clearAllFilters = e.target.closest('#clear-all-filters');
@@ -109,6 +141,7 @@ const Controller = {
       const themeBtn = e.target.closest('[data-action="set-theme"]');
       const closeThemeBtn = e.target.closest('[data-action="close-theme"]');
       const dismissIntroBtn = e.target.closest('[data-action="dismiss-intro"]');
+      const scrollToEntryBtn = e.target.closest('[data-action="scroll-to-entry"]');
 
       // Close filter dropdowns if clicking outside
       const isThemeSelectorClick = e.target.closest('.theme-selector-wrap') || e.target.closest('.theme-dropdown');
@@ -134,6 +167,15 @@ const Controller = {
       } else if (dismissIntroBtn) {
         Store.dismissIntro();
         UI.render();
+      } else if (scrollToEntryBtn) {
+        const id = scrollToEntryBtn.dataset.id;
+        const isVisible = Store.getFilteredList().some(e => e.id === id);
+        if (!isVisible) {
+          Store.resetFilters();
+          UI.els.searchInput.value = "";
+          UI.render();
+        }
+        setTimeout(() => UI.scrollToTitle(id), 100);
       } else if (themeBtn) {
         e.stopPropagation();
         Store.setTheme(themeBtn.dataset.theme);

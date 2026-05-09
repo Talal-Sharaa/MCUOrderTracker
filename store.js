@@ -148,4 +148,54 @@ const Store = {
     ).length;
     return { total, watched, watching, pct: Math.round((watched / total) * 100) };
   },
+
+  getNextItem() {
+    const list = this.state.view === "release" ? RELEASE_ORDER : CHRONO_ORDER;
+    return list.find((e) => {
+      const status = this.state.statuses[e.parentKey] || null;
+      return status !== "watched" && status !== "skip";
+    });
+  },
+
+  exportData() {
+    const data = {
+      version: "1.1.0",
+      timestamp: new Date().toISOString(),
+      statuses: this.state.statuses,
+      theme: this.state.theme,
+      mode: this.state.mode,
+      introDismissed: this.state.introDismissed,
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `mcu-tracker-backup-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  },
+
+  async importData(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (!data.statuses) throw new Error("Invalid backup file");
+          
+          this.state.statuses = data.statuses;
+          if (data.theme) this.state.theme = data.theme;
+          if (data.mode) this.state.mode = data.mode;
+          this.state.introDismissed = !!data.introDismissed;
+          
+          this.save();
+          resolve();
+        } catch (err) {
+          reject(err);
+        }
+      };
+      reader.onerror = reject;
+      reader.readAsText(file);
+    });
+  },
 };

@@ -22,12 +22,25 @@ const UI = {
     themeDropdownContainer: document.getElementById("theme-dropdown-container"),
     modeToggle: document.getElementById("mode-toggle"),
     introContainer: document.getElementById("intro-container"),
+    nextUpContainer: document.getElementById("next-up-container"),
+    exportBtn: document.getElementById("export-btn"),
+    importBtn: document.getElementById("import-btn"),
+    importInput: document.getElementById("import-input"),
   },
 
   render() {
+    if (document.startViewTransition) {
+      document.startViewTransition(() => this._doRender());
+    } else {
+      this._doRender();
+    }
+  },
+
+  _doRender() {
     this.updateTheme();
     this.updateHeaderState();
     this.renderIntro();
+    this.renderNextUp();
     this.updateControls();
     this.updateStats();
     this.renderList();
@@ -100,6 +113,20 @@ const UI = {
       this.els.introContainer.innerHTML = '';
       return;
     }
+  },
+
+  renderNextUp() {
+    if (!this.els.nextUpContainer) return;
+    
+    // Only show next up if intro is dismissed or if progress has started
+    const stats = Store.getStats();
+    if (!Store.state.introDismissed && stats.watched === 0 && stats.watching === 0) {
+      this.els.nextUpContainer.innerHTML = '';
+      return;
+    }
+
+    const nextItem = Store.getNextItem();
+    this.els.nextUpContainer.innerHTML = Templates.nextUp(nextItem);
   },
 
   updateTitle() {
@@ -194,6 +221,7 @@ const UI = {
     // Chunked rendering to avoid long main-thread tasks
     const CHUNK_SIZE = 20;
     let currentIdx = 0;
+    let lastPhase = null;
 
     this.els.listContainer.innerHTML = "";
     
@@ -202,8 +230,25 @@ const UI = {
       const end = Math.min(currentIdx + CHUNK_SIZE, filtered.length);
       
       for (let i = currentIdx; i < end; i++) {
+        const entry = filtered[i];
+        const parent = PARENTS[entry.parentKey];
+        const phase = parent?.phase || null;
+
+        // Show headers primarily in Release view
+        if (Store.state.view === "release" && phase && phase !== lastPhase) {
+          const headerHtml = Templates.groupHeader(phase);
+          if (headerHtml) {
+            const headerTemp = document.createElement('div');
+            headerTemp.innerHTML = headerHtml;
+            while (headerTemp.firstChild) {
+              fragment.appendChild(headerTemp.firstChild);
+            }
+          }
+          lastPhase = phase;
+        }
+
         const temp = document.createElement('div');
-        temp.innerHTML = Templates.entryRow(filtered[i], i);
+        temp.innerHTML = Templates.entryRow(entry, i);
         while (temp.firstChild) {
           fragment.appendChild(temp.firstChild);
         }
@@ -223,6 +268,17 @@ const UI = {
   },
 
 
+
+  scrollToTitle(id) {
+    const target = document.querySelector(`.entry-row[data-id="${id}"]`);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+      target.classList.add("highlight-pulse");
+      setTimeout(() => target.classList.remove("highlight-pulse"), 2000);
+      return true;
+    }
+    return false;
+  },
 
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });

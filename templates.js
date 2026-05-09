@@ -19,6 +19,20 @@ const ICONS = {
 };
 
 const Templates = {
+  getPoster(title, type) {
+    const initials = title.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+    const hash = title.split('').reduce((acc, char) => char.charCodeAt(0) + ((acc << 5) - acc), 0);
+    const h = Math.abs(hash % 360);
+    const s = 40 + (Math.abs(hash % 20));
+    const l = 30 + (Math.abs(hash % 20));
+    
+    return `
+      <div class="entry-poster" aria-hidden="true" style="background: linear-gradient(135deg, hsl(${h}, ${s}%, ${l}%), hsl(${(h+40)%360}, ${s}%, ${l-10}%))">
+        <span class="poster-initials">${initials}</span>
+      </div>
+    `;
+  },
+
   entryRow(entry, idx) {
     const parent = PARENTS[entry.parentKey];
     const status = Store.state.statuses[entry.parentKey] || null;
@@ -43,17 +57,20 @@ const Templates = {
                 style="--index: ${idx % 20}">
           <div class="seq-num">${seqFormatter.format(idx + 1)}</div>
           
-          <div class="type-badge" style="color: var(--type-${type}); border-color: color-mix(in srgb, var(--type-${type}), transparent calc(100% - (var(--badge-border-opacity) * 100%))); background: color-mix(in srgb, var(--type-${type}), transparent calc(100% - (var(--badge-bg-opacity) * 100%)))">
-            ${typeCfg.label}
-          </div>
+          ${this.getPoster(entry.title, type)}
 
           <div class="content">
             <h3 class="title">${entry.title}</h3>
             <div class="meta-row">
               ${entry.sub ? `<div class="meta-item">${typeIcon} ${entry.sub}</div>` : ""}
               ${entry.releaseDate ? `<div class="meta-item">${ICONS.calendar} ${dateFormatter.format(new Date(entry.releaseDate))}${entry.releaseNote ? ` · ${entry.releaseNote}` : ""}</div>` : ""}
+              ${parent?.runtime ? `<div class="meta-item"><svg class="icon-sm" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ${parent.runtime}</div>` : ""}
             </div>
             ${entry.note ? `<div class="note-txt" role="status"><span style="display: flex; align-items: center; width: 14px; height: 14px">${ICONS.warning}</span> ${entry.note}</div>` : ""}
+          </div>
+
+          <div class="type-badge" style="color: var(--type-${type}); border-color: color-mix(in srgb, var(--type-${type}), transparent calc(100% - (var(--badge-border-opacity) * 100%))); background: color-mix(in srgb, var(--type-${type}), transparent calc(100% - (var(--badge-bg-opacity) * 100%)))">
+            ${typeCfg.label}
           </div>
 
           <div class="status-wrap">
@@ -102,11 +119,35 @@ const Templates = {
       </button>
     ` : "";
 
+    const links = `
+      <div style="height: 1px; background: var(--border-default); margin: 6px 8px"></div>
+      <div class="dropdown-links">
+        <a href="${parent?.imdb || `https://www.imdb.com/find?q=${encodeURIComponent(parent?.title || '')}`}" target="_blank" class="dropdown-link imdb">View on IMDb</a>
+      </div>
+    `;
+
     return `
       <div class="dropdown open" id="dropdown-${id}" role="listbox">
         ${options}
         ${clearBtn}
+        ${links}
       </div>
+    `;
+  },
+
+  groupHeader(phaseId) {
+    const phase = PHASE_CONFIG[phaseId];
+    if (!phase) return "";
+    const saga = phase.saga ? SAGA_CONFIG[phase.saga] : null;
+
+    return `
+      <li class="group-header" data-phase="${phaseId}" style="${saga ? `--saga-color: ${saga.color}` : ""}">
+        <div class="group-header-content">
+          ${saga ? `<div class="saga-label">${saga.title}</div>` : ""}
+          <h2 class="phase-title">${phase.title}</h2>
+        </div>
+        <div class="group-divider"></div>
+      </li>
     `;
   },
 
@@ -217,6 +258,53 @@ const Templates = {
         </div>
         <div class="intro-footer">
           <p>Switch between views at any time using the <strong>Release</strong> and <strong>Chrono</strong> buttons in the top right.</p>
+        </div>
+      </section>
+    `;
+  },
+
+  nextUp(entry) {
+    if (!entry) {
+      return `
+        <section class="next-up-card all-caught-up" aria-labelledby="next-up-title">
+          <div class="next-up-container-inner" style="background: linear-gradient(135deg, var(--bg-surface) 0%, rgba(34, 197, 94, 0.05) 100%); border-color: var(--status-watched)">
+            <div class="next-up-badge" style="background: var(--status-watched); border-color: var(--status-watched); color: white">Achievement Unlocked</div>
+            <div class="next-up-content">
+              <div class="next-up-info">
+                <h2 id="next-up-title" class="next-up-title">You're All Caught Up!</h2>
+                <div class="next-up-meta">
+                  <span class="next-up-type">You've mastered the multiverse. Time for a re-watch?</span>
+                </div>
+              </div>
+              <div style="font-size: 3rem; filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.4))">🏆</div>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+    const parent = PARENTS[entry.parentKey];
+    const type = parent?.type || "movie";
+    const typeIcon = type === "movie" ? ICONS.movie : ICONS.series;
+    
+    return `
+      <section class="next-up-card" aria-labelledby="next-up-title">
+        <div class="next-up-container-inner">
+          <div class="next-up-badge">Next Up</div>
+          <div class="next-up-content">
+            ${this.getPoster(entry.title, type)}
+            <div class="next-up-info">
+              <h2 id="next-up-title" class="next-up-title">${entry.title}</h2>
+              <div class="next-up-meta">
+                <span class="next-up-type">${typeIcon} ${parent?.title || ""}</span>
+                ${entry.sub ? `<span class="next-up-sub">· ${entry.sub}</span>` : ""}
+                ${parent?.runtime ? `<span class="next-up-sub">· ${parent.runtime}</span>` : ""}
+              </div>
+            </div>
+            <button class="next-up-btn" data-action="scroll-to-entry" data-id="${entry.id}">
+              <span>Jump to Title</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
         </div>
       </section>
     `;

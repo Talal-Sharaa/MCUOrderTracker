@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en" style="color-scheme: dark">
     <head>
         <meta charset="UTF-8" />
@@ -5,6 +6,7 @@
         <title>MCU Watch Order – Ultimate Marvel Tracker</title>
         <meta name="description" content="The most complete Marvel Cinematic Universe watch order tracker. Track your progress through movies, series, and specials in release or chronological order with a clean, accessible interface." />
         <meta name="theme-color" content="#05070A" />
+        <link rel="manifest" href="manifest.json">
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -66,12 +68,12 @@
                 line-height: 0.85;
             }
         </style>
-        <link rel="stylesheet" href="style.css?v=1.0.1" />
-        <script src="data.js?v=1.0.1" defer></script>
-        <script src="store.js?v=1.0.1" defer></script>
-        <script src="templates.js?v=1.0.1" defer></script>
-        <script src="ui.js?v=1.0.1" defer></script>
-        <script src="controller.js?v=1.0.1" defer></script>
+        <link rel="stylesheet" href="style.css?v=1.0.2" />
+        <script src="data.js?v=1.0.2" defer></script>
+        <script src="store.js?v=1.0.2" defer></script>
+        <script src="templates.js?v=1.0.2" defer></script>
+        <script src="ui.js?v=1.0.2" defer></script>
+        <script src="controller.js?v=1.0.2" defer></script>
     </head>
 
     <body>
@@ -164,6 +166,15 @@
                                     <button class="filter-btn" data-type="series" role="option" aria-selected="false">Series</button>
                                 </div>
                             </div>
+                            <div class="settings-actions">
+                                <button id="export-btn" class="icon-btn" aria-label="Export Data" title="Export Progress">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                </button>
+                                <button id="import-btn" class="icon-btn" aria-label="Import Data" title="Import Progress">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                </button>
+                                <input type="file" id="import-input" style="display: none" accept=".json">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -217,6 +228,7 @@
                         </div>
                     </section>
                 </div>
+                <div id="next-up-container"></div>
                 <h2 id="list-heading" class="sr-only">Marvel Cinematic Universe Titles</h2>
                 <div id="results-announcer" class="sr-only" aria-live="polite"></div>
                 <ul id="list-container" aria-labelledby="list-heading"></ul>
