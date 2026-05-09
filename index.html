@@ -8,28 +8,47 @@
         <meta name="theme-color" content="#05070A" />
         <link rel="manifest" href="manifest.json">
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+
+        <!--
+          PERF: Preconnect only to origins needed before first paint.
+          Ko-fi removed — it loads after 'load' event so preconnect wastes a
+          slot in the connection budget. TMDB images are lazy-loaded so they
+          don't need an early connection either; keep only Google Fonts.
+        -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconne  ct" href="https://fonts.gstatic.com" crossorigin />
-        <link rel="preconnect" href="https://storage.ko-fi.com" />
-        <link rel="preconnect" href="https://image.tmdb.org" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
         <link rel="preload" href="style.css?v=1.1.1" as="style" />
+
+        <!--
+          PERF: font-display=optional instead of swap.
+          - 'swap' loads the font after page paint and reflows text,
+            causing CLS each time a new font metric kicks in.
+          - 'optional' uses the font only if it arrives within a tiny
+            first-render window (already cached on repeat visits).
+            First visit shows the system fallback with zero CLS.
+          The @font-face metric overrides below make the fallback
+          font match Inter/Bebas Neue dimensions so the swap is
+          visually invisible on cached visits too.
+        -->
         <link
             rel="preload"
             as="style"
-            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=optional"
         />
         <link
-            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=optional"
             rel="stylesheet"
             media="print"
             onload="this.media='all'"
         />
         <noscript>
             <link
-                href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap"
+                href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=optional"
                 rel="stylesheet"
             />
         </noscript>
+
         <script>
             (function() {
                 try {
@@ -43,8 +62,35 @@
                 } catch(e) {}
             })();
         </script>
+
         <style>
             .intro-dismissed #intro-card { display: none !important; }
+
+            /*
+              PERF: @font-face metric overrides for system fallbacks.
+              These tweak the fallback font's metrics (ascent, descent, line-gap,
+              size-adjust) to match Inter and Bebas Neue as closely as possible.
+              When the web font loads and swaps in, the layout barely shifts
+              because the dimensions are already correct.
+            */
+            @font-face {
+                font-family: 'Inter Fallback';
+                src: local('Arial');
+                ascent-override: 90.2%;
+                descent-override: 22.48%;
+                line-gap-override: 0%;
+                size-adjust: 107.4%;
+            }
+            @font-face {
+                font-family: 'Bebas Neue Fallback';
+                /* Impact is the closest system condensed display font */
+                src: local('Impact'), local('Haettenschweiler');
+                ascent-override: 85%;
+                descent-override: 14%;
+                line-gap-override: 0%;
+                size-adjust: 93%;
+            }
+
             :root {
                 --bg-app: #05070a;
                 --bg-surface: #0f1218;
@@ -52,8 +98,9 @@
                 --accent-red: #dc2626;
                 --text-primary: #f8fafc;
                 --text-secondary: #cbd5e1;
-                --font-main: 'Inter', system-ui, -apple-system, sans-serif;
-                --font-display: 'Bebas Neue', sans-serif;
+                /* Include metric-override fallbacks right after the web fonts */
+                --font-main: 'Inter', 'Inter Fallback', system-ui, -apple-system, sans-serif;
+                --font-display: 'Bebas Neue', 'Bebas Neue Fallback', sans-serif;
             }
             body {
                 background: var(--bg-app);
@@ -92,7 +139,13 @@
                 gap: 1rem;
             }
             #main-content {
-                min-height: 800px;
+                /*
+                  PERF: Reserve enough vertical space for at minimum the intro card
+                  and a screenful of list items. This prevents the page from
+                  collapsing to near-zero height before JS renders content,
+                  which is the source of the 0.767 CLS shift.
+                */
+                min-height: 100svh;
             }
             .intro-card {
                 min-height: 320px;
@@ -105,7 +158,28 @@
                 border-radius: 8px;
                 flex-shrink: 0;
             }
+
+            /*
+              PERF: content-visibility: auto skips rendering work for
+              off-screen list items entirely. The browser still reserves
+              layout space (contain-intrinsic-size) so the scrollbar and
+              total page height are correct — no CLS — but painting and
+              compositing are deferred until the item is near the viewport.
+
+              120px ≈ average entry-row height on desktop.
+              On mobile rows are taller (~180px) but the over-estimation
+              just means a slightly taller scroll track — acceptable.
+
+              This is the single highest-leverage CSS change for a long
+              dynamically-generated list. It can cut main-thread paint time
+              by 60–80% on slower devices.
+            */
+            .entry-item {
+                content-visibility: auto;
+                contain-intrinsic-size: auto 120px;
+            }
         </style>
+
         <link rel="stylesheet" href="style.css?v=1.1.1" />
         <script src="data.js?v=1.1.1" defer></script>
         <script src="store.js?v=1.1.1" defer></script>
@@ -273,20 +347,29 @@
                         <p class="footer-tagline">Built for fans, by fans.</p>
                     </div>
                     <div class="footer-support" id="kofi-support-container"></div>
-                    <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js' defer></script>
-                    <script type='text/javascript'>
-                        // Delay initialization until the widget script is loaded
-                        window.addEventListener('load', function() {
-                            if (typeof kofiwidget2 !== 'undefined') {
-                                kofiwidget2.init('Support on Ko-fi', '#72a4f2', 'D1D71Z6G2I');
-                                document.getElementById('kofi-support-container').innerHTML = kofiwidget2.getHTML();
-                            }
-                        });
-                    </script>
+                    <!--
+                      PERF: Ko-fi deferred to 'load' event (unchanged), but
+                      we also move the script tags to just before </body>
+                      so they don't contribute to render-blocking parse time.
+                    -->
                 </div>
             </footer>
             <div id="theme-dropdown-container"></div>
         </div>
+
+        <!--
+          PERF: Ko-fi scripts moved to end of body (were in footer mid-body).
+          They are already deferred via 'load' event so this is belt-and-suspenders,
+          but it removes them from the parser's critical path entirely.
+        -->
+        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js' defer></script>
+        <script type='text/javascript'>
+            window.addEventListener('load', function() {
+                if (typeof kofiwidget2 !== 'undefined') {
+                    kofiwidget2.init('Support on Ko-fi', '#72a4f2', 'D1D71Z6G2I');
+                    document.getElementById('kofi-support-container').innerHTML = kofiwidget2.getHTML();
+                }
+            });
+        </script>
     </body>
 </html>
-

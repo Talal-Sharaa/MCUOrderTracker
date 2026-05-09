@@ -1,5 +1,9 @@
 /**
  * UI LAYER (DOM MANIPULATION)
+ * Performance fixes:
+ * - Reserve list height BEFORE clearing to prevent CLS
+ * - Larger first chunk (40) for faster SI
+ * - RAF chunks for subsequent items only
  */
 
 const UI = {
@@ -153,7 +157,6 @@ const UI = {
       btn.href = '?' + params.toString();
 
       btn.classList.toggle("active", isActive);
-      // Accessibility: Use aria-current="page" for active navigation links
       if (isActive) {
         btn.setAttribute("aria-current", "page");
       } else {
@@ -209,6 +212,7 @@ const UI = {
     // Cancel any pending chunk rendering
     if (this._renderRaf) {
       cancelAnimationFrame(this._renderRaf);
+      this._renderRaf = null;
     }
 
     if (filtered.length === 0) {
@@ -219,24 +223,29 @@ const UI = {
 
     this.els.resultsAnnouncer.textContent = `Showing ${filtered.length}\u00A0titles.`;
 
-    // Reserve height for the list to minimize CLS during initial load
-    const currentHeight = this.els.listContainer.offsetHeight;
-    if (currentHeight > 0) {
-      this.els.listContainer.style.minHeight = `${currentHeight}px`;
-    } else if (this.els.listContainer.children.length === 0) {
-      this.els.listContainer.style.minHeight = "100vh";
-    }
+    // PERF FIX: Reserve estimated height BEFORE clearing innerHTML.
+    // This prevents the main CLS shift — without a reservation the browser
+    // collapses the container to 0px, then re-expands it as items are injected.
+    // Each group header is ~120px; each entry row ~100px on mobile, ~84px desktop.
+    const ROW_H = window.innerWidth <= 768 ? 180 : 120;
+    // Count approximate phase headers (only in release view)
+    const phases = Store.state.view === "release"
+      ? new Set(filtered.map(e => PARENTS[e.parentKey]?.phase)).size
+      : 0;
+    const estimatedHeight = (filtered.length * ROW_H) + (phases * 120) + 48;
+    this.els.listContainer.style.minHeight = `${estimatedHeight}px`;
 
-    // Chunked rendering to avoid long main-thread tasks
-    const CHUNK_SIZE = 20;
+    // Chunked rendering — larger first chunk so LCP content paints quickly
+    const FIRST_CHUNK = 40; // doubles the original 20-item first chunk → better Speed Index
+    const CHUNK_SIZE = 30;
     let currentIdx = 0;
     let lastPhase = null;
 
     this.els.listContainer.innerHTML = "";
     
-    const renderChunk = (isInitial = false) => {
+    const renderChunk = (chunkSize) => {
       const fragment = document.createDocumentFragment();
-      const end = Math.min(currentIdx + CHUNK_SIZE, filtered.length);
+      const end = Math.min(currentIdx + chunkSize, filtered.length);
       
       for (let i = currentIdx; i < end; i++) {
         const entry = filtered[i];
@@ -266,20 +275,17 @@ const UI = {
       currentIdx = end;
 
       if (currentIdx < filtered.length) {
-        if (isInitial) {
-           // If we just rendered the first chunk synchronously, start the RAF loop for the rest
-           this._renderRaf = requestAnimationFrame(() => renderChunk(false));
-        } else {
-           this._renderRaf = requestAnimationFrame(() => renderChunk(false));
-        }
+        this._renderRaf = requestAnimationFrame(() => renderChunk(CHUNK_SIZE));
       } else {
         this._renderRaf = null;
-        this.els.listContainer.style.minHeight = ""; // Reset min-height when done
+        // PERF FIX: Clear reserved height only after all items are rendered
+        // so the browser never has to re-layout the page upward.
+        this.els.listContainer.style.minHeight = "";
       }
     };
 
-    // Render first chunk synchronously to improve FCP/LCP and reduce initial shift
-    renderChunk(true);
+    // First chunk rendered synchronously for FCP/LCP
+    renderChunk(FIRST_CHUNK);
   },
 
   scrollToTitle(id) {
