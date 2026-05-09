@@ -93,6 +93,15 @@ const UI = {
 
     if (this.els.themeDropdownContainer) {
         this.els.themeDropdownContainer.innerHTML = isThemeOpen ? Templates.themeDropdown() : '';
+        if (isThemeOpen && window.innerWidth > 768 && this.els.themeToggle) {
+            const dropdown = document.getElementById('theme-dropdown');
+            if (dropdown) {
+                const btnRect = this.els.themeToggle.getBoundingClientRect();
+                dropdown.style.position = 'fixed';
+                dropdown.style.top = `${btnRect.bottom + 8}px`;
+                dropdown.style.right = `${window.innerWidth - btnRect.right}px`;
+            }
+        }
     }
   },
 
