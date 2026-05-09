@@ -87,7 +87,7 @@ const Controller = {
             if (!isOpen) {
                 group.classList.add('open');
                 const firstOption = group.querySelector('.filter-btn');
-                if (firstOption) firstOption.focus();
+                if (firstOption) firstOption.focus({ preventScroll: true });
             }
             UI.updateControls();
         });
@@ -196,7 +196,7 @@ const Controller = {
           const dropdown = document.getElementById(`dropdown-${id}`);
           if (dropdown) {
             const firstOption = dropdown.querySelector('button');
-            if (firstOption) firstOption.focus();
+            if (firstOption) firstOption.focus({ preventScroll: true });
           }
         }
       } else if (statusBtn) {
@@ -228,13 +228,13 @@ const Controller = {
                 Store.state.openId = null;
                 UI.renderList();
                 const btn = document.querySelector(`.entry-row[data-id="${id}"]`);
-                if (btn) btn.focus();
+                if (btn) btn.focus({ preventScroll: true });
             }
             UI.els.filterGroups.forEach(g => {
                 if (g.classList.contains('open')) {
                     g.classList.remove('open');
                     const trigger = g.querySelector('.filter-trigger');
-                    if (trigger) trigger.focus();
+                    if (trigger) trigger.focus({ preventScroll: true });
                 }
             });
             UI.updateControls();
@@ -250,17 +250,17 @@ const Controller = {
         if (e.key === "ArrowDown") {
             e.preventDefault();
             const nextIndex = (currentIndex + 1) % options.length;
-            options[nextIndex].focus();
+            options[nextIndex].focus({ preventScroll: true });
         } else if (e.key === "ArrowUp") {
             e.preventDefault();
             const prevIndex = (currentIndex - 1 + options.length) % options.length;
-            options[prevIndex].focus();
+            options[prevIndex].focus({ preventScroll: true });
         } else if (e.key === "Home") {
             e.preventDefault();
-            options[0].focus();
+            options[0].focus({ preventScroll: true });
         } else if (e.key === "End") {
             e.preventDefault();
-            options[options.length - 1].focus();
+            options[options.length - 1].focus({ preventScroll: true });
         }
     });
 

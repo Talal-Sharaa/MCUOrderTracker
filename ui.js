@@ -223,7 +223,10 @@ const UI = {
     this.els.resultsAnnouncer.textContent = `Showing ${filtered.length}\u00A0titles.`;
 
     // Reserve height for the list to minimize CLS during initial load
-    if (this.els.listContainer.children.length === 0) {
+    const currentHeight = this.els.listContainer.offsetHeight;
+    if (currentHeight > 0) {
+      this.els.listContainer.style.minHeight = `${currentHeight}px`;
+    } else if (this.els.listContainer.children.length === 0) {
       this.els.listContainer.style.minHeight = "100vh";
     }
 
