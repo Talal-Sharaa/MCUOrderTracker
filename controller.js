@@ -50,7 +50,12 @@ const Controller = {
 
           if (Store.state.openId === 'theme-selector') {
             const dropdown = document.getElementById('theme-dropdown');
-            if (dropdown) dropdown.querySelector('button').focus();
+            if (dropdown) {
+              const btn = dropdown.querySelector('button');
+              if (btn && window.innerWidth > 768) {
+                btn.focus({ preventScroll: true });
+              }
+            }
           }
         });
     }
