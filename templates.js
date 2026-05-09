@@ -218,7 +218,7 @@ const Templates = {
       .join("");
 
     return `
-      <div class="theme-dropdown-wrapper" style="position: fixed; inset: 0; z-index: 1000; pointer-events: none; overflow: hidden; transform: translateZ(0);">
+      <div class="theme-dropdown-wrapper" style="position: fixed; inset: 0; z-index: 1000; pointer-events: none; overflow: hidden;">
         <div class="dropdown theme-dropdown open" id="theme-dropdown" role="listbox" style="pointer-events: auto;">
           <div class="mobile-handle" aria-hidden="true"></div>
           <div class="dropdown-header">Select Interface Theme</div>

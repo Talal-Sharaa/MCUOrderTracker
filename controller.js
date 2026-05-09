@@ -208,6 +208,7 @@ const Controller = {
       } else if (themeBtn) {
         e.stopPropagation();
         Store.setTheme(themeBtn.dataset.theme);
+        Store.state.openId = null; // Close dropdown after selection
         UI.updateTheme();
       } else if (toggleRow) {
         e.stopPropagation();
