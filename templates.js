@@ -27,7 +27,7 @@ const Templates = {
     const l = 30 + (Math.abs(hash % 20));
     
     const imgHtml = posterPath 
-      ? `<img src="https://image.tmdb.org/t/p/w200${posterPath}" alt="" class="poster-img" loading="lazy" onerror="this.style.display='none'">` 
+      ? `<img src="https://image.tmdb.org/t/p/w154${posterPath}" alt="" class="poster-img" width="60" height="90" loading="lazy" onerror="this.style.display='none'">` 
       : '';
 
     return `

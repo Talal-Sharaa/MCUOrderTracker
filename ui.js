@@ -30,7 +30,12 @@ const UI = {
 
   render() {
     if (document.startViewTransition) {
-      document.startViewTransition(() => this._doRender());
+      try {
+        const transition = document.startViewTransition(() => this._doRender());
+        transition.ready.catch(() => {}); // Suppress aborted transition errors
+      } catch (e) {
+        this._doRender();
+      }
     } else {
       this._doRender();
     }

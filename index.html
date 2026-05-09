@@ -44,6 +44,7 @@
                 color: var(--text-primary);
                 font-family: var(--font-main);
                 margin: 0;
+                min-height: 100vh;
             }
             #header {
                 position: sticky;
@@ -53,6 +54,7 @@
                 backdrop-filter: blur(16px);
                 border-bottom: 1px solid #1e293b;
                 padding: 1.5rem 1rem 1rem;
+                min-height: 140px;
             }
             .header-top {
                 max-width: 1200px;
@@ -67,13 +69,33 @@
                 margin: 0;
                 line-height: 0.85;
             }
+            #stats {
+                min-height: 125px;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 1rem;
+            }
+            #main-content {
+                min-height: 800px;
+            }
+            .intro-card {
+                min-height: 320px;
+            }
+            .entry-poster {
+                width: 60px;
+                height: 90px;
+                aspect-ratio: 2 / 3;
+                background: #161b22;
+                border-radius: 8px;
+                flex-shrink: 0;
+            }
         </style>
-        <link rel="stylesheet" href="style.css?v=1.0.2" />
-        <script src="data.js?v=1.0.2" defer></script>
-        <script src="store.js?v=1.0.2" defer></script>
-        <script src="templates.js?v=1.0.2" defer></script>
-        <script src="ui.js?v=1.0.2" defer></script>
-        <script src="controller.js?v=1.0.2" defer></script>
+        <link rel="stylesheet" href="style.css?v=1.1.1" />
+        <script src="data.js?v=1.1.1" defer></script>
+        <script src="store.js?v=1.1.1" defer></script>
+        <script src="templates.js?v=1.1.1" defer></script>
+        <script src="ui.js?v=1.1.1" defer></script>
+        <script src="controller.js?v=1.1.1" defer></script>
     </head>
 
     <body>
