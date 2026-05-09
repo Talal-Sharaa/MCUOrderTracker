@@ -203,6 +203,7 @@ const Controller = {
           setTimeout(() => {
             const container = document.getElementById('intro-container');
             if (container) container.innerHTML = '';
+            UI.renderNextUp();
           }, 300);
         } else {
           const container = document.getElementById('intro-container');
