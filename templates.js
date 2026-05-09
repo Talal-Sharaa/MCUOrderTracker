@@ -19,15 +19,20 @@ const ICONS = {
 };
 
 const Templates = {
-  getPoster(title, type) {
+  getPoster(title, type, posterPath) {
     const initials = title.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
     const hash = title.split('').reduce((acc, char) => char.charCodeAt(0) + ((acc << 5) - acc), 0);
     const h = Math.abs(hash % 360);
     const s = 40 + (Math.abs(hash % 20));
     const l = 30 + (Math.abs(hash % 20));
     
+    const imgHtml = posterPath 
+      ? `<img src="https://image.tmdb.org/t/p/w200${posterPath}" alt="" class="poster-img" loading="lazy" onerror="this.style.display='none'">` 
+      : '';
+
     return `
       <div class="entry-poster" aria-hidden="true" style="background: linear-gradient(135deg, hsl(${h}, ${s}%, ${l}%), hsl(${(h+40)%360}, ${s}%, ${l-10}%))">
+        ${imgHtml}
         <span class="poster-initials">${initials}</span>
       </div>
     `;
@@ -57,7 +62,7 @@ const Templates = {
                 style="--index: ${idx % 20}">
           <div class="seq-num">${seqFormatter.format(idx + 1)}</div>
           
-          ${this.getPoster(entry.title, type)}
+          ${this.getPoster(entry.title, type, parent?.poster)}
 
           <div class="content">
             <h3 class="title">${entry.title}</h3>
@@ -291,7 +296,7 @@ const Templates = {
         <div class="next-up-container-inner">
           <div class="next-up-badge">Next Up</div>
           <div class="next-up-content">
-            ${this.getPoster(entry.title, type)}
+            ${this.getPoster(entry.title, type, parent?.poster)}
             <div class="next-up-info">
               <h2 id="next-up-title" class="next-up-title">${entry.title}</h2>
               <div class="next-up-meta">

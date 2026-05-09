@@ -987,6 +987,17 @@ body:not(.light-mode) .filter-options {
     border: 1px solid var(--border-default);
     position: relative;
     overflow: hidden;
+    background-color: var(--bg-surface);
+}
+
+.poster-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+    transition: opacity 0.3s ease;
 }
 
 .poster-initials {
