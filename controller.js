@@ -195,7 +195,19 @@ const Controller = {
         UI.render();
       } else if (dismissIntroBtn) {
         Store.dismissIntro();
-        UI.render();
+        const introSection = document.querySelector('.intro-card');
+        if (introSection) {
+          introSection.style.transition = 'opacity 300ms ease, transform 300ms ease';
+          introSection.style.opacity = '0';
+          introSection.style.transform = 'translateY(-20px) scale(0.98)';
+          setTimeout(() => {
+            const container = document.getElementById('intro-container');
+            if (container) container.innerHTML = '';
+          }, 300);
+        } else {
+          const container = document.getElementById('intro-container');
+          if (container) container.innerHTML = '';
+        }
       } else if (scrollToEntryBtn) {
         const id = scrollToEntryBtn.dataset.id;
         const isVisible = Store.getFilteredList().some(e => e.id === id);
