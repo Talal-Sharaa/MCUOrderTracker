@@ -56,6 +56,7 @@ const UI = {
   updateTheme() {
     const theme = Store.state.theme;
     const mode = Store.state.mode;
+    const isThemeOpen = Store.state.openId === 'theme-selector';
 
     // Remove all theme classes and add the current one
     Object.keys(THEMES).forEach(t => document.body.classList.remove(`theme-${t}`));
@@ -82,33 +83,13 @@ const UI = {
     }
 
     // Render theme dropdown if open
-    const isThemeOpen = Store.state.openId === 'theme-selector';
-    document.body.classList.toggle('no-scroll', isThemeOpen);
-
     if (this.els.themeToggle) {
-      this.els.themeToggle.setAttribute('aria-expanded', isThemeOpen);
-      this.els.themeToggle.classList.toggle('active', isThemeOpen);
+        this.els.themeToggle.setAttribute('aria-expanded', isThemeOpen);
+        this.els.themeToggle.classList.toggle('active', isThemeOpen);
     }
-    
+
     if (this.els.themeDropdownContainer) {
-      if (isThemeOpen) {
-        this.els.themeDropdownContainer.innerHTML = Templates.themeDropdown();
-        
-        // Dynamic positioning for desktop dropdown mode
-        if (window.innerWidth > 768 && this.els.themeToggle) {
-            const dropdown = document.getElementById('theme-dropdown');
-            if (dropdown) {
-                const rect = this.els.themeToggle.getBoundingClientRect();
-                dropdown.style.position = 'fixed';
-                dropdown.style.top = `${rect.bottom + 12}px`;
-                dropdown.style.right = `${window.innerWidth - rect.right}px`;
-                dropdown.style.left = 'auto';
-                dropdown.style.bottom = 'auto';
-            }
-        }
-      } else {
-        this.els.themeDropdownContainer.innerHTML = '';
-      }
+        this.els.themeDropdownContainer.innerHTML = isThemeOpen ? Templates.themeDropdown() : '';
     }
   },
 
@@ -118,6 +99,7 @@ const UI = {
       this.els.introContainer.innerHTML = '';
       return;
     }
+    this.els.introContainer.innerHTML = Templates.intro();
   },
 
   renderNextUp() {
@@ -162,7 +144,12 @@ const UI = {
       btn.href = '?' + params.toString();
 
       btn.classList.toggle("active", isActive);
-      btn.setAttribute("aria-pressed", isActive);
+      // Accessibility: Use aria-current="page" for active navigation links
+      if (isActive) {
+        btn.setAttribute("aria-current", "page");
+      } else {
+        btn.removeAttribute("aria-current");
+      }
     });
 
     // Status Filters
@@ -223,6 +210,11 @@ const UI = {
 
     this.els.resultsAnnouncer.textContent = `Showing ${filtered.length}\u00A0titles.`;
 
+    // Reserve height for the list to minimize CLS during initial load
+    if (this.els.listContainer.children.length === 0) {
+      this.els.listContainer.style.minHeight = "100vh";
+    }
+
     // Chunked rendering to avoid long main-thread tasks
     const CHUNK_SIZE = 20;
     let currentIdx = 0;
@@ -230,7 +222,7 @@ const UI = {
 
     this.els.listContainer.innerHTML = "";
     
-    const renderChunk = () => {
+    const renderChunk = (isInitial = false) => {
       const fragment = document.createDocumentFragment();
       const end = Math.min(currentIdx + CHUNK_SIZE, filtered.length);
       
@@ -239,7 +231,6 @@ const UI = {
         const parent = PARENTS[entry.parentKey];
         const phase = parent?.phase || null;
 
-        // Show headers primarily in Release view
         if (Store.state.view === "release" && phase && phase !== lastPhase) {
           const headerHtml = Templates.groupHeader(phase);
           if (headerHtml) {
@@ -263,16 +254,21 @@ const UI = {
       currentIdx = end;
 
       if (currentIdx < filtered.length) {
-        this._renderRaf = requestAnimationFrame(renderChunk);
+        if (isInitial) {
+           // If we just rendered the first chunk synchronously, start the RAF loop for the rest
+           this._renderRaf = requestAnimationFrame(() => renderChunk(false));
+        } else {
+           this._renderRaf = requestAnimationFrame(() => renderChunk(false));
+        }
       } else {
         this._renderRaf = null;
+        this.els.listContainer.style.minHeight = ""; // Reset min-height when done
       }
     };
 
-    renderChunk();
+    // Render first chunk synchronously to improve FCP/LCP and reduce initial shift
+    renderChunk(true);
   },
-
-
 
   scrollToTitle(id) {
     const target = document.querySelector(`.entry-row[data-id="${id}"]`);

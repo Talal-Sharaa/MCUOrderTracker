@@ -11,6 +11,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link rel="preconnect" href="https://storage.ko-fi.com" />
+        <link rel="preconnect" href="https://image.tmdb.org" />
+        <link rel="preload" href="style.css?v=1.1.1" as="style" />
         <link
             rel="preload"
             as="style"
@@ -28,7 +30,21 @@
                 rel="stylesheet"
             />
         </noscript>
+        <script>
+            (function() {
+                try {
+                    const raw = localStorage.getItem("mcu-tracker-v1");
+                    if (raw) {
+                        const data = JSON.parse(raw);
+                        if (data.introDismissed) {
+                            document.documentElement.classList.add('intro-dismissed');
+                        }
+                    }
+                } catch(e) {}
+            })();
+        </script>
         <style>
+            .intro-dismissed #intro-card { display: none !important; }
             :root {
                 --bg-app: #05070a;
                 --bg-surface: #0f1218;
@@ -112,6 +128,7 @@
                             <button id="theme-toggle" class="icon-btn" aria-label="Open theme selector" aria-haspopup="listbox" aria-expanded="false" aria-controls="theme-dropdown">
                                 <svg width="20" height="20" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.07,118.81A104,104,0,1,0,101.52,231.8c.85.08,1.72.12,2.59.12a20.06,20.06,0,0,0,20-20,19.86,19.86,0,0,0-5.83-14.12,12,12,0,0,1,8.44-20.48H160a72.08,72.08,0,0,0,72-72,11.83,11.83,0,0,0-2.93-8.59ZM84,104a12,12,0,1,1,12,12A12,12,0,0,1,84,104Zm44-48a12,12,0,1,1,12,12A12,12,0,0,1,128,56Zm48,48a12,12,0,1,1,12,12A12,12,0,0,1,176,104Z"/></svg>
                             </button>
+                            <div id="theme-dropdown-container"></div>
                         </div>
                         <button id="mode-toggle" class="icon-btn" aria-label="Toggle light/dark mode">
                             <!-- Icon injected by UI.js -->
@@ -120,10 +137,10 @@
                             <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><path d="m18 15-6-6-6 6"/></g></svg>
                         </button>
                         <nav class="view-toggle" aria-label="Order view">
-                            <a href="?view=release" class="toggle-btn active" data-view="release" role="button" aria-pressed="true">
+                            <a href="?view=release" class="toggle-btn active" data-view="release" aria-current="page">
                                 Release
                             </a>
-                            <a href="?view=chrono" class="toggle-btn" data-view="chrono" role="button" aria-pressed="false">
+                            <a href="?view=chrono" class="toggle-btn" data-view="chrono">
                                 Chrono
                             </a>
                         </nav>
@@ -147,6 +164,7 @@
                                     name="search"
                                     placeholder="Search titles (e.g. Iron Man)…"
                                     spellcheck="false"
+                                    autocomplete="off"
                                     inputmode="search"
                                     enterkeyhint="search"
                                 />
@@ -190,10 +208,10 @@
                             </div>
                             <div class="settings-actions">
                                 <button id="export-btn" class="icon-btn" aria-label="Export Data" title="Export Progress">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                                 </button>
                                 <button id="import-btn" class="icon-btn" aria-label="Import Data" title="Import Progress">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                                 </button>
                                 <input type="file" id="import-input" style="display: none" accept=".json">
                             </div>
@@ -204,17 +222,6 @@
 
             <main id="main-content">
                 <div id="intro-container">
-                    <script>
-                        try {
-                            const raw = localStorage.getItem("mcu-tracker-v1");
-                            if (raw) {
-                                const data = JSON.parse(raw);
-                                if (data.introDismissed) {
-                                    document.write('<style>#intro-card { display: none; }</style>');
-                                }
-                            }
-                        } catch(e) {}
-                    </script>
                     <section id="intro-card" class="intro-card" aria-labelledby="intro-title">
                         <div class="intro-header">
                             <div class="intro-title-group">
@@ -228,7 +235,7 @@
                         <div class="intro-grid">
                             <div class="intro-option">
                                 <div class="option-icon release">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
                                 </div>
                                 <div class="option-content">
                                     <h3>Release Order</h3>
@@ -237,7 +244,7 @@
                             </div>
                             <div class="intro-option">
                                 <div class="option-icon chrono">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                                 </div>
                                 <div class="option-content">
                                     <h3>Chronological Order</h3>
@@ -280,6 +287,5 @@
                 </div>
             </footer>
         </div>
-        <div id="theme-dropdown-container"></div>
     </body>
 </html>

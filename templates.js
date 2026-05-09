@@ -27,7 +27,7 @@ const Templates = {
     const l = 30 + (Math.abs(hash % 20));
     
     const imgHtml = posterPath 
-      ? `<img src="https://image.tmdb.org/t/p/w154${posterPath}" alt="" class="poster-img" width="60" height="90" loading="lazy" onerror="this.style.display='none'">` 
+      ? `<img src="https://image.tmdb.org/t/p/w154${posterPath}" alt="${title} poster" class="poster-img" width="60" height="90" loading="lazy" onerror="this.style.display='none'">` 
       : '';
 
     return `
@@ -276,7 +276,7 @@ const Templates = {
             <div class="next-up-badge" style="background: var(--status-watched); border-color: var(--status-watched); color: white">Achievement Unlocked</div>
             <div class="next-up-content">
               <div class="next-up-info">
-                <h2 id="next-up-title" class="next-up-title">You're All Caught Up!</h2>
+                <h2 id="next-up-title" class="next-up-title">You’re All Caught Up!</h2>
                 <div class="next-up-meta">
                   <span class="next-up-type">You've mastered the multiverse. Time for a re-watch?</span>
                 </div>
