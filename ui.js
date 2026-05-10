@@ -112,6 +112,13 @@ const UI = {
       this.els.introContainer.innerHTML = '';
       return;
     }
+    /*
+      PERF/CLS: On the first render the static intro card from index.html
+      already matches Templates.intro() output. Re-writing innerHTML throws
+      away the laid-out DOM and forces a reflow with a fresh slide-in
+      animation. Skip the rewrite if we already have a populated intro card.
+    */
+    if (this.els.introContainer.querySelector('.intro-card')) return;
     this.els.introContainer.innerHTML = Templates.intro();
   },
 

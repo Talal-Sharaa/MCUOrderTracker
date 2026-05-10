@@ -1,13 +1,13 @@
-const CACHE_NAME = 'mcu-tracker-v1.1.1';
+const CACHE_NAME = 'mcu-tracker-v1.1.2';
 const ASSETS = [
   './',
   './index.html',
-  './style.css?v=1.1.1',
-  './data.js?v=1.1.1',
-  './store.js?v=1.1.1',
-  './templates.js?v=1.1.1',
-  './ui.js?v=1.1.1',
-  './controller.js?v=1.1.1',
+  './style.css?v=1.1.2',
+  './data.js?v=1.1.2',
+  './store.js?v=1.1.2',
+  './templates.js?v=1.1.2',
+  './ui.js?v=1.1.2',
+  './controller.js?v=1.1.2',
   './manifest.json',
   './assets/favicon.ico'
 ];

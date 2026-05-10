@@ -18,7 +18,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-        <link rel="preload" href="style.css?v=1.1.1" as="style" />
+        <link rel="preload" href="style.css?v=1.1.2" as="style" />
 
         <!--
           PERF: font-display=optional instead of swap.
@@ -133,10 +133,21 @@
                 line-height: 0.85;
             }
             #stats {
-                min-height: 125px;
+                /*
+                  PERF/CLS: Reserve real height for the stats grid on every
+                  breakpoint. On mobile the grid renders 3 stat cards in a
+                  2-col layout + a full-width progress card → ~270px tall.
+                  Without this reservation, the empty grid starts at 0px
+                  and the sticky header pops by ~260px when JS fills it,
+                  pushing <main> down (the 0.767 CLS shift on Lighthouse).
+                */
+                min-height: 270px;
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
                 gap: 1rem;
+            }
+            @media (min-width: 769px) {
+                #stats { min-height: 125px; }
             }
             #main-content {
                 /*
@@ -146,6 +157,10 @@
                   which is the source of the 0.767 CLS shift.
                 */
                 min-height: 100svh;
+            }
+            /* PERF/CLS: Reserve height for the list before JS runs. */
+            #list-container {
+                min-height: 100vh;
             }
             .intro-card {
                 min-height: 320px;
@@ -180,12 +195,12 @@
             }
         </style>
 
-        <link rel="stylesheet" href="style.css?v=1.1.1" />
-        <script src="data.js?v=1.1.1" defer></script>
-        <script src="store.js?v=1.1.1" defer></script>
-        <script src="templates.js?v=1.1.1" defer></script>
-        <script src="ui.js?v=1.1.1" defer></script>
-        <script src="controller.js?v=1.1.1" defer></script>
+        <link rel="stylesheet" href="style.css?v=1.1.2" />
+        <script src="data.js?v=1.1.2" defer></script>
+        <script src="store.js?v=1.1.2" defer></script>
+        <script src="templates.js?v=1.1.2" defer></script>
+        <script src="ui.js?v=1.1.2" defer></script>
+        <script src="controller.js?v=1.1.2" defer></script>
     </head>
 
     <body>
