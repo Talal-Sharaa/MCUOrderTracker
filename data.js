@@ -38,7 +38,7 @@ const PARENTS = {
     phase: 1,
     saga: "infinity",
     runtime: "115 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt0800369/",
   },
   "cap-1": {
     poster: "/vSNxAJTlD0r02V9sPYpOjqDZXUK.jpg",
@@ -47,7 +47,7 @@ const PARENTS = {
     phase: 1,
     saga: "infinity",
     runtime: "124 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt0458339/",
   },
   avengers: {
     poster: "/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg",
@@ -56,7 +56,7 @@ const PARENTS = {
     phase: 1,
     saga: "infinity",
     runtime: "143 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt0848228/",
   },
   "iron-man-3": {
     poster: "/qhPtAc1TKbMPqNvcdXSOn9Bn7hZ.jpg",
@@ -65,7 +65,7 @@ const PARENTS = {
     phase: 2,
     saga: "infinity",
     runtime: "130 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt1300854/",
   },
   "thor-dark-world": {
     poster: "/wp6OxE4poJ4G7c0U2ZIXasTSMR7.jpg",
@@ -74,7 +74,7 @@ const PARENTS = {
     phase: 2,
     saga: "infinity",
     runtime: "112 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt1981115/",
   },
   "cap-winter-soldier": {
     poster: "/tVFRpFw3xTedgPGqxW0AOI8Qhh0.jpg",
@@ -83,7 +83,7 @@ const PARENTS = {
     phase: 2,
     saga: "infinity",
     runtime: "136 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt1843866/",
   },
   "guardians-1": {
     poster: "/r7vmZjiyZw9rpJMQJdXpjgiCOk9.jpg",
@@ -92,7 +92,7 @@ const PARENTS = {
     phase: 2,
     saga: "infinity",
     runtime: "121 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt2015381/",
   },
   "age-of-ultron": {
     poster: "/4ssDuvEDkSArWEdyBl2X5EHvYKU.jpg",
@@ -101,7 +101,7 @@ const PARENTS = {
     phase: 2,
     saga: "infinity",
     runtime: "141 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt2395427/",
   },
   "ant-man": {
     poster: "/rQRnQfUl3kfp78nCWq8Ks04vnq1.jpg",
@@ -110,7 +110,7 @@ const PARENTS = {
     phase: 2,
     saga: "infinity",
     runtime: "117 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt0478970/",
   },
   "cap-civil-war": {
     poster: "/rAGiXaUfPzY7CDEyNKUofk3Kw2e.jpg",
@@ -119,7 +119,7 @@ const PARENTS = {
     phase: 3,
     saga: "infinity",
     runtime: "147 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt3498820/",
   },
   "doctor-strange": {
     poster: "/xf8PbyQcR5ucXErmZNzdKR0s8ya.jpg",
@@ -128,7 +128,7 @@ const PARENTS = {
     phase: 3,
     saga: "infinity",
     runtime: "115 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt1211837/",
   },
   "guardians-2": {
     poster: "/y4MBh0EjBlMuOzv9axM4qJlmhzz.jpg",
@@ -137,7 +137,7 @@ const PARENTS = {
     phase: 3,
     saga: "infinity",
     runtime: "136 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt3896198/",
   },
   "spider-man-homecoming": {
     poster: "/c24sv2weTHPsmDa7jEMN0m2P3RT.jpg",
@@ -146,7 +146,7 @@ const PARENTS = {
     phase: 3,
     saga: "infinity",
     runtime: "133 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt2250912/",
   },
   "thor-ragnarok": {
     poster: "/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg",
@@ -155,7 +155,7 @@ const PARENTS = {
     phase: 3,
     saga: "infinity",
     runtime: "130 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt3501632/",
   },
   "black-panther": {
     poster: "/uxzzxijgPIY7slzFvMotPv8wjKA.jpg",
@@ -164,7 +164,7 @@ const PARENTS = {
     phase: 3,
     saga: "infinity",
     runtime: "134 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt1825683/",
   },
   "infinity-war": {
     poster: "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
@@ -173,7 +173,7 @@ const PARENTS = {
     phase: 3,
     saga: "infinity",
     runtime: "149 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt4154756/",
   },
   "ant-man-wasp": {
     poster: "/2mnK5VtjzYRWvQB1zLhZWtAJwzk.jpg",
@@ -182,7 +182,7 @@ const PARENTS = {
     phase: 3,
     saga: "infinity",
     runtime: "118 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt5095030/",
   },
   "captain-marvel": {
     poster: "/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg",
@@ -191,7 +191,7 @@ const PARENTS = {
     phase: 3,
     saga: "infinity",
     runtime: "123 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt4154664/",
   },
   endgame: {
     poster: "/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",
@@ -200,7 +200,7 @@ const PARENTS = {
     phase: 3,
     saga: "infinity",
     runtime: "181 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt4154796/",
   },
   "spider-man-ffh": {
     poster: "/4q2NNj4S5dG2RLF9CpXsej7yXl.jpg",
@@ -209,7 +209,7 @@ const PARENTS = {
     phase: 3,
     saga: "infinity",
     runtime: "129 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt6320628/",
   },
   "black-widow": {
     poster: "/7JPpIjhD2V0sKyFvhB9khUMa30d.jpg",
@@ -218,7 +218,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "134 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt3480822/",
   },
   "shang-chi": {
     poster: "/9f2Q0U3IOsLgrI2HkvldwSABZy5.jpg",
@@ -227,7 +227,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "132 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt9376612/",
   },
   eternals: {
     poster: "/lFByFSLV5WDJEv3KabbdAF959F2.jpg",
@@ -236,7 +236,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "156 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt9032400/",
   },
   "spider-man-nwh": {
     poster: "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
@@ -245,7 +245,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "148 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt10872600/",
   },
   "doctor-strange-2": {
     poster: "/ddJcSKbcp4rKZTmuyWaMhuwcfMz.jpg",
@@ -254,7 +254,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "126 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt9419884/",
   },
   "thor-love-thunder": {
     poster: "/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg",
@@ -263,7 +263,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "118 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt10648342/",
   },
   "bp-wakanda-forever": {
     poster: "/sv1xJUazXeYqALzczSZ3O6nkH75.jpg",
@@ -272,7 +272,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "161 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt9114286/",
   },
   "ant-man-quantumania": {
     poster: "/qnqGbB22YJ7dSs4o6M7exTpNxPz.jpg",
@@ -281,7 +281,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "124 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt10954600/",
   },
   "guardians-3": {
     poster: "/r2J02Z2OpNTctfOSN1Ydgii51I3.jpg",
@@ -290,7 +290,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "150 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt6791350/",
   },
   marvels: {
     poster: "/9GBhzXMFjgcZ3FdR9w3bUMMTps5.jpg",
@@ -299,7 +299,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "105 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt10676048/",
   },
   "deadpool-wolverine": {
     poster: "/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
@@ -308,7 +308,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "128 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt6263850/",
   },
   "cap-brave-new-world": {
     poster: "/pzIddUEMWhWzfvLI3TwxUG2wGoi.jpg",
@@ -317,7 +317,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "TBD",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt14513804/",
   },
   thunderbolts: {
     poster: "/hqcexYHbiTBfDIdDWxrxPtVndBX.jpg",
@@ -326,7 +326,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "TBD",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt20969586/",
   },
   "fantastic-four": {
     poster: "/abqOz6EL3yXyOOafCPZxjL1M5bQ.jpg",
@@ -335,7 +335,7 @@ const PARENTS = {
     phase: 6,
     saga: "multiverse",
     runtime: "TBD",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt10676052/",
   },
   "the-consultant": {
     poster: "/8ldbDrhGwvdro1hj63AUzzskOGa.jpg",
@@ -344,7 +344,7 @@ const PARENTS = {
     phase: 1,
     saga: "infinity",
     runtime: "4 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt2011118/",
   },
   "thor-hammer-oneshot": {
     poster: "/ugrdgmZlSuiavH0NFurhlUPIRD0.jpg",
@@ -353,7 +353,7 @@ const PARENTS = {
     phase: 1,
     saga: "infinity",
     runtime: "4 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt2011109/",
   },
   "item-47": {
     poster: "/hnSxG8clwLuAXEkp9emc8HCUcHD.jpg",
@@ -362,7 +362,7 @@ const PARENTS = {
     phase: 1,
     saga: "infinity",
     runtime: "12 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt2247732/",
   },
   "agent-carter-oneshot": {
     poster: "/4vFKKWPvCVDJTOWiwReBfpAMScP.jpg",
@@ -371,7 +371,7 @@ const PARENTS = {
     phase: 2,
     saga: "infinity",
     runtime: "15 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt3067038/",
   },
   "all-hail-king": {
     poster: "/ydYH8Rv5KbL2WtBJjj79RpR3wQp.jpg",
@@ -380,7 +380,7 @@ const PARENTS = {
     phase: 2,
     saga: "infinity",
     runtime: "14 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt3438640/",
   },
   "team-thor-1": {
     poster: "/jVSmX89BvsQV2z3wh2IVYVNVw1a.jpg",
@@ -389,7 +389,7 @@ const PARENTS = {
     phase: 3,
     saga: "infinity",
     runtime: "4 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt6016776/",
   },
   "team-thor-2": {
     poster: "/2jmP71A5Un0jDNqBesDPQSN8hjJ.jpg",
@@ -398,7 +398,7 @@ const PARENTS = {
     phase: 3,
     saga: "infinity",
     runtime: "4 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt6599818/",
   },
   "team-darryl": {
     poster: "/edroTAeTEM9ILyAnumA0ALxRSne.jpg",
@@ -407,7 +407,7 @@ const PARENTS = {
     phase: 3,
     saga: "infinity",
     runtime: "6 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt8023090/",
   },
   "werewolf-night": {
     poster: "/mvIvNKRIJPPS7WSFarFhOAGIVnU.jpg",
@@ -416,7 +416,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "52 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt15318872/",
   },
   "gg-holiday-special": {
     poster: "/8dqXyslZ2hv49Oiob9UjlGSHSTR.jpg",
@@ -425,7 +425,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "44 min",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt13623136/",
   },
   "agent-carter-s1": {
     poster: "/7kqIsjjDMZA5GRMH5VCdQYZJqc6.jpg",
@@ -433,7 +433,7 @@ const PARENTS = {
     type: "series",
     phase: "legacy",
     runtime: "8 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt3475734/",
   },
   "agent-carter-s2": {
     poster: "/7kqIsjjDMZA5GRMH5VCdQYZJqc6.jpg",
@@ -441,7 +441,7 @@ const PARENTS = {
     type: "series",
     phase: "legacy",
     runtime: "10 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt3475734/",
   },
   "aos-s1": {
     poster: "/gHUCCMy1vvj58tzE3dZqeC9SXus.jpg",
@@ -449,7 +449,7 @@ const PARENTS = {
     type: "series",
     phase: "legacy",
     runtime: "22 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt2364582/",
   },
   "aos-s2": {
     poster: "/gHUCCMy1vvj58tzE3dZqeC9SXus.jpg",
@@ -457,7 +457,7 @@ const PARENTS = {
     type: "series",
     phase: "legacy",
     runtime: "22 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt2364582/",
   },
   "aos-s3": {
     poster: "/gHUCCMy1vvj58tzE3dZqeC9SXus.jpg",
@@ -465,7 +465,7 @@ const PARENTS = {
     type: "series",
     phase: "legacy",
     runtime: "22 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt2364582/",
   },
   "aos-s4": {
     poster: "/gHUCCMy1vvj58tzE3dZqeC9SXus.jpg",
@@ -473,7 +473,7 @@ const PARENTS = {
     type: "series",
     phase: "legacy",
     runtime: "22 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt2364582/",
   },
   "aos-slingshot": {
     poster: "/bwJej7WdmGRMCMyuDlotwAqVX7S.jpg",
@@ -481,7 +481,7 @@ const PARENTS = {
     type: "series",
     phase: "legacy",
     runtime: "6 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt6313900/",
   },
   "aos-s5": {
     poster: "/cWJhivXNzgiAChitT5dWVEwJDCP.jpg",
@@ -489,7 +489,7 @@ const PARENTS = {
     type: "series",
     phase: "legacy",
     runtime: "22 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt2364582/",
   },
   "aos-s6": {
     poster: "/gHUCCMy1vvj58tzE3dZqeC9SXus.jpg",
@@ -497,7 +497,7 @@ const PARENTS = {
     type: "series",
     phase: "legacy",
     runtime: "13 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt2364582/",
   },
   "aos-s7": {
     poster: "/gHUCCMy1vvj58tzE3dZqeC9SXus.jpg",
@@ -505,7 +505,7 @@ const PARENTS = {
     type: "series",
     phase: "legacy",
     runtime: "13 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt2364582/",
   },
   "daredevil-s1": {
     poster: "/xDUoAsU8lQHOOoRkFiBuarmACDN.jpg",
@@ -514,7 +514,7 @@ const PARENTS = {
     phase: "defenders",
     saga: "multiverse",
     runtime: "13 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt3322312/",
   },
   "daredevil-s2": {
     poster: "/xDUoAsU8lQHOOoRkFiBuarmACDN.jpg",
@@ -523,7 +523,7 @@ const PARENTS = {
     phase: "defenders",
     saga: "multiverse",
     runtime: "13 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt3322312/",
   },
   "daredevil-s3": {
     poster: "/xDUoAsU8lQHOOoRkFiBuarmACDN.jpg",
@@ -532,7 +532,7 @@ const PARENTS = {
     phase: "defenders",
     saga: "multiverse",
     runtime: "13 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt3322312/",
   },
   "jessica-jones-s1": {
     poster: "/1ghmaDw650NuUpGI7mYq6xE2QE2.jpg",
@@ -541,7 +541,7 @@ const PARENTS = {
     phase: "defenders",
     saga: "multiverse",
     runtime: "13 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt2357547/",
   },
   "jessica-jones-s2": {
     poster: "/1ghmaDw650NuUpGI7mYq6xE2QE2.jpg",
@@ -550,7 +550,7 @@ const PARENTS = {
     phase: "defenders",
     saga: "multiverse",
     runtime: "13 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt2357547/",
   },
   "jessica-jones-s3": {
     poster: "/1ghmaDw650NuUpGI7mYq6xE2QE2.jpg",
@@ -559,7 +559,7 @@ const PARENTS = {
     phase: "defenders",
     saga: "multiverse",
     runtime: "13 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt2357547/",
   },
   "luke-cage-s1": {
     poster: "/yzM1hMB3PUJqbISX0f421b3xOjB.jpg",
@@ -568,7 +568,7 @@ const PARENTS = {
     phase: "defenders",
     saga: "multiverse",
     runtime: "13 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt3322314/`",
   },
   "luke-cage-s2": {
     poster: "/yzM1hMB3PUJqbISX0f421b3xOjB.jpg",
@@ -577,7 +577,7 @@ const PARENTS = {
     phase: "defenders",
     saga: "multiverse",
     runtime: "13 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt3322314/",
   },
   "iron-fist-s1": {
     poster: "/4l6KD9HhtD6nCDEfg10Lp6C6zah.jpg",
@@ -586,7 +586,7 @@ const PARENTS = {
     phase: "defenders",
     saga: "multiverse",
     runtime: "13 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt3322310/",
   },
   "iron-fist-s2": {
     poster: "/4l6KD9HhtD6nCDEfg10Lp6C6zah.jpg",
@@ -595,7 +595,7 @@ const PARENTS = {
     phase: "defenders",
     saga: "multiverse",
     runtime: "10 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt3322310/",
   },
   "the-defenders": {
     poster: "/g4QCPffsJqElwCu8f1JvvuaRVsc.jpg",
@@ -604,7 +604,7 @@ const PARENTS = {
     phase: "defenders",
     saga: "multiverse",
     runtime: "8 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt4230076/",
   },
   "inhumans-s1": {
     poster: "/dMHgFwX2cRPcuMSZ0rsBNap01o6.jpg",
@@ -612,7 +612,7 @@ const PARENTS = {
     type: "series",
     phase: "legacy",
     runtime: "8 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt4154858/",
   },
   "punisher-s1": {
     poster: "/tM6xqRKXoloH9UchaJEyyRE9O1w.jpg",
@@ -621,7 +621,7 @@ const PARENTS = {
     phase: "defenders",
     saga: "multiverse",
     runtime: "13 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt5675620/",
   },
   "punisher-s2": {
     poster: "/tM6xqRKXoloH9UchaJEyyRE9O1w.jpg",
@@ -630,7 +630,7 @@ const PARENTS = {
     phase: "defenders",
     saga: "multiverse",
     runtime: "13 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt5675620/",
   },
   "runaways-s1": {
     poster: "/hnHEhbzh0F7kN3Ah1lzRjtQuW16.jpg",
@@ -638,7 +638,7 @@ const PARENTS = {
     type: "series",
     phase: "legacy",
     runtime: "10 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt1236246/",
   },
   "runaways-s2": {
     poster: "/hnHEhbzh0F7kN3Ah1lzRjtQuW16.jpg",
@@ -646,7 +646,7 @@ const PARENTS = {
     type: "series",
     phase: "legacy",
     runtime: "13 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt1236246/",
   },
   "runaways-s3": {
     poster: "/hnHEhbzh0F7kN3Ah1lzRjtQuW16.jpg",
@@ -654,7 +654,7 @@ const PARENTS = {
     type: "series",
     phase: "legacy",
     runtime: "10 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt1236246/",
   },
   "cloak-dagger-s1": {
     poster: "/pYnRJuBPEqZO1o4fcxBTgmKNHfy.jpg",
@@ -662,7 +662,7 @@ const PARENTS = {
     type: "series",
     phase: "legacy",
     runtime: "10 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt5614844/",
   },
   "cloak-dagger-s2": {
     poster: "/pYnRJuBPEqZO1o4fcxBTgmKNHfy.jpg",
@@ -670,7 +670,7 @@ const PARENTS = {
     type: "series",
     phase: "legacy",
     runtime: "10 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt5614844/",
   },
   wandavision: {
     poster: "/frobUz2X5Pc8OiVZU8Oo5K3NKMM.jpg",
@@ -679,7 +679,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "9 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt9140560/",
   },
   "falcon-ws": {
     poster: "/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
@@ -688,7 +688,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "6 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt9208876/",
   },
   "loki-s1": {
     poster: "/kEl2t3OhXc3Zb9FBh1AuYzRTgZp.jpg",
@@ -697,7 +697,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "6 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt9140554/",
   },
   "loki-s2": {
     poster: "/kEl2t3OhXc3Zb9FBh1AuYzRTgZp.jpg",
@@ -706,7 +706,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "6 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt9140554/",
   },
   "what-if-s1": {
     poster: "/lztz5XBMG1x6Y5ubz7CxfPFsAcW.jpg",
@@ -715,7 +715,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "9 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt10168312/",
   },
   "what-if-s2": {
     poster: "/lztz5XBMG1x6Y5ubz7CxfPFsAcW.jpg",
@@ -724,7 +724,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "9 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt10168312/",
   },
   "what-if-s3": {
     poster: "/lztz5XBMG1x6Y5ubz7CxfPFsAcW.jpg",
@@ -733,7 +733,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "8 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt10168312/",
   },
   "marvel-zombies": {
     poster: "/mwKj9ERGFXsWot0nXgQ5yMQf9I7.jpg",
@@ -742,7 +742,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "4 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt16027014/",
   },
   hawkeye: {
     poster: "/ct5pNE5dDHryHLDnxyZPYcqO1sz.jpg",
@@ -751,7 +751,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "6 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt10160804/",
   },
   "moon-knight": {
     poster: "/YksR65as1ppF2N48TJAh2PLamX.jpg",
@@ -760,7 +760,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "6 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt10234724/",
   },
   "ms-marvel": {
     poster: "/3HWWh92kZbD7odwJX7nKmXNZsYo.jpg",
@@ -769,7 +769,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "6 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt10857164/",
   },
   "she-hulk": {
     poster: "/5xz2orV8f0usyrfGNshcoXHmiaV.jpg",
@@ -778,7 +778,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "9 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt10857160/",
   },
   "secret-invasion": {
     poster: "/f5ZMzzCvt2IzVDxr54gHPv9jlC9.jpg",
@@ -787,7 +787,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "6 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt13157618/",
   },
   "i-am-groot-s1": {
     poster: "/3QfQYECgu6DX5UUWCBvv1Fl0BAJ.jpg",
@@ -796,7 +796,7 @@ const PARENTS = {
     phase: 4,
     saga: "multiverse",
     runtime: "5 shorts",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt13623148/",
   },
   "i-am-groot-s2": {
     poster: "/3QfQYECgu6DX5UUWCBvv1Fl0BAJ.jpg",
@@ -805,7 +805,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "5 shorts",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt13623148/",
   },
   echo: {
     poster: "/vFyJH630cF68LohVYjQW49074Sy.jpg",
@@ -814,7 +814,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "5 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt13966962/",
   },
   "agatha-all-along": {
     poster: "/mGsxKwXUjojitRv2E9qMTbxbBRd.jpg",
@@ -823,7 +823,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "9 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt15571732/",
   },
   "daredevil-ba-s1": {
     poster: "/xDUoAsU8lQHOOoRkFiBuarmACDN.jpg",
@@ -832,7 +832,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "9 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt18923754/",
   },
   "daredevil-ba-s2": {
     poster: "/xDUoAsU8lQHOOoRkFiBuarmACDN.jpg",
@@ -841,7 +841,7 @@ const PARENTS = {
     phase: 6,
     saga: "multiverse",
     runtime: "9 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt18923754/",
   },
   "ironheart-s1": {
     poster: "/dOh6MJpdlQhYpLBhzhNQeYGKTZ5.jpg",
@@ -850,7 +850,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "6 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt13623126/",
   },
   "eyes-of-wakanda": {
     poster: "/bG23nZW96LxmWkJjsagRZI9hF6t.jpg",
@@ -859,7 +859,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "4 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt13968252/",
   },
   "wonder-man-s1": {
     poster: "/6yy9nQlFt2l6UVWzrfhszFCaZ5C.jpg",
@@ -868,7 +868,7 @@ const PARENTS = {
     phase: 5,
     saga: "multiverse",
     runtime: "10 episodes",
-    imdb: "https://www.imdb.com/title/",
+    imdb: "https://www.imdb.com/title/tt21066182/",
   },
 };
 
